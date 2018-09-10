@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="n3k0">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="n3k0">
+    <meta name="keywords" content="neko | n3k0">
+    <meta name="description" content="incisive expression">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>pyqt简单实例 · n3k0</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/alice.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >NEKO</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">pyqt简单实例</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>NEKO</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(http://p0sa0ryfm.bkt.clouddn.com/18-5-14/46804335.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            pyqt简单实例
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Python">Python</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2017/11/27</span>
+                
+                
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br><span class="line">602</span><br><span class="line">603</span><br><span class="line">604</span><br><span class="line">605</span><br><span class="line">606</span><br><span class="line">607</span><br><span class="line">608</span><br><span class="line">609</span><br><span class="line">610</span><br><span class="line">611</span><br><span class="line">612</span><br><span class="line">613</span><br><span class="line">614</span><br><span class="line">615</span><br><span class="line">616</span><br><span class="line">617</span><br><span class="line">618</span><br><span class="line">619</span><br><span class="line">620</span><br><span class="line">621</span><br><span class="line">622</span><br><span class="line">623</span><br><span class="line">624</span><br><span class="line">625</span><br><span class="line">626</span><br><span class="line">627</span><br><span class="line">628</span><br><span class="line">629</span><br><span class="line">630</span><br><span class="line">631</span><br><span class="line">632</span><br><span class="line">633</span><br><span class="line">634</span><br><span class="line">635</span><br><span class="line">636</span><br><span class="line">637</span><br><span class="line">638</span><br><span class="line">639</span><br><span class="line">640</span><br><span class="line">641</span><br><span class="line">642</span><br><span class="line">643</span><br><span class="line">644</span><br><span class="line">645</span><br><span class="line">646</span><br><span class="line">647</span><br><span class="line">648</span><br><span class="line">649</span><br><span class="line">650</span><br><span class="line">651</span><br><span class="line">652</span><br><span class="line">653</span><br><span class="line">654</span><br><span class="line">655</span><br><span class="line">656</span><br><span class="line">657</span><br><span class="line">658</span><br><span class="line">659</span><br><span class="line">660</span><br><span class="line">661</span><br><span class="line">662</span><br><span class="line">663</span><br><span class="line">664</span><br><span class="line">665</span><br><span class="line">666</span><br><span class="line">667</span><br><span class="line">668</span><br><span class="line">669</span><br><span class="line">670</span><br><span class="line">671</span><br><span class="line">672</span><br><span class="line">673</span><br><span class="line">674</span><br><span class="line">675</span><br><span class="line">676</span><br><span class="line">677</span><br><span class="line">678</span><br><span class="line">679</span><br><span class="line">680</span><br><span class="line">681</span><br><span class="line">682</span><br><span class="line">683</span><br><span class="line">684</span><br><span class="line">685</span><br><span class="line">686</span><br><span class="line">687</span><br><span class="line">688</span><br><span class="line">689</span><br><span class="line">690</span><br><span class="line">691</span><br><span class="line">692</span><br><span class="line">693</span><br><span class="line">694</span><br><span class="line">695</span><br><span class="line">696</span><br><span class="line">697</span><br><span class="line">698</span><br><span class="line">699</span><br><span class="line">700</span><br><span class="line">701</span><br><span class="line">702</span><br><span class="line">703</span><br><span class="line">704</span><br><span class="line">705</span><br><span class="line">706</span><br><span class="line">707</span><br><span class="line">708</span><br><span class="line">709</span><br><span class="line">710</span><br><span class="line">711</span><br><span class="line">712</span><br><span class="line">713</span><br><span class="line">714</span><br><span class="line">715</span><br><span class="line">716</span><br><span class="line">717</span><br><span class="line">718</span><br><span class="line">719</span><br><span class="line">720</span><br><span class="line">721</span><br><span class="line">722</span><br><span class="line">723</span><br><span class="line">724</span><br><span class="line">725</span><br><span class="line">726</span><br><span class="line">727</span><br><span class="line">728</span><br><span class="line">729</span><br><span class="line">730</span><br><span class="line">731</span><br><span class="line">732</span><br><span class="line">733</span><br><span class="line">734</span><br><span class="line">735</span><br><span class="line">736</span><br></pre></td><td class="code"><pre><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line">Created on Mon Jul 17 15:42:23 2017</span><br><span class="line"></span><br><span class="line">@author: kuraraneko</span><br><span class="line"></span><br><span class="line">&quot;&quot;&quot;</span><br><span class="line"></span><br><span class="line">import sys</span><br><span class="line">import random</span><br><span class="line">from PyQt5.QtWidgets import *</span><br><span class="line">from PyQt5.QtGui import *</span><br><span class="line">from PyQt5.QtCore import *</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class Example(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.initUI()</span><br><span class="line">        </span><br><span class="line">    def initUI(self):</span><br><span class="line">        QToolTip.setFont(QFont(&apos;sansserif&apos;,10))</span><br><span class="line">        </span><br><span class="line">        self.setToolTip(&apos;this is a &lt;b&gt;QWidger&lt;/b&gt; widget&apos;)</span><br><span class="line">        </span><br><span class="line">        btn=QPushButton(&apos;Button&apos;,self)</span><br><span class="line">        btn.setToolTip(&apos;This is a &lt;b&gt;QPushButton&lt;/b&gt; widget&apos;)</span><br><span class="line">        btn.resize(btn.sizeHint())</span><br><span class="line">        btn.move(50,50)</span><br><span class="line">        </span><br><span class="line">        self.setGeometry(300,300,300,200)</span><br><span class="line">        self.setWindowTitle(&apos;Tooltips&apos;)</span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">#只是一个窗口</span><br><span class="line">class window(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title=&apos;it\&apos; s a window&apos;</span><br><span class="line">        self.left=10</span><br><span class="line">        self.top=10</span><br><span class="line">        self.width=640</span><br><span class="line">        self.height=480</span><br><span class="line">        self.initUI()</span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left,self.top,self.width,self.height)</span><br><span class="line">        self.show()</span><br><span class="line">        </span><br><span class="line">#状态栏</span><br><span class="line">class statusbar(QMainWindow):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title=&apos;it\&apos;s a status bar&apos;</span><br><span class="line">        self.left=10</span><br><span class="line">        self.top=10</span><br><span class="line">        self.width=640</span><br><span class="line">        self.height=480</span><br><span class="line">        self.initUI()</span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left,self.top,self.width,self.height)</span><br><span class="line">        self.statusBar().showMessage(&apos;message in statusbar&apos;)</span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">#button</span><br><span class="line">class button(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title=&apos;it\&apos; a button&apos;</span><br><span class="line">        self.left=800</span><br><span class="line">        self.top=400</span><br><span class="line">        self.width=320</span><br><span class="line">        self.height=200</span><br><span class="line">        self.initUI()</span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left,self.top,self.width,self.height)</span><br><span class="line"></span><br><span class="line">        button=QPushButton(&apos;button&apos;,self)</span><br><span class="line">        button.setToolTip(&apos;it\&apos;s a example button&apos;)</span><br><span class="line">        button.move(100,70)</span><br><span class="line">        button.clicked.connect(self.on_click)</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">    @pyqtSlot()</span><br><span class="line">    def on_click(self):</span><br><span class="line">        print(&apos;hello&apos;)</span><br><span class="line"></span><br><span class="line"># 对话</span><br><span class="line">class Dialog(QDialog):</span><br><span class="line">    def slot_method(self):</span><br><span class="line">        print(&apos;指きりあえば，詩は続いて&apos;)</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super(QDialog,self).__init__()</span><br><span class="line"></span><br><span class="line">        button=QPushButton(&apos;click&apos;)</span><br><span class="line">        button.clicked.connect(self.slot_method)</span><br><span class="line"></span><br><span class="line">        mainLayout=QVBoxLayout()   #布局</span><br><span class="line">        mainLayout.addWidget(button) #添加button</span><br><span class="line"></span><br><span class="line">        self.setGeometry(800,400,320,200)</span><br><span class="line">        self.setWindowTitle(&apos;指切り&apos;)</span><br><span class="line">        self.setLayout(mainLayout) #使用此布局</span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">#对话框</span><br><span class="line">class message(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title=&apos;リオ&apos;</span><br><span class="line">        self.left=800</span><br><span class="line">        self.top=400</span><br><span class="line">        self.width=320</span><br><span class="line">        self.height=200</span><br><span class="line">        self.initUI()</span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left,self.top,self.width,self.height)</span><br><span class="line"></span><br><span class="line">        buttonreply=QMessageBox.question(self,&apos;it\&apos;s a message&apos;,&apos;yes or no&apos;,QMessageBox.Yes|QMessageBox.No,QMessageBox.No)</span><br><span class="line">        if buttonreply==QMessageBox.Yes:</span><br><span class="line">            print(&apos;you click yes&apos;)</span><br><span class="line">        else:</span><br><span class="line">            print(&apos;you click no&apos;)</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">#文本框</span><br><span class="line">class TextBox(QMainWindow):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title=&apos;runa&apos;</span><br><span class="line">        self.left = 800</span><br><span class="line">        self.top = 400</span><br><span class="line">        self.width = 320</span><br><span class="line">        self.height = 200</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left,self.top,self.width,self.height)</span><br><span class="line"></span><br><span class="line">        self.textbox=QLineEdit(self)</span><br><span class="line">        self.textbox.move(20,20)</span><br><span class="line">        self.textbox.resize(200,40)</span><br><span class="line"></span><br><span class="line">        self.button=QPushButton(&apos;show text&apos;,self)</span><br><span class="line">        self.button.move(20,80)</span><br><span class="line"></span><br><span class="line">        self.button.clicked.connect(self.on_click)</span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">    @pyqtSlot()</span><br><span class="line">    def on_click(self):</span><br><span class="line">         textboxValue=self.textbox.text()</span><br><span class="line">         QMessageBox.question(self,&apos;textbox&apos;,&apos;you typed:&apos;+textboxValue,QMessageBox.Ok,QMessageBox.Ok)</span><br><span class="line">         self.text.setText(&apos;&apos;)</span><br><span class="line"></span><br><span class="line">#设置位置</span><br><span class="line">class position(QMainWindow):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title = &apos;runa&apos;</span><br><span class="line">        self.left = 800</span><br><span class="line">        self.top = 400</span><br><span class="line">        self.width = 320</span><br><span class="line">        self.height = 400</span><br><span class="line">        self.initUI()</span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left,self.top,self.width,self.height)</span><br><span class="line"></span><br><span class="line">        label1=QLabel(&apos;label1&apos;,self)</span><br><span class="line">        label1.move(50,50)</span><br><span class="line"></span><br><span class="line">        label2=QLabel(&apos;label2&apos;,self)</span><br><span class="line">        label2.move(100,100)</span><br><span class="line"></span><br><span class="line">        label3=QLabel(&apos;label3&apos;,self)</span><br><span class="line">        label3.move(150,150)</span><br><span class="line"></span><br><span class="line">        label4=QLabel(&apos;label4&apos;,self)</span><br><span class="line">        label4.move(200,200)</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">#菜单栏</span><br><span class="line">class menuBar(QMainWindow):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title = &apos;runa&apos;</span><br><span class="line">        self.left = 800</span><br><span class="line">        self.top = 400</span><br><span class="line">        self.width = 320</span><br><span class="line">        self.height = 400</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left, self.top, self.width, self.height)</span><br><span class="line"></span><br><span class="line">        mainmenu=self.menuBar()</span><br><span class="line">        filemenu=mainmenu.addMenu(&apos;File&apos;)</span><br><span class="line">        editmenu=mainmenu.addMenu(&apos;Edit&apos;)</span><br><span class="line">        viewmenu=mainmenu.addMenu(&apos;View&apos;)</span><br><span class="line">        searchmenu=mainmenu.addMenu(&apos;Search&apos;)</span><br><span class="line">        toolsMenu=mainmenu.addMenu(&apos;Tools&apos;)</span><br><span class="line">        helpmenu=mainmenu.addMenu(&apos;Help&apos;)</span><br><span class="line"></span><br><span class="line">        exitButton=QAction(QIcon(&apos;1.png&apos;),&apos;Exit&apos;,self)</span><br><span class="line">        exitButton.setShortcut(&apos;Ctrl+Q&apos;)</span><br><span class="line">        exitButton.setStatusTip(&apos;Exit application&apos;)</span><br><span class="line">        exitButton.triggered.connect(self.close)</span><br><span class="line">        filemenu.addAction(exitButton)</span><br><span class="line"></span><br><span class="line">        self.statusBar()#显示下端状态栏，没这个setStatusTip将不会出现</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">#工具栏</span><br><span class="line">class toolBar(QMainWindow):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.initUi()</span><br><span class="line"></span><br><span class="line">    def initUi(self):</span><br><span class="line">        self.setWindowTitle(&apos;runa&apos;)</span><br><span class="line">        self.setGeometry(800,400,400,400)</span><br><span class="line"></span><br><span class="line">        exitaction=QAction(QIcon(&apos;1.png&apos;),&apos;exit&apos;,self)</span><br><span class="line">        exitaction.setShortcut(&apos;Ctrl+Q&apos;)</span><br><span class="line">        exitaction.setStatusTip(&apos;exit file&apos;)</span><br><span class="line">        exitaction.triggered.connect(quit)</span><br><span class="line"></span><br><span class="line">        self.statusBar()</span><br><span class="line"></span><br><span class="line">        self.toolbar=self.addToolBar(&apos;exit&apos;)</span><br><span class="line">        self.toolbar.addAction(exitaction)</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">#表</span><br><span class="line">class Table(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title = &apos;runa&apos;</span><br><span class="line">        self.left = 800</span><br><span class="line">        self.top = 400</span><br><span class="line">        self.width = 320</span><br><span class="line">        self.height = 400</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left, self.top, self.width, self.height)</span><br><span class="line"></span><br><span class="line">        self.createTable()</span><br><span class="line"></span><br><span class="line">        self.layout=QVBoxLayout()</span><br><span class="line">        self.layout.addWidget(self.tableWidget)</span><br><span class="line">        self.setLayout(self.layout)</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">    def createTable(self):</span><br><span class="line">        self.tableWidget=QTableWidget()</span><br><span class="line">        self.tableWidget.setRowCount(4)</span><br><span class="line">        self.tableWidget.setColumnCount(2)</span><br><span class="line">        self.tableWidget.setItem(0, 0, QTableWidgetItem(&apos;Cell (1,1)&apos;))</span><br><span class="line">        self.tableWidget.setItem(0, 1, QTableWidgetItem(&apos;Cell (1,2)&apos;))</span><br><span class="line">        self.tableWidget.setItem(1, 0, QTableWidgetItem(&apos;Cell (2,1)&apos;))</span><br><span class="line">        self.tableWidget.setItem(1, 1, QTableWidgetItem(&apos;Cell (2,2)&apos;))</span><br><span class="line">        self.tableWidget.setItem(2, 0, QTableWidgetItem(&apos;Cell (3,1)&apos;))</span><br><span class="line">        self.tableWidget.setItem(2, 1, QTableWidgetItem(&apos;Cell (3,2)&apos;))</span><br><span class="line">        self.tableWidget.setItem(3, 0, QTableWidgetItem(&apos;Cell (4,1)&apos;))</span><br><span class="line">        self.tableWidget.setItem(3, 1, QTableWidgetItem(&apos;Cell (4,2)&apos;))</span><br><span class="line">        self.tableWidget.move(0,0)</span><br><span class="line"></span><br><span class="line">        self.tableWidget.doubleClicked.connect(self.on_click)</span><br><span class="line"></span><br><span class="line">    @pyqtSlot()</span><br><span class="line">    def on_click(self):</span><br><span class="line">        print(&apos;\n&apos;)</span><br><span class="line">        for currentQTableWidgetItem in self.tableWidget.selectedItems():</span><br><span class="line">            print(currentQTableWidgetItem.row(), currentQTableWidgetItem.column(), currentQTableWidgetItem.text())</span><br><span class="line"></span><br><span class="line">#切换</span><br><span class="line">class Tabs(QMainWindow):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title = &apos;runa&apos;</span><br><span class="line">        self.left = 800</span><br><span class="line">        self.top = 400</span><br><span class="line">        self.width = 320</span><br><span class="line">        self.height = 400</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left, self.top, self.width, self.height)</span><br><span class="line"></span><br><span class="line">        self.table_widget=MyTableWidget(self)</span><br><span class="line">        self.setCentralWidget(self.table_widget)</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line">class MyTableWidget(QWidget):</span><br><span class="line">    def __init__(self, parent):</span><br><span class="line">        super().__init__(parent)</span><br><span class="line">        self.layout = QVBoxLayout(self)</span><br><span class="line"></span><br><span class="line">        # Initialize tab screen</span><br><span class="line">        self.tabs = QTabWidget()</span><br><span class="line">        self.tab1 = QWidget()</span><br><span class="line">        self.tab2 = QWidget()</span><br><span class="line">        self.tabs.resize(300, 200)</span><br><span class="line"></span><br><span class="line">        # Add tabs</span><br><span class="line">        self.tabs.addTab(self.tab1, &quot;Tab 1&quot;)</span><br><span class="line">        self.tabs.addTab(self.tab2, &quot;Tab 2&quot;)</span><br><span class="line"></span><br><span class="line">        # Create first tab</span><br><span class="line">        self.tab1.layout = QVBoxLayout(self)</span><br><span class="line">        self.pushButton1 = QPushButton(&quot;PyQt5 button&quot;)</span><br><span class="line">        self.tab1.layout.addWidget(self.pushButton1)</span><br><span class="line">        self.tab1.setLayout(self.tab1.layout)</span><br><span class="line"></span><br><span class="line">        # Add tabs to widget</span><br><span class="line">        self.layout.addWidget(self.tabs)</span><br><span class="line">        self.setLayout(self.layout)</span><br><span class="line"></span><br><span class="line">#平面布置</span><br><span class="line">class HorizontalLayout(QDialog):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title = &apos;runa&apos;</span><br><span class="line">        self.left = 800</span><br><span class="line">        self.top = 400</span><br><span class="line">        self.width = 320</span><br><span class="line">        self.height = 400</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left, self.top, self.width, self.height)</span><br><span class="line"></span><br><span class="line">        self.createHorizontalLayout()</span><br><span class="line"></span><br><span class="line">        windowLayout=QVBoxLayout()</span><br><span class="line">        windowLayout.addWidget(self.horizontalGroupBox)</span><br><span class="line">        self.setLayout(windowLayout)</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">    def createHorizontalLayout(self):</span><br><span class="line">        self.horizontalGroupBox=QGroupBox(&apos;what\&apos;s your favouriate color?&apos;)</span><br><span class="line">        layout=QHBoxLayout()</span><br><span class="line"></span><br><span class="line">        buttonBlue=QPushButton(&apos;blue&apos;,self)</span><br><span class="line">        buttonBlue.clicked.connect(self.on_click)</span><br><span class="line">        layout.addWidget(buttonBlue)</span><br><span class="line"></span><br><span class="line">        buttonRed = QPushButton(&apos;Red&apos;, self)</span><br><span class="line">        buttonRed.clicked.connect(self.on_click)</span><br><span class="line">        layout.addWidget(buttonRed)</span><br><span class="line"></span><br><span class="line">        buttonGreen = QPushButton(&apos;Green&apos;, self)</span><br><span class="line">        buttonGreen.clicked.connect(self.on_click)</span><br><span class="line">        layout.addWidget(buttonGreen)</span><br><span class="line"></span><br><span class="line">        self.horizontalGroupBox.setLayout(layout)</span><br><span class="line"></span><br><span class="line">    @pyqtSlot()</span><br><span class="line">    def on_click(self):</span><br><span class="line">        print(&apos;(⊙o⊙)&apos;)</span><br><span class="line"></span><br><span class="line">#网格布局</span><br><span class="line">class gridLayout(QDialog):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title = &apos;runa&apos;</span><br><span class="line">        self.left = 800</span><br><span class="line">        self.top = 400</span><br><span class="line">        self.width = 320</span><br><span class="line">        self.height = 400</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left, self.top, self.width, self.height)</span><br><span class="line"></span><br><span class="line">        self.createGridLayout()</span><br><span class="line"></span><br><span class="line">        windowLayout=QVBoxLayout()</span><br><span class="line">        windowLayout.addWidget(self.horizontalGroupBox)</span><br><span class="line">        self.setLayout(windowLayout)</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">    def createGridLayout(self):</span><br><span class="line">        self.horizontalGroupBox=QGroupBox(&apos;Grid&apos;)</span><br><span class="line">        layout=QGridLayout()</span><br><span class="line">        #拉伸窗口组件比例放大</span><br><span class="line">        layout.setColumnStretch(0, 4)</span><br><span class="line">        layout.setColumnStretch(1, 4)</span><br><span class="line">        layout.setColumnStretch(2, 4)</span><br><span class="line"></span><br><span class="line">        layout.addWidget(QPushButton(&apos;1&apos;), 0, 0)</span><br><span class="line">        layout.addWidget(QPushButton(&apos;2&apos;), 0, 1)</span><br><span class="line">        layout.addWidget(QPushButton(&apos;3&apos;), 0, 2)</span><br><span class="line">        layout.addWidget(QPushButton(&apos;4&apos;), 1, 0)</span><br><span class="line">        layout.addWidget(QPushButton(&apos;5&apos;), 1, 1)</span><br><span class="line">        layout.addWidget(QPushButton(&apos;6&apos;), 1, 2)</span><br><span class="line">        layout.addWidget(QPushButton(&apos;7&apos;), 2, 0)</span><br><span class="line">        layout.addWidget(QPushButton(&apos;8&apos;), 2, 1)</span><br><span class="line">        layout.addWidget(QPushButton(&apos;9&apos;), 2, 2)</span><br><span class="line"></span><br><span class="line">        self.horizontalGroupBox.setLayout(layout)</span><br><span class="line"></span><br><span class="line">#输入对话</span><br><span class="line">class inputDialogs(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title = &apos;runa&apos;</span><br><span class="line">        self.left = 800</span><br><span class="line">        self.top = 400</span><br><span class="line">        self.width = 320</span><br><span class="line">        self.height = 400</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left, self.top, self.width, self.height)</span><br><span class="line"></span><br><span class="line">        self.getInteger()</span><br><span class="line">        self.getText()</span><br><span class="line">        self.getDouble()</span><br><span class="line">        self.getChoice()</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">    def getInteger(self):</span><br><span class="line">        i,okPressed=QInputDialog.getInt(self,&apos;Get integer&apos;,&apos;Percentage:&apos;,28,0,100,2)#默认，下限，上限，步长</span><br><span class="line">        if okPressed:</span><br><span class="line">            print(i)</span><br><span class="line"></span><br><span class="line">    def getDouble(self):</span><br><span class="line">        d, okPressed = QInputDialog.getDouble(self, &quot;Get double&quot;, &quot;Value:&quot;, 10.50, 0, 100, 10)</span><br><span class="line">        if okPressed:</span><br><span class="line">            print(d)</span><br><span class="line"></span><br><span class="line">    def getChoice(self):</span><br><span class="line">        items = (&quot;Red&quot;, &quot;Blue&quot;, &quot;Green&quot;)</span><br><span class="line">        item, okPressed = QInputDialog.getItem(self, &quot;Get item&quot;, &quot;Color:&quot;, items, 0, False)</span><br><span class="line">        if okPressed and item:</span><br><span class="line">            print(item)</span><br><span class="line"></span><br><span class="line">    def getText(self):</span><br><span class="line">        text, okPressed = QInputDialog.getText(self, &quot;Get text&quot;, &quot;Your name:&quot;, QLineEdit.Normal, &quot;&quot;)</span><br><span class="line">        if okPressed and text != &apos;&apos;:</span><br><span class="line">            print(text)</span><br><span class="line"></span><br><span class="line">#得到文件名字</span><br><span class="line">class fileDialog(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title=&apos;runa&apos;</span><br><span class="line">        self.left=800</span><br><span class="line">        self.top=400</span><br><span class="line">        self.width=320</span><br><span class="line">        self.height=400</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left,self.top,self.width,self.height)</span><br><span class="line"></span><br><span class="line">        self.openFileNameDialog()</span><br><span class="line">        self.openFileNamesDialog()</span><br><span class="line">        self.saveFileDialog()</span><br><span class="line">        # self.show() 感觉这个没什么用处</span><br><span class="line"></span><br><span class="line">    def openFileNameDialog(self):</span><br><span class="line">        options =QFileDialog.Options()</span><br><span class="line">        options |=QFileDialog.DontUseNativeDialog</span><br><span class="line">        fileName,_=QFileDialog.getOpenFileName(self,&apos;QFileDialog.getOpenFileName()&apos;,&apos;&apos;,&apos;ALL Files (*);;Python Files(*.py);;Text Files (*.txt)&apos;,options=options)</span><br><span class="line">        if fileName:</span><br><span class="line">            print(fileName)#打印字符串</span><br><span class="line"></span><br><span class="line">    def openFileNamesDialog(self):</span><br><span class="line">        options = QFileDialog.Options()</span><br><span class="line">        options |= QFileDialog.DontUseNativeDialog</span><br><span class="line">        files, _ = QFileDialog.getOpenFileNames(self, &quot;QFileDialog.getOpenFileNames()&quot;, &quot;&quot;,&quot;All Files (*);;Python Files (*.py)&quot;, options=options)</span><br><span class="line">        if files:</span><br><span class="line">            print(files) #打印序列</span><br><span class="line">#选中文件 再选中文件夹 未实现保存功能而是实现返回保存文件的名字</span><br><span class="line">    def saveFileDialog(self):</span><br><span class="line">        options = QFileDialog.Options()</span><br><span class="line">        options |= QFileDialog.DontUseNativeDialog</span><br><span class="line">        fileName, _ = QFileDialog.getSaveFileName(self, &quot;QFileDialog.getSaveFileName()&quot;, &quot;&quot;,&quot;All Files (*);;Text Files (*.txt)&quot;, options=options)</span><br><span class="line">        if fileName:</span><br><span class="line">            print(fileName)</span><br><span class="line"></span><br><span class="line">#导入图像</span><br><span class="line">class image(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.title=&apos;runa&apos;</span><br><span class="line">        self.left=800</span><br><span class="line">        self.top=400</span><br><span class="line">        self.width=320</span><br><span class="line">        self.height=400</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setWindowTitle(self.title)</span><br><span class="line">        self.setGeometry(self.left,self.top,self.width,self.height)</span><br><span class="line"></span><br><span class="line">        label1=QLabel(self)</span><br><span class="line">        pixmap=QPixmap(&apos;C:/Users/kuraraneko/Pictures/Screenshots/1&apos;)</span><br><span class="line">        label1.setPixmap(pixmap)</span><br><span class="line">        self.resize(pixmap.width(),pixmap.height())</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">#像素点</span><br><span class="line">class pixels(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setGeometry(300, 300, 280, 170)</span><br><span class="line">        self.setWindowTitle(&quot;ルナ&quot;)</span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">    def paintEvent(self,e):#父类的重构函数，回调函数，e是触发事件的句柄</span><br><span class="line">        qp = QPainter()</span><br><span class="line">        qp.begin(self)</span><br><span class="line">        self.drawPoints(qp)</span><br><span class="line">        qp.end()</span><br><span class="line"></span><br><span class="line">    def drawPoints(self, qp):</span><br><span class="line">        qp.setPen(Qt.red)</span><br><span class="line">        size = self.size()</span><br><span class="line"></span><br><span class="line">        for i in range(1000):</span><br><span class="line">            x = random.randint(1, size.width() - 1)</span><br><span class="line">            y = random.randint(1, size.height() - 1)</span><br><span class="line">            qp.drawPoint(x, y)</span><br><span class="line"></span><br><span class="line">#调出颜色选择窗口</span><br><span class="line">class colorDialog(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setGeometry(300, 300, 280, 170)</span><br><span class="line">        self.setWindowTitle(&quot;ルナ&quot;)</span><br><span class="line"></span><br><span class="line">        button=QPushButton(&apos;open color dialog&apos;,self)</span><br><span class="line">        button.setToolTip(&apos;Opens color dialog&apos;)</span><br><span class="line">        button.move(10,10)</span><br><span class="line">        button.clicked.connect(self.on_click)</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">    @pyqtSlot()</span><br><span class="line">    def on_click(self):</span><br><span class="line">        color=QColorDialog.getColor()</span><br><span class="line"></span><br><span class="line">        if color.isValid():</span><br><span class="line">            print(color.name())</span><br><span class="line"></span><br><span class="line">#打印颜色</span><br><span class="line">class colors(QMainWindow):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setGeometry(800, 400, 380, 280)</span><br><span class="line">        self.setWindowTitle(&quot;ルナ&quot;)</span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">        #设置背景颜色</span><br><span class="line">        self.setAutoFillBackground(True)</span><br><span class="line">        p=self.palette()</span><br><span class="line">        p.setColor(self.backgroundRole(),Qt.white)</span><br><span class="line">        self.setPalette(p)</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">    def paintEvent(self,event):</span><br><span class="line">        qp=QPainter(self)</span><br><span class="line"></span><br><span class="line">        qp.setPen(Qt.black)</span><br><span class="line">        size=self.size()</span><br><span class="line"></span><br><span class="line">        qp.setBrush(QColor(200,0,0))#颜色</span><br><span class="line">        qp.drawRect(0,0,100,100)#位置大小</span><br><span class="line"></span><br><span class="line">        qp.setBrush(QColor(0,200, 0))</span><br><span class="line">        qp.drawRect(100, 0, 100, 100)</span><br><span class="line"></span><br><span class="line">        qp.setBrush(QColor(0, 0, 200))</span><br><span class="line">        qp.drawRect(200, 0, 100, 100)</span><br><span class="line"></span><br><span class="line">        for i in range(0, 30):</span><br><span class="line">            qp.setBrush(QColor(i * 10, 0, 0))</span><br><span class="line">            qp.drawRect(10 * i, 100, 10, 32)</span><br><span class="line"></span><br><span class="line">            qp.setBrush(QColor(i * 10, i * 10, 0))</span><br><span class="line">            qp.drawRect(10 * i, 100 + 32, 10, 32)</span><br><span class="line"></span><br><span class="line">            qp.setBrush(QColor(i * 2, i * 10, i * 1))</span><br><span class="line">            qp.drawRect(10 * i, 100 + 64, 10, 32)</span><br><span class="line"></span><br><span class="line">#拖动文本</span><br><span class="line">class drag(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setGeometry(300, 300, 280, 170)</span><br><span class="line">        self.setWindowTitle(&quot;ルナ&quot;)</span><br><span class="line"></span><br><span class="line">        editBox=QLineEdit(&apos;ルナ&apos;,self)</span><br><span class="line">        editBox.setDragEnabled(True)</span><br><span class="line">        editBox.move(10,10)</span><br><span class="line">        editBox.resize(100,32)</span><br><span class="line"></span><br><span class="line">        button=CustomLabel(&apos;桜小路&apos;,self)</span><br><span class="line">        button.move(130,15)</span><br><span class="line"></span><br><span class="line">        button.setAcceptDrops(True)</span><br><span class="line">        self.show()</span><br><span class="line">class CustomLabel(QLabel):</span><br><span class="line"></span><br><span class="line">    def __init__(self, title, parent):</span><br><span class="line">        super().__init__(title, parent)</span><br><span class="line">        self.setAcceptDrops(True)</span><br><span class="line"></span><br><span class="line">    def dragEnterEvent(self, e):</span><br><span class="line">        if e.mimeData().hasFormat(&apos;text/plain&apos;):</span><br><span class="line">            e.accept()</span><br><span class="line">        else:</span><br><span class="line">            e.ignore()</span><br><span class="line"></span><br><span class="line">    def dropEvent(self, e):</span><br><span class="line">        self.setText(e.mimeData().text())</span><br><span class="line"></span><br><span class="line">#调出字体选择窗口</span><br><span class="line">class font(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line">        self.setGeometry(800, 400, 380, 280)</span><br><span class="line">        self.setWindowTitle(&quot;ルナ&quot;)</span><br><span class="line"></span><br><span class="line">        button=QPushButton(&apos;Font Dialog&apos;,self)</span><br><span class="line">        button.setToolTip(&apos;Font Dialog&apos;)</span><br><span class="line">        button.move(50,50)</span><br><span class="line">        button.clicked.connect(self.on_click)</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line">    @pyqtSlot()</span><br><span class="line">    def on_click(self):</span><br><span class="line">        openFontDialog(self)</span><br><span class="line">def openFontDialog(self):</span><br><span class="line">    font,ok=QFontDialog.getFont()</span><br><span class="line">    if ok:</span><br><span class="line">        print(font.toString())</span><br><span class="line"></span><br><span class="line">#左上角小图标</span><br><span class="line">class Icon(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line">        self.initUi()</span><br><span class="line"></span><br><span class="line">    def initUi(self):</span><br><span class="line">        self.setWindowTitle(&apos;镜子&apos;)</span><br><span class="line">        self.setGeometry(800, 400, 400, 400)</span><br><span class="line">        self.setWindowIcon(QIcon(&apos;1.png&apos;))</span><br><span class="line"></span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">#是否退出窗口</span><br><span class="line">class exit(QWidget):</span><br><span class="line"></span><br><span class="line">    def __init__(self):</span><br><span class="line">        super().__init__()</span><br><span class="line"></span><br><span class="line">        self.initUI()</span><br><span class="line"></span><br><span class="line">    def initUI(self):</span><br><span class="line"></span><br><span class="line">        self.setGeometry(300, 300, 300, 220)</span><br><span class="line">        self.setWindowTitle(&apos;消息盒子&apos;)</span><br><span class="line">        self.show()</span><br><span class="line"></span><br><span class="line">    def closeEvent(self, event):</span><br><span class="line"></span><br><span class="line">        reply = QMessageBox.question(self, &apos;信息&apos;, &apos;确认退出吗？&apos;,</span><br><span class="line">            QMessageBox.Yes | QMessageBox.No, QMessageBox.No)</span><br><span class="line"></span><br><span class="line">        if reply == QMessageBox.Yes:</span><br><span class="line">            event.accept()</span><br><span class="line">        else:</span><br><span class="line">            event.ignore()</span><br><span class="line"></span><br><span class="line">#窗口居中</span><br><span class="line">class midBox(QWidget):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super(midBox, self).__init__()</span><br><span class="line">        self.initUi()</span><br><span class="line"></span><br><span class="line">    def initUi(self):</span><br><span class="line">        self.setGeometry(300,300,300,200)</span><br><span class="line"></span><br><span class="line">        self.center()</span><br><span class="line"></span><br><span class="line">        self.setWindowTitle(&apos;runa&apos;)</span><br><span class="line">        self.show()</span><br><span class="line">    def center(self):</span><br><span class="line">        qr=self.frameGeometry()</span><br><span class="line">        cp=QDesktopWidget().availableGeometry().center()</span><br><span class="line">        qr.moveCenter(cp)</span><br><span class="line">        self.move(qr.topLeft())</span><br><span class="line">if __name__==&apos;__main__&apos;:</span><br><span class="line">    app=QApplication(sys.argv)</span><br><span class="line">    a=toolBar()</span><br><span class="line">sys.exit(app.exec_())</span><br></pre></td></tr></table></figure>
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: n3k0
+            
+            <p>发表日期: <a href="https://kuraraneko.github.io/2017/11/27/pyqt简单实例/">November 27th 2017, 10:57:16</a>
+            <p>发出嘶吼: 没有魔夜2玩我要死了</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2017/12/11/Jarvis逆向/" title= Jarvis逆向 >
+                    <div class="nextTitle">Jarvis逆向</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2017/11/15/README/" title= welcome >
+                    <div class="prevTitle">welcome</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid= MTAyMC8zNjQ3Ni8xMzAxMQ==>
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:3412260756@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/intro/wechat.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/intro/qq.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        el psy congroo
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 63 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/10</span><a class="archive-post-title" href= "/2018/09/10/Python-Sandbox-Excape/" >Python Sandbox Excape</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/07</span><a class="archive-post-title" href= "/2018/09/07/noxCTF-2018-writeup/" >noxCTF-2018 writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2018/09/06/python-Debug命令执行/" >python Debug命令执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/xman2018/" >[Untitled Post]</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/Linux-learn/" >'Linux-learn'</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span><a class="archive-post-title" href= "/2018/07/27/vulnhub-Bulldog/" >vulnhub-Bulldog</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/vulnhub-Lazysysadmin/" >vulnhub-Lazysysadmin</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/vulnhub-Freshly/" >vulnhub-Freshly</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2018/07/25/vulnhub-FristiLeaks/" >vulnhub-FristiLeaks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/26</span><a class="archive-post-title" href= "/2018/06/26/sql-blind-inject-summary/" >sql blind inject summary</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/25</span><a class="archive-post-title" href= "/2018/06/25/CTF随笔记/" >知识点随笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/2018/06/24/PHP-SSRF绕过tricks/" >PHP-SSRF绕过tricks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span><a class="archive-post-title" href= "/2018/06/22/mysql-webshell/" >mysql->webshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/2018/06/20/自己写得题目ORZ/" >自己写得题目ORZ</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href= "/2018/06/05/cms-payload/" >cms-vul</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href= "/2018/05/31/docker入门/" >docker入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href= "/2018/05/31/Linux-Exploit之绕过ASLR-第三部分/" >Linux-Exploit之绕过ASLR-第三部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/Linux-Exploit之使用链接的ret2libc绕过NX-bit/" >Linux-Exploit之使用链接的ret2libc绕过NX bit</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href= "/2018/05/27/awd记录/" >记一次awd</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/2018/05/24/Linux-Exploit之绕过ASLR-第二部分/" >Linux-Exploit之绕过ASLR - 第二部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/2018/05/24/Linux-Exploit之绕过ASLR-第一部分/" >Linux-Exploit之绕过ASLR - 第一部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之使用return-to-libc绕过NX-bit/" >Linux-Exploit之使用return-to-libc绕过NX bit</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之Off-By-One-漏洞-基于栈/" >Linux-Exploit之Off-By-One 漏洞 (基于栈)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之整数溢出/" >Linux-Exploit之整数溢出</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/Linux-Exploit之典型的基于堆栈的缓冲区溢出/" >Linux-Exploit之典型的基于堆栈的缓冲区溢出</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span><a class="archive-post-title" href= "/2018/04/26/PWN/" >PWN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/2018/04/23/努力补坑中/" >努力补坑中</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2018/04/15/root-me-App-Script/" >root-me App-Script</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span><a class="archive-post-title" href= "/2018/04/04/root-me-web-client/" >root-me web-client</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span><a class="archive-post-title" href= "/2018/03/30/root-me-web-server/" >root-me WEB-Server</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2018/03/15/slove-me-wp/" >slove me wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/12</span><a class="archive-post-title" href= "/2018/03/12/matplotlib入门/" >matplotlib入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2018/03/11/Python机器学习入门/" >Python机器学习入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2018/03/11/numpy教程/" >numpy教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/dedecms-v5-7缓存文件data-cache-typename-inc导致任意代码执行（需要管理员权限）/" >dedecms v5.7缓存文件data/cache/typename.inc导致任意代码执行（需要管理员权限）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/Samba远程代码执行漏洞-CVE-2017-7494-复现/" >Samba远程代码执行漏洞(CVE-2017-7494)复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/11</span><a class="archive-post-title" href= "/2018/02/11/php使用参数化查询/" >php使用参数化查询</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/09</span><a class="archive-post-title" href= "/2018/02/09/RSA例题/" >RSA例题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2018/01/28/php审计/" >php审计</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2018/01/21/python微信跳一跳/" >python微信跳一跳</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/14</span><a class="archive-post-title" href= "/2018/01/14/Padding-Orlace/" >Padding Orlace</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2018/01/09/记录一些思路脚本什么的/" >思路脚本代码什么的</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2018/01/05/ECC计算公钥/" >ECC计算公钥</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2018/01/03/hash扩展攻击/" >hash扩展攻击</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2017/12/30/xss-payload/" >xss-payload</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2017/12/30/CTF图像处理/" >CTF图像处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href= "/2017/12/28/实验吧加了料的报错注入/" >实验吧加了料的报错注入</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2017/12/27/我的pycharm突然没法使用requests了/" >关于一些乱七八糟的毛病</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2017/12/25/Web-For-Pentester-に/" >Web For Pentester 2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2017/12/24/from-sqli-to-shell/" >from sqli to shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2017/12/21/Web-For-Pentester/" >Web For Pentester</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python-DES/" >Python-DES</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Vigenere加解密and重合指数破解/" >Vigenere加解密and重合指数破解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/仿射加密/" >仿射加密</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现RC4及A5/" >Python实现RC4及A5</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现AES/" >Python实现AES_128_CBC&OFB</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/netcat/" >netcat</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/南邮Reverse/" >南邮Reverse</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/实验吧Reverse/" >实验吧Reverse</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/Jarvis逆向/" >Jarvis逆向</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/27</span><a class="archive-post-title" href= "/2017/11/27/pyqt简单实例/" >pyqt简单实例</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2017/11/15/README/" >welcome</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href= "/2016/05/01/ISCC2018-WP/" >[Untitled Post]</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
+    
+        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
+    
+        <span class="sidebar-tag-name" data-tags="ECC"><span class="iconfont-archer">&#xe606;</span>ECC</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
+    
+        <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
+    
+        <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
+    
+        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
+    
+        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
+    
+        <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
+    
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
+    
+        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
+    
+        <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
+    
+        <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
+    
+        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
+    
+        <span class="sidebar-tag-name" data-tags="numpy"><span class="iconfont-archer">&#xe606;</span>numpy</span>
+    
+        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
+    
+        <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
+    
+        <span class="sidebar-tag-name" data-tags="sqli"><span class="iconfont-archer">&#xe606;</span>sqli</span>
+    
+        <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
+    
+        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
+    
+        <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
+    
+        <span class="sidebar-tag-name" data-tags="无产阶级之怒"><span class="iconfont-archer">&#xe606;</span>无产阶级之怒</span>
+    
+        <span class="sidebar-tag-name" data-tags="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe606;</span>记录一些思路脚本什么的</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
+    
+        <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
+    
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
+    
+        <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
+    
+        <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
+    
+        <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
+    
+        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
+    
+        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
+    
+        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
+    
+        <span class="sidebar-category-name" data-categories="numpy"><span class="iconfont-archer">&#xe60a;</span>numpy</span>
+    
+        <span class="sidebar-category-name" data-categories="Web/笔记"><span class="iconfont-archer">&#xe60a;</span>Web/笔记</span>
+    
+        <span class="sidebar-category-name" data-categories="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe60a;</span>记录一些思路脚本什么的</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'n3k0'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+

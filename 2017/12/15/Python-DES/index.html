@@ -1,0 +1,1999 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="n3k0">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="n3k0">
+    <meta name="keywords" content="neko | n3k0">
+    <meta name="description" content="incisive expression">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Python-DES · n3k0</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/alice.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >NEKO</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Python-DES</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>NEKO</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(http://p0sa0ryfm.bkt.clouddn.com/18-5-14/46804335.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Python-DES
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "DES">DES</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2017/12/15</span>
+                
+                
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>python3实现DES加解密(愚蠢的选择)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br></pre></td><td class="code"><pre><span class="line">#-*- coding:utf-8 -*-</span><br><span class="line">import time</span><br><span class="line">#IP置换表</span><br><span class="line">IP_table=[58, 50, 42, 34, 26, 18, 10,  2,</span><br><span class="line">          60, 52, 44, 36, 28, 20, 12,  4,</span><br><span class="line">          62, 54, 46, 38, 30, 22, 14,  6,</span><br><span class="line">          64, 56, 48, 40, 32, 24, 16,  8,</span><br><span class="line">          57, 49, 41, 33, 25, 17,  9,  1,</span><br><span class="line">          59, 51, 43, 35, 27, 19, 11,  3,</span><br><span class="line">          61, 53, 45, 37, 29, 21, 13,  5,</span><br><span class="line">          63, 55, 47, 39, 31, 23, 15,  7]</span><br><span class="line">#逆IP置换表</span><br><span class="line">_IP_table=[40,  8, 48, 16, 56, 24, 64, 32,</span><br><span class="line">           39,  7, 47, 15, 55, 23, 63, 31,</span><br><span class="line">           38,  6, 46, 14, 54, 22, 62, 30,</span><br><span class="line">           37,  5, 45, 13, 53, 21, 61, 29,</span><br><span class="line">           36,  4, 44, 12, 52, 20, 60, 28,</span><br><span class="line">           35,  3, 43, 11, 51, 19, 59, 27,</span><br><span class="line">           34,  2, 42, 10, 50, 18, 58, 26,</span><br><span class="line">           33,  1, 41,  9, 49, 17, 57, 25]</span><br><span class="line">#S盒中的S1盒</span><br><span class="line">S1=[14,  4, 13,  1,  2, 15, 11,  8,  3, 10,  6, 12,  5,  9,  0,  7,</span><br><span class="line">    0, 15,  7,  4, 14,  2, 13,  1, 10,  6, 12, 11,  9,  5,  3,  8,</span><br><span class="line">    4,  1, 14,  8, 13,  6,  2, 11, 15, 12,  9,  7,  3, 10,  5,  0,</span><br><span class="line">    15, 12,  8,  2,  4,  9,  1,  7,  5, 11,  3, 14, 10,  0,  6, 13]</span><br><span class="line">#S盒中的S2盒</span><br><span class="line">S2=[15,  1,  8, 14,  6, 11,  3,  4,  9,  7,  2, 13, 12,  0,  5, 10,</span><br><span class="line">    3, 13,  4,  7, 15,  2,  8, 14, 12,  0,  1, 10,  6,  9, 11,  5,</span><br><span class="line">    0, 14,  7, 11, 10,  4, 13,  1,  5,  8, 12,  6,  9,  3,  2, 15,</span><br><span class="line">    13,  8, 10,  1,  3, 15,  4,  2, 11,  6,  7, 12,  0,  5, 14,  9]</span><br><span class="line">#S盒中的S3盒</span><br><span class="line">S3=[10,  0,  9, 14,  6,  3, 15,  5,  1, 13, 12,  7, 11,  4,  2,  8,</span><br><span class="line">    13,  7,  0,  9,  3,  4,  6, 10,  2,  8,  5, 14, 12, 11, 15,  1,</span><br><span class="line">    13,  6,  4,  9,  8, 15,  3,  0, 11,  1,  2, 12,  5, 10, 14,  7,</span><br><span class="line">    1, 10, 13,  0,  6,  9,  8,  7,  4, 15, 14,  3, 11,  5,  2, 12]</span><br><span class="line">#S盒中的S4盒</span><br><span class="line">S4=[7, 13, 14,  3,  0,  6,  9, 10,  1,  2,  8,  5, 11, 12,  4, 15,</span><br><span class="line">    13,  8, 11,  5,  6, 15,  0,  3,  4,  7,  2, 12,  1, 10, 14,  9,</span><br><span class="line">    10,  6,  9,  0, 12, 11,  7, 13, 15,  1,  3, 14,  5,  2,  8,  4,</span><br><span class="line">    3, 15,  0,  6, 10,  1, 13,  8,  9,  4,  5, 11, 12,  7,  2, 14]</span><br><span class="line">#S盒中的S5盒</span><br><span class="line">S5=[2, 12,  4,  1,  7, 10, 11,  6,  8,  5,  3, 15, 13,  0, 14,  9,</span><br><span class="line">    14, 11,  2, 12,  4,  7, 13,  1,  5,  0, 15, 10,  3,  9,  8,  6,</span><br><span class="line">    4,  2,  1, 11, 10, 13,  7,  8, 15,  9, 12,  5,  6,  3,  0, 14,</span><br><span class="line">    11,  8, 12,  7,  1, 14,  2, 13,  6, 15,  0,  9, 10,  4,  5,  3]</span><br><span class="line">#S盒中的S6盒</span><br><span class="line">S6=[12,  1, 10, 15,  9,  2,  6,  8,  0, 13,  3,  4, 14,  7,  5, 11,</span><br><span class="line">    10, 15,  4,  2,  7, 12,  9,  5,  6,  1, 13, 14,  0, 11,  3,  8,</span><br><span class="line">    9, 14, 15,  5,  2,  8, 12,  3,  7,  0,  4, 10,  1, 13, 11,  6,</span><br><span class="line">    4,  3,  2, 12,  9,  5, 15, 10, 11, 14,  1,  7,  6,  0,  8, 13]</span><br><span class="line">#S盒中的S7盒</span><br><span class="line">S7=[4, 11,  2, 14, 15,  0,  8, 13,  3, 12,  9,  7,  5, 10,  6,  1,</span><br><span class="line">    13,  0, 11,  7,  4,  9,  1, 10, 14,  3,  5, 12,  2, 15,  8,  6,</span><br><span class="line">    1,  4, 11, 13, 12,  3,  7, 14, 10, 15,  6,  8,  0,  5,  9,  2,</span><br><span class="line">    6, 11, 13,  8,  1,  4, 10,  7,  9,  5,  0, 15, 14,  2,  3, 12]</span><br><span class="line">#S盒中的S8盒</span><br><span class="line">S8=[13,  2,  8,  4,  6, 15, 11,  1, 10,  9,  3, 14,  5,  0, 12,  7,</span><br><span class="line">    1, 15, 13,  8, 10,  3,  7,  4, 12,  5,  6, 11,  0, 14,  9,  2,</span><br><span class="line">    7, 11,  4,  1,  9, 12, 14,  2,  0,  6, 10, 13, 15,  3,  5,  8,</span><br><span class="line">    2,  1, 14,  7,  4, 10,  8, 13, 15, 12,  9,  0,  3,  5,  6, 11]</span><br><span class="line"># S盒</span><br><span class="line">S=[S1,S2,S3,S4,S5,S6,S7,S8]</span><br><span class="line">#P盒</span><br><span class="line">P_table=[16,  7, 20, 21,</span><br><span class="line">         29, 12, 28, 17,</span><br><span class="line">         1, 15, 23, 26,</span><br><span class="line">         5, 18, 31, 10,</span><br><span class="line">         2,  8, 24, 14,</span><br><span class="line">         32, 27,  3,  9,</span><br><span class="line">         19, 13, 30,  6,</span><br><span class="line">         22, 11,  4, 25]</span><br><span class="line">#压缩置换表1，不考虑每字节的第8位，将64位密钥减至56位。然后进行一次密钥置换。</span><br><span class="line">yasuo1_table=[ 57, 49, 41, 33, 25, 17,  9,</span><br><span class="line">               1, 58, 50, 42, 34, 26, 18,</span><br><span class="line">               10,  2, 59, 51, 43, 35, 27,</span><br><span class="line">               19, 11,  3, 60, 52, 44, 36,</span><br><span class="line">               63, 55, 47, 39, 31, 23, 15,</span><br><span class="line">               7, 62, 54, 46, 38, 30, 22,</span><br><span class="line">               14,  6, 61, 53, 45, 37, 29,</span><br><span class="line">               21, 13,  5, 28, 20, 12,  4]</span><br><span class="line">#压缩置换表2，用于将循环左移和右移后的56bit密钥压缩为48bit</span><br><span class="line">yasuo2_table=[14, 17, 11, 24,  1,  5,</span><br><span class="line">              3, 28, 15,  6, 21, 10,</span><br><span class="line">              23, 19, 12,  4, 26,  8,</span><br><span class="line">              16,  7, 27, 20, 13,  2,</span><br><span class="line">              41, 52, 31, 37, 47, 55,</span><br><span class="line">              30, 40, 51, 45, 33, 48,</span><br><span class="line">              44, 49, 39, 56, 34, 53,</span><br><span class="line">              46, 42, 50, 36, 29, 32]</span><br><span class="line">#用于对数据进行扩展置换，将32bit数据扩展为48bit</span><br><span class="line">extend_table=[32,  1,  2,  3,  4,  5,</span><br><span class="line">              4,  5,  6,  7,  8,  9,</span><br><span class="line">              8,  9, 10, 11, 12, 13,</span><br><span class="line">              12, 13, 14, 15, 16, 17,</span><br><span class="line">              16, 17, 18, 19, 20, 21,</span><br><span class="line">              20, 21, 22, 23, 24, 25,</span><br><span class="line">              24, 25, 26, 27, 28, 29,</span><br><span class="line">              28, 29, 30, 31, 32,1]</span><br><span class="line"></span><br><span class="line">#长度为8的明文转换为64位的2进制字符串</span><br><span class="line">def Str2Bin(str):</span><br><span class="line">    temp=[]</span><br><span class="line">    for i in str:</span><br><span class="line">        temp.append(bin(ord(i)))</span><br><span class="line">    result=&apos;&apos;</span><br><span class="line">    for i in temp:</span><br><span class="line">        binstr=i[2:]</span><br><span class="line">        while len(binstr)!=8:</span><br><span class="line">            binstr=&apos;0&apos;+binstr</span><br><span class="line">        result+=binstr</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line">#2进制字符窜转换为ascii字符</span><br><span class="line">def Bin2Ascii(binstr):</span><br><span class="line">    result = &apos;&apos;</span><br><span class="line">    for i in range(0, len(binstr), 8):</span><br><span class="line">        result += chr(int(binstr[i:i + 8], 2))</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line">#扩展R为48位</span><br><span class="line">def ExtendR(str):</span><br><span class="line">    R=&apos;&apos;</span><br><span class="line">    for i in extend_table:</span><br><span class="line">        R+=str[i-1]</span><br><span class="line">    return R</span><br><span class="line"></span><br><span class="line">#去掉key的奇偶校验位，64位压缩到56位</span><br><span class="line">def YasuoKey(key):</span><br><span class="line">    result=&apos;&apos;</span><br><span class="line">    for i in yasuo1_table:</span><br><span class="line">        result+=key[i-1]</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line">#左移一位</span><br><span class="line">def LeftMove1(list):</span><br><span class="line">    temp=list[0]</span><br><span class="line">    for i in range(1,28):</span><br><span class="line">        list[i-1]=list[i]</span><br><span class="line">    list[27]=temp</span><br><span class="line">    return list</span><br><span class="line"></span><br><span class="line">#左移两位</span><br><span class="line">def LeftMove2(list):</span><br><span class="line">    temp1=list[0]</span><br><span class="line">    temp2=list[1]</span><br><span class="line">    for i in range(2,28):</span><br><span class="line">        list[i-2]=list[i]</span><br><span class="line">    list[26]=temp1</span><br><span class="line">    list[27]=temp2</span><br><span class="line">    return list</span><br><span class="line"></span><br><span class="line">#56位密钥压缩为48位子密钥</span><br><span class="line">def CreateChildkey(Lkey,Rkey):</span><br><span class="line">    result=&apos;&apos;</span><br><span class="line">    Lstr=&apos;&apos;</span><br><span class="line">    Rstr=&apos;&apos;</span><br><span class="line">    for i in range(28):</span><br><span class="line">        Lstr+=Lkey[i]</span><br><span class="line">        Rstr+=Rkey[i]</span><br><span class="line">    str=Lstr+Rstr</span><br><span class="line">    for i in yasuo2_table:</span><br><span class="line">        result+=str[i-1]</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line">#生成16轮密钥</span><br><span class="line">def CreateKey(key):</span><br><span class="line">    result=[]#存储16轮的密钥</span><br><span class="line">    Binkey=Str2Bin(key)</span><br><span class="line">    Lkey=[]</span><br><span class="line">    Rkey=[]</span><br><span class="line">    for i in range(28):</span><br><span class="line">        Lkey.append(YasuoKey(Binkey)[i])</span><br><span class="line">        Rkey.append(YasuoKey(Binkey)[i+28])</span><br><span class="line">    for i in range(16):</span><br><span class="line">        if i==0 or i==1 or i==8 or i==15: #第0,1,8,15轮左移1位，其余左移2位</span><br><span class="line">            Lkey=LeftMove1(Lkey)</span><br><span class="line">            Rkey=LeftMove1(Rkey)</span><br><span class="line">        else:</span><br><span class="line">            Lkey = LeftMove2(Lkey)</span><br><span class="line">            Rkey = LeftMove2(Rkey)</span><br><span class="line">        result.append(CreateChildkey(Lkey,Rkey))</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line">#S盒变换</span><br><span class="line">def Sconvert(xorR):</span><br><span class="line">    xorRList=[]</span><br><span class="line">    result=&apos;&apos;</span><br><span class="line">    for i in range(0,len(xorR),6):</span><br><span class="line">        xorRList.append(xorR[i:i+6])</span><br><span class="line">    for i in range(len(xorRList)):</span><br><span class="line">        x = int(xorRList[i][:2], 2)</span><br><span class="line">        y = int(xorRList[i][2:], 2)</span><br><span class="line">        newstr=bin(S[i][x * 16 + y])[2:]</span><br><span class="line">        while len(newstr)!=4:   #不足4位补0</span><br><span class="line">            newstr=&apos;0&apos;+newstr</span><br><span class="line">        result+=newstr</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line">#P盒变换</span><br><span class="line">def Pconvert(sR):</span><br><span class="line">    result=&apos;&apos;</span><br><span class="line">    for i in range(32):</span><br><span class="line">        result+=sR[P_table[i]-1]</span><br><span class="line">    return result</span><br><span class="line"></span><br><span class="line">#DES加密</span><br><span class="line">def DESEncode(plain,key):</span><br><span class="line">    KeyList=CreateKey(key)</span><br><span class="line">    cipher=&apos;&apos;</span><br><span class="line">    while len(plain)%8!=0:</span><br><span class="line">        plain+=&apos; &apos;</span><br><span class="line"></span><br><span class="line">    # print(&apos;初始二进制明文为:&apos;)</span><br><span class="line"></span><br><span class="line">    plainList=[]</span><br><span class="line">    for i in range(0,len(plain),8):</span><br><span class="line">        plainList.append(plain[i:i+8])</span><br><span class="line">    for plain in plainList:</span><br><span class="line">        Binstr = Str2Bin(plain)</span><br><span class="line">        # print(Binstr,end=&apos;&apos;)</span><br><span class="line">        result=&apos;&apos;</span><br><span class="line">        L=&apos;&apos;</span><br><span class="line">        R=&apos;&apos;</span><br><span class="line">        for i in range(32):         #初始置换IP并分成L，R两份</span><br><span class="line">            L+=Binstr[IP_table[i]-1]</span><br><span class="line">            R+=Binstr[IP_table[i+32]-1]</span><br><span class="line"></span><br><span class="line">        for i in range(16):        #16轮变换</span><br><span class="line">            tempL=L</span><br><span class="line">            L=R</span><br><span class="line">            extendR=ExtendR(R)      #扩展R为48位</span><br><span class="line">            R=&apos;&apos;</span><br><span class="line">            xorR=&apos;&apos;</span><br><span class="line">            for j in range(48):     #R与密钥异或</span><br><span class="line">                if extendR[j]!=KeyList[i][j]:</span><br><span class="line">                    xorR+=&apos;1&apos;</span><br><span class="line">                else:</span><br><span class="line">                    xorR+=&apos;0&apos;</span><br><span class="line">            sR=Sconvert(xorR)       #s盒变换</span><br><span class="line">            pR=Pconvert(sR)         #p盒变换</span><br><span class="line"></span><br><span class="line">            for j in range(32):     #与L异或</span><br><span class="line">                if pR[j]!=tempL[j]:</span><br><span class="line">                    R+=&apos;1&apos;</span><br><span class="line">                else:</span><br><span class="line">                    R+=&apos;0&apos;</span><br><span class="line"></span><br><span class="line">        for i in range(64):         #(L与R换位后)逆变换</span><br><span class="line">            result+=(R+L)[_IP_table[i]-1]</span><br><span class="line"></span><br><span class="line">        cipher+=result</span><br><span class="line">    cipher=Bin2Ascii(cipher)        #密文转换为ascii字符</span><br><span class="line">    # print(&apos;密文为:\n%s&apos;%cipher)</span><br><span class="line">    return cipher</span><br><span class="line"></span><br><span class="line">#DES解密 (把密钥使用顺序倒过来即可)</span><br><span class="line">def DESdecode(cipher,key):</span><br><span class="line">    KeyList = CreateKey(key)</span><br><span class="line">    cipherBin = &apos;&apos;</span><br><span class="line">    plain=&apos;&apos;</span><br><span class="line">    for i in cipher:</span><br><span class="line">        temp = bin(ord(i))[2:]</span><br><span class="line">        while len(temp) != 8:</span><br><span class="line">            temp = &apos;0&apos; + temp</span><br><span class="line">        cipherBin += temp</span><br><span class="line"></span><br><span class="line">    # print(&apos;cipherbin:/n%s&apos;%cipherBin)</span><br><span class="line"></span><br><span class="line">    for l in range(0,len(cipherBin),64):</span><br><span class="line">        Binstr = cipherBin[l:l+64]</span><br><span class="line">        result = &apos;&apos;</span><br><span class="line">        L = &apos;&apos;</span><br><span class="line">        R = &apos;&apos;</span><br><span class="line">        for i in range(32):</span><br><span class="line">            L += Binstr[IP_table[i] - 1]</span><br><span class="line">            R += Binstr[IP_table[i + 32] - 1]</span><br><span class="line"></span><br><span class="line">        for i in range(15,-1,-1):</span><br><span class="line">            tempL = L</span><br><span class="line">            L = R</span><br><span class="line">            extendR = ExtendR(R)</span><br><span class="line">            R = &apos;&apos;</span><br><span class="line">            xorR = &apos;&apos;</span><br><span class="line">            for j in range(48):</span><br><span class="line">                if extendR[j] != KeyList[i][j]:</span><br><span class="line">                    xorR += &apos;1&apos;</span><br><span class="line">                else:</span><br><span class="line">                    xorR += &apos;0&apos;</span><br><span class="line">            sR = Sconvert(xorR)</span><br><span class="line">            pR = Pconvert(sR)</span><br><span class="line"></span><br><span class="line">            for j in range(32):</span><br><span class="line">                if pR[j] != tempL[j]:</span><br><span class="line">                    R += &apos;1&apos;</span><br><span class="line">                else:</span><br><span class="line">                    R += &apos;0&apos;</span><br><span class="line"></span><br><span class="line">        for i in range(64):</span><br><span class="line">            result += (R+L)[_IP_table[i] - 1]</span><br><span class="line"></span><br><span class="line">        plain += result</span><br><span class="line">    plain = Bin2Ascii(plain)</span><br><span class="line">    # print(&quot;解密的明文为:\n%s&quot;%plain)</span><br><span class="line">    return plain</span><br><span class="line">if __name__==&apos;__main__&apos;:</span><br><span class="line">    while True:</span><br><span class="line">        choice=input(&quot;加密请输入:1\n解密请输入:2\n退出请按:3\n&quot;)</span><br><span class="line">        if choice==&apos;1&apos;:</span><br><span class="line">            key=input(&apos;请输入8位密钥:\n&apos;)</span><br><span class="line">            while len(key)!=8:</span><br><span class="line">                key = input(&apos;请输入8位密钥!:\n&apos;)</span><br><span class="line">            filename1=input(&apos;请输入当前目录下要加密的文本的名称:\n&apos;)</span><br><span class="line">            filename2=input(&apos;请输入存储密文文本的名称:\n&apos;)</span><br><span class="line">            print(&apos;加密开始,wait...\n&apos;)</span><br><span class="line">            stime = time.time()</span><br><span class="line"></span><br><span class="line">            f1=open(filename1,&apos;r&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line">            plain=f1.read()</span><br><span class="line"></span><br><span class="line">            cipher=DESEncode(plain,key)</span><br><span class="line">            f2=open(filename2,&apos;w&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line">            f2.write(cipher)</span><br><span class="line"></span><br><span class="line">            etime = time.time()</span><br><span class="line">            print(&apos;加密完成,耗时%ds,结果存放在%s中&apos;%((etime-stime),filename2))</span><br><span class="line">            f1.close()</span><br><span class="line">            f2.close()</span><br><span class="line">        elif choice==&apos;2&apos;:</span><br><span class="line">            key = input(&apos;请输入8位密钥:\n&apos;)</span><br><span class="line">            while len(key) != 8:</span><br><span class="line">                key = input(&apos;请输入8位密钥!:\n&apos;)</span><br><span class="line">            filename1 = input(&apos;请输入当前目录下要解密的文本名称:\n&apos;)</span><br><span class="line">            filename2 = input(&apos;请输入存储明文文本的名称:\n&apos;)</span><br><span class="line">            print(&apos;解密开始,wait...\n&apos;)</span><br><span class="line">            stime = time.time()</span><br><span class="line"></span><br><span class="line">            f1 = open(filename1, &apos;r&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line">            cipher = f1.read()</span><br><span class="line"></span><br><span class="line">            plain = DESdecode(cipher, key)</span><br><span class="line">            f2 = open(filename2, &apos;w&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line">            f2.write(plain)</span><br><span class="line"></span><br><span class="line">            etime = time.time()</span><br><span class="line">            print(&apos;解密完成,耗时%ds,结果存放在%s中&apos; % ((etime - stime),filename2))</span><br><span class="line">            f1.close()</span><br><span class="line">            f2.close()</span><br><span class="line">        elif choice==&apos;3&apos;:</span><br><span class="line">            break</span><br><span class="line">        else:</span><br><span class="line">            print(&quot;请输入正确的序号!&quot;)</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://p0sa0ryfm.bkt.clouddn.com/17-12-23/34474170.jpg" alt=""></p>
+<p><img src="http://p0sa0ryfm.bkt.clouddn.com/17-12-23/27871850.jpg" alt=""></p>
+<p><img src="http://p0sa0ryfm.bkt.clouddn.com/17-12-23/79930019.jpg" alt=""></p>
+<p><img src="http://p0sa0ryfm.bkt.clouddn.com/17-12-23/85037208.jpg" alt=""></p>
+<p><img src="http://p0sa0ryfm.bkt.clouddn.com/17-12-23/78442352.jpg" alt=""></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: n3k0
+            
+            <p>发表日期: <a href="https://kuraraneko.github.io/2017/12/15/Python-DES/">December 15th 2017, 8:54:29</a>
+            <p>发出嘶吼: 没有魔夜2玩我要死了</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2017/12/21/Web-For-Pentester/" title= Web For Pentester >
+                    <div class="nextTitle">Web For Pentester</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2017/12/15/Vigenere加解密and重合指数破解/" title= Vigenere加解密and重合指数破解 >
+                    <div class="prevTitle">Vigenere加解密and重合指数破解</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid= MTAyMC8zNjQ3Ni8xMzAxMQ==>
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:3412260756@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/intro/wechat.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/intro/qq.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        el psy congroo
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 63 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/10</span><a class="archive-post-title" href= "/2018/09/10/Python-Sandbox-Excape/" >Python Sandbox Excape</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/07</span><a class="archive-post-title" href= "/2018/09/07/noxCTF-2018-writeup/" >noxCTF-2018 writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2018/09/06/python-Debug命令执行/" >python Debug命令执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/xman2018/" >[Untitled Post]</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/Linux-learn/" >'Linux-learn'</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span><a class="archive-post-title" href= "/2018/07/27/vulnhub-Bulldog/" >vulnhub-Bulldog</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/vulnhub-Lazysysadmin/" >vulnhub-Lazysysadmin</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/vulnhub-Freshly/" >vulnhub-Freshly</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2018/07/25/vulnhub-FristiLeaks/" >vulnhub-FristiLeaks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/26</span><a class="archive-post-title" href= "/2018/06/26/sql-blind-inject-summary/" >sql blind inject summary</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/25</span><a class="archive-post-title" href= "/2018/06/25/CTF随笔记/" >知识点随笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/2018/06/24/PHP-SSRF绕过tricks/" >PHP-SSRF绕过tricks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span><a class="archive-post-title" href= "/2018/06/22/mysql-webshell/" >mysql->webshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/2018/06/20/自己写得题目ORZ/" >自己写得题目ORZ</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href= "/2018/06/05/cms-payload/" >cms-vul</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href= "/2018/05/31/docker入门/" >docker入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href= "/2018/05/31/Linux-Exploit之绕过ASLR-第三部分/" >Linux-Exploit之绕过ASLR-第三部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/Linux-Exploit之使用链接的ret2libc绕过NX-bit/" >Linux-Exploit之使用链接的ret2libc绕过NX bit</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href= "/2018/05/27/awd记录/" >记一次awd</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/2018/05/24/Linux-Exploit之绕过ASLR-第二部分/" >Linux-Exploit之绕过ASLR - 第二部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/2018/05/24/Linux-Exploit之绕过ASLR-第一部分/" >Linux-Exploit之绕过ASLR - 第一部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之使用return-to-libc绕过NX-bit/" >Linux-Exploit之使用return-to-libc绕过NX bit</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之Off-By-One-漏洞-基于栈/" >Linux-Exploit之Off-By-One 漏洞 (基于栈)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之整数溢出/" >Linux-Exploit之整数溢出</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/Linux-Exploit之典型的基于堆栈的缓冲区溢出/" >Linux-Exploit之典型的基于堆栈的缓冲区溢出</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span><a class="archive-post-title" href= "/2018/04/26/PWN/" >PWN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/2018/04/23/努力补坑中/" >努力补坑中</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2018/04/15/root-me-App-Script/" >root-me App-Script</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span><a class="archive-post-title" href= "/2018/04/04/root-me-web-client/" >root-me web-client</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span><a class="archive-post-title" href= "/2018/03/30/root-me-web-server/" >root-me WEB-Server</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2018/03/15/slove-me-wp/" >slove me wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/12</span><a class="archive-post-title" href= "/2018/03/12/matplotlib入门/" >matplotlib入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2018/03/11/Python机器学习入门/" >Python机器学习入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2018/03/11/numpy教程/" >numpy教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/dedecms-v5-7缓存文件data-cache-typename-inc导致任意代码执行（需要管理员权限）/" >dedecms v5.7缓存文件data/cache/typename.inc导致任意代码执行（需要管理员权限）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/Samba远程代码执行漏洞-CVE-2017-7494-复现/" >Samba远程代码执行漏洞(CVE-2017-7494)复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/11</span><a class="archive-post-title" href= "/2018/02/11/php使用参数化查询/" >php使用参数化查询</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/09</span><a class="archive-post-title" href= "/2018/02/09/RSA例题/" >RSA例题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2018/01/28/php审计/" >php审计</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2018/01/21/python微信跳一跳/" >python微信跳一跳</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/14</span><a class="archive-post-title" href= "/2018/01/14/Padding-Orlace/" >Padding Orlace</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2018/01/09/记录一些思路脚本什么的/" >思路脚本代码什么的</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2018/01/05/ECC计算公钥/" >ECC计算公钥</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2018/01/03/hash扩展攻击/" >hash扩展攻击</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2017/12/30/xss-payload/" >xss-payload</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2017/12/30/CTF图像处理/" >CTF图像处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href= "/2017/12/28/实验吧加了料的报错注入/" >实验吧加了料的报错注入</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2017/12/27/我的pycharm突然没法使用requests了/" >关于一些乱七八糟的毛病</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2017/12/25/Web-For-Pentester-に/" >Web For Pentester 2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2017/12/24/from-sqli-to-shell/" >from sqli to shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2017/12/21/Web-For-Pentester/" >Web For Pentester</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python-DES/" >Python-DES</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Vigenere加解密and重合指数破解/" >Vigenere加解密and重合指数破解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/仿射加密/" >仿射加密</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现RC4及A5/" >Python实现RC4及A5</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现AES/" >Python实现AES_128_CBC&OFB</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/netcat/" >netcat</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/南邮Reverse/" >南邮Reverse</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/实验吧Reverse/" >实验吧Reverse</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/Jarvis逆向/" >Jarvis逆向</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/27</span><a class="archive-post-title" href= "/2017/11/27/pyqt简单实例/" >pyqt简单实例</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2017/11/15/README/" >welcome</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href= "/2016/05/01/ISCC2018-WP/" >[Untitled Post]</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
+    
+        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
+    
+        <span class="sidebar-tag-name" data-tags="ECC"><span class="iconfont-archer">&#xe606;</span>ECC</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
+    
+        <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
+    
+        <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
+    
+        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
+    
+        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
+    
+        <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
+    
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
+    
+        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
+    
+        <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
+    
+        <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
+    
+        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
+    
+        <span class="sidebar-tag-name" data-tags="numpy"><span class="iconfont-archer">&#xe606;</span>numpy</span>
+    
+        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
+    
+        <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
+    
+        <span class="sidebar-tag-name" data-tags="sqli"><span class="iconfont-archer">&#xe606;</span>sqli</span>
+    
+        <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
+    
+        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
+    
+        <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
+    
+        <span class="sidebar-tag-name" data-tags="无产阶级之怒"><span class="iconfont-archer">&#xe606;</span>无产阶级之怒</span>
+    
+        <span class="sidebar-tag-name" data-tags="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe606;</span>记录一些思路脚本什么的</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
+    
+        <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
+    
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
+    
+        <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
+    
+        <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
+    
+        <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
+    
+        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
+    
+        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
+    
+        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
+    
+        <span class="sidebar-category-name" data-categories="numpy"><span class="iconfont-archer">&#xe60a;</span>numpy</span>
+    
+        <span class="sidebar-category-name" data-categories="Web/笔记"><span class="iconfont-archer">&#xe60a;</span>Web/笔记</span>
+    
+        <span class="sidebar-category-name" data-categories="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe60a;</span>记录一些思路脚本什么的</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'n3k0'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+

