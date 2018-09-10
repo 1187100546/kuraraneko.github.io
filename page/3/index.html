@@ -351,34 +351,6 @@ height:50vh;
     
     
         <article class="index-post">
-            <a class="abstract-title" href = "/2018/05/24/Linux-Exploit之绕过ASLR-第一部分/" >
-                
-                    <span>Linux-Exploit之绕过ASLR - 第一部分</span>
-            </a>
-            <div class="abstract-content">
-                大佬说这个简单,就先做这个了(:з」∠)
-其实就只是简单的栈溢出,由于源码中有system(“/bin/sh”),所以直接可以拿来用,就不用管ASLR和NX了.
-漏洞源码:12345678910111213141516#include &lt;stdio.h&gt;void sys()&#123;    system(&quot;/bin/sh&quot;);&#125;void vulnerable()&#123;    char buf[256];    puts(&quot;input:/n&quot;);    read(0,&amp;buf,512);&#125;int mai...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/05/24</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "PWN">PWN</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
             <a class="abstract-title" href = "/2018/05/22/Linux-Exploit之使用return-to-libc绕过NX-bit/" >
                 
                     <span>Linux-Exploit之使用return-to-libc绕过NX bit</span>
@@ -619,6 +591,34 @@ Command injection命令注入command1 &amp;...
                 <div class= abstract-tags >
     
         <a class="post-tag" href="javascript:void(0);" data-tags = "root-me">root-me</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/03/15/slove-me-wp/" >
+                
+                    <span>slove me wp</span>
+            </a>
+            <div class="abstract-content">
+                http://solveme.peng.kr/chall
+WEBWarm up12s=&apos;1wMDEyY2U2YTY0M2NgMTEyZDQyMjAzNWczYjZgMWI4NTt3YWxmY=&apos;print s.decode(&apos;base64&apos;).encode(&apos;hex&apos;)[::-1].decode(&apos;hex&apos;)
+Bad compareburpsuit里看到要比较的内容的16进制编码1http://badcompare.solveme.peng.kr/index.php?answer=%f0%ee%c2%f5%d...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/03/15</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "Web">Web</a>
     
 </div>
                 
@@ -1758,7 +1758,52 @@ Command injection命令注入command1 &amp;...
     
     
     
-    <div class="total-archive"> Total : 63 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 62 </div>
     
     <div class="post-archive">
     
@@ -1785,12 +1830,7 @@ Command injection命令注入command1 &amp;...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/xman2018/" >[Untitled Post]</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">07/31</span><a class="archive-post-title" href= "/2018/07/31/Linux-learn/" >'Linux-learn'</a>
+            <span class="archive-post-date">08/08</span><a class="archive-post-title" href= "/2018/08/08/xman2018/" >xman-2018</a>
         </li>
     
     
@@ -2049,12 +2089,12 @@ Command injection命令注入command1 &amp;...
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现RC4及A5/" >Python实现RC4及A5</a>
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现AES/" >Python实现AES_128_CBC&OFB</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现AES/" >Python实现AES_128_CBC&OFB</a>
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现RC4及A5/" >Python实现RC4及A5</a>
         </li>
     
     
@@ -2148,9 +2188,9 @@ Command injection命令注入command1 &amp;...
     
         <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
-        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
-    
         <span class="sidebar-tag-name" data-tags="numpy"><span class="iconfont-archer">&#xe606;</span>numpy</span>
+    
+        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
     
         <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
     
