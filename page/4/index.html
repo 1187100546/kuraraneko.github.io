@@ -351,6 +351,97 @@ height:50vh;
     
     
         <article class="index-post">
+            <a class="abstract-title" href = "/2018/04/15/root-me-App-Script/" >
+                
+                    <span>root-me App-Script</span>
+            </a>
+            <div class="abstract-content">
+                前面两个坑还没填完，这边又想开坑…慢慢填吧┐(´∇｀)┌
+在这方面也挺小白的尽量写详细点,大多数是学习别人的wp…
+Bash- System 1ln -s /bin/cat lsln命令用来为文件创件连接，连接类型分为硬连接和符号连接两种，默认的连接类型是硬连接。如果要创建符号连接必须使用”-s”选项。
+很明显要查看.passwd但是我们什么权限都没有注意到ch11.c脚本里有一句:system(&quot;ls /challenge/app-script/ch11/.passwd&quot;);把ls链接到/bin/cat，再运行ch11.c就可以了.创建符号链接的命令是ln -s 命...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/04/15</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "root-me">root-me</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/04/04/root-me-web-client/" >
+                
+                    <span>root-me web-client</span>
+            </a>
+            <div class="abstract-content">
+                我忘了保存了，写了一半的wp没了，有点悲伤，甚至想撸一把猫。
+HTML - disabled buttons手动post1auth-login=admin&amp;authbutton=Member access
+Javascript - Authentication源码，login.js
+Javascript - Source源码
+Javascript - Authentication 2源码，login.js
+Javascript - Obfuscation 1源码，url解码
+Javascript - Obfuscation 2把unescape%28%22String.fromC...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/04/04</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "root-me">root-me</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
+            <a class="abstract-title" href = "/2018/03/30/root-me-web-server/" >
+                
+                    <span>root-me WEB-Server</span>
+            </a>
+            <div class="abstract-content">
+                做题使我快乐
+HTML查看源代码即可
+HTTP - Open redirectredirect是跳转的意思，思路应该是抓包随便打开一个链接后，用burp抓包发现1GET /web-serveur/ch52/?url=https://slack.com&amp;h=e52dc719664ead63be3d5066c135b6da HTTP/1.1
+注意到h是url的md5值,让url=https://www.baidu.com,h=f9751de431104b125f48dd79cc55822a发包过去就有flag了.
+Command injection命令注入command1 &amp;...
+            </div>
+            <div class="abstract-post-meta">
+                <!-- date  -->
+                <div class="abstract-date">
+                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/03/30</span>
+                </div>
+                <!-- tags  -->
+                
+                <div class= abstract-tags >
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags = "root-me">root-me</a>
+    
+</div>
+                
+            </div>
+        </article>
+    
+    
+    
+        <article class="index-post">
             <a class="abstract-title" href = "/2018/03/15/slove-me-wp/" >
                 
                     <span>slove me wp</span>
@@ -547,87 +638,6 @@ mysqli123456789101112131415161718192021$mysqli = new mysqli(&quot;localhost&quot
             </div>
         </article>
     
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/02/09/RSA例题/" >
-                
-                    <span>RSA例题</span>
-            </a>
-            <div class="abstract-content">
-                windows下openssl链接:https://pan.baidu.com/s/1nvstpB7 密码：00l0
-最基础的RSAjarvis mediumRSA链接：https://pan.baidu.com/s/1bAa1yu 密码：7281
-利用openssl工具123456789101112131415161718192021from Crypto.PublicKey import RSAdef egcd(a,b):    if b==0:        return a,1,0    else:        g,x,y=egcd(b,a%b)        return g...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/02/09</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Rsa">Rsa</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/28/php审计/" >
-                
-                    <span>php审计</span>
-            </a>
-            <div class="abstract-content">
-                参考:https://github.com/bowu678/php_bugs
-extract覆盖123456789101112&lt;?php$flag = &apos;flag.php&apos;;extract($_GET);if (isset($shiyan)) &#123;	$content = trim(file_get_contents($flag));	if ($shiyan == $content) &#123;		echo &apos;ctf&#123;xxx&#125;&apos;;	&#125; else &#123;		echo &apos;Oh.no&apos;...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/01/28</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "php审计">php审计</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
-    
-    
-        <article class="index-post">
-            <a class="abstract-title" href = "/2018/01/21/python微信跳一跳/" >
-                
-                    <span>python微信跳一跳</span>
-            </a>
-            <div class="abstract-content">
-                通过鼠标点击操作手机版微信跳一跳1234567891011121314151617181920212223242526272829303132333435363738394041424344454647# -*- coding:utf-8 -*-__auther__=&apos;neko&apos;import sysreload(sys)sys.setdefaultencoding(&apos;gbk&apos;)import osfrom math import sqrtimport numpyimport matplotlib.pyplot as pltfrom PIL impor...
-            </div>
-            <div class="abstract-post-meta">
-                <!-- date  -->
-                <div class="abstract-date">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/01/21</span>
-                </div>
-                <!-- tags  -->
-                
-                <div class= abstract-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Python">Python</a>
-    
-</div>
-                
-            </div>
-        </article>
-    
     <!-- paginator  -->
     
     <nav class="page-nav">
@@ -708,13 +718,13 @@ extract覆盖123456789101112&lt;?php$flag = &apos;flag.php&apos;;extract($_GET);
             
                 
                     <span>
-                        <a href= http://skysec.top/ target="_black">一叶飘零</a>
+                        <a href= https://qvq.im/ target="_black">4uuu Nya</a>
                     </span>
                 
             
                 
                     <span>
-                        <a href= http://altmanz.cn/ target="_black">altmanz</a>
+                        <a href= http://wiattack.net/ target="_black">icecolor</a>
                     </span>
                 
             
@@ -726,7 +736,13 @@ extract覆盖123456789101112&lt;?php$flag = &apos;flag.php&apos;;extract($_GET);
             
                 
                     <span>
-                        <a href= https://qvq.im/ target="_black">4uuu Nya</a>
+                        <a href= http://skysec.top/ target="_black">一叶飘零</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href= http://altmanz.cn/ target="_black">altmanz</a>
                     </span>
                 
             
@@ -1797,7 +1813,58 @@ extract覆盖123456789101112&lt;?php$flag = &apos;flag.php&apos;;extract($_GET);
     
     
     
-    <div class="total-archive"> Total : 63 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 66 </div>
     
     <div class="post-archive">
     
@@ -1806,6 +1873,21 @@ extract覆盖123456789101112&lt;?php$flag = &apos;flag.php&apos;;extract($_GET);
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/护网杯wp/" >护网杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/11</span><a class="archive-post-title" href= "/2018/10/11/root-me-app-system/" >root-me-app-system</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/11</span><a class="archive-post-title" href= "/2018/10/11/root-me-crypto/" >root-me-crypto</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -2147,65 +2229,65 @@ extract覆盖123456789101112&lt;?php$flag = &apos;flag.php&apos;;extract($_GET);
     
         <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
     
+        <span class="sidebar-tag-name" data-tags="ECC"><span class="iconfont-archer">&#xe606;</span>ECC</span>
+    
+        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
+    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
     
         <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
     
-        <span class="sidebar-tag-name" data-tags="ECC"><span class="iconfont-archer">&#xe606;</span>ECC</span>
+        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
     
-        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
+        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
     
         <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
     
         <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
     
-        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
-    
         <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
         <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
     
-        <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
-    
-        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
-    
-        <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
+        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
     
-        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
+        <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
     
-        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+        <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
     
         <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
-    
-        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
         <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
     
-        <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
+        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
     
-        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
         <span class="sidebar-tag-name" data-tags="numpy"><span class="iconfont-archer">&#xe606;</span>numpy</span>
     
+        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
+    
         <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
     
-        <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
+        <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
     
         <span class="sidebar-tag-name" data-tags="sqli"><span class="iconfont-archer">&#xe606;</span>sqli</span>
     
-        <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
+        <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
-        <span class="sidebar-tag-name" data-tags="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe606;</span>记录一些思路脚本什么的</span>
+        <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
     
         <span class="sidebar-tag-name" data-tags="无产阶级之怒"><span class="iconfont-archer">&#xe606;</span>无产阶级之怒</span>
+    
+        <span class="sidebar-tag-name" data-tags="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe606;</span>记录一些思路脚本什么的</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -2242,29 +2324,29 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
+    
         <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
     
         <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
-        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
-    
-        <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
-    
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
-    
-        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
     
         <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
     
-        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
-    
-        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
+        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
         <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
+    
+        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
+    
+        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
     
         <span class="sidebar-category-name" data-categories="numpy"><span class="iconfont-archer">&#xe60a;</span>numpy</span>
     
@@ -2304,6 +2386,7 @@ jsonContent:
     <!-- async load share.js -->
     
     </body>
+    <script src="https://s22.cnzz.com/z_stat.php?id=1275045371&web_id=1275045371" language="JavaScript"></script>
 </html>
 
 

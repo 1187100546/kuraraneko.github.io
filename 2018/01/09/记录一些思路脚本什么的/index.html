@@ -376,6 +376,9 @@ height:50vh;
 <p>排序:<code>x.sort(key=lambda i:len(i))</code><br>生成序列:<code>a=list(range(47))</code></p>
 <h1 id="base64隐写"><a href="#base64隐写" class="headerlink" title="base64隐写"></a>base64隐写</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">b64chars = &apos;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/&apos;</span><br><span class="line">with open(&apos;1.txt&apos;, &apos;rb&apos;) as f:</span><br><span class="line">    bin_str = &apos;&apos;</span><br><span class="line">    for line in f.readlines():</span><br><span class="line">        stegb64 = &apos;&apos;.join(line.split())</span><br><span class="line">        rowb64 = &apos;&apos;.join(stegb64.decode(&apos;base64&apos;).encode(&apos;base64&apos;).split())</span><br><span class="line"></span><br><span class="line">        offset = abs(b64chars.index(stegb64.replace(&apos;=&apos;, &apos;&apos;)[-1]) - b64chars.index(rowb64.replace(&apos;=&apos;, &apos;&apos;)[-1]))</span><br><span class="line">        equalnum = stegb64.count(&apos;=&apos;)  # no equalnum no offset</span><br><span class="line"></span><br><span class="line">        if equalnum:</span><br><span class="line">            bin_str += bin(offset)[2:].zfill(equalnum * 2)</span><br><span class="line"></span><br><span class="line">        print &apos;&apos;.join([chr(int(bin_str[i:i + 8], 2)) for i in xrange(0, len(bin_str), 8)])</span><br></pre></td></tr></table></figure>
 <h1 id="waf"><a href="#waf" class="headerlink" title="waf"></a>waf</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function stop_hack($value) &#123;</span><br><span class="line">	$pattern = &quot;insert|delete|or|concat|concat_ws|group_concat|join|floor|\/\*|\*|\.\.\/|\.\/|union|into|load_file|outfile|dumpfile|sub|hex|file_put_contents|fwrite|curl|system|eval&quot;;</span><br><span class="line">	$back_list = explode(&quot;|&quot;, $pattern);</span><br><span class="line">	foreach ($back_list as $hack) &#123;</span><br><span class="line">		if (preg_match(&quot;/$hack/i&quot;, $value)) &#123;</span><br><span class="line">			die(&quot;$hack detected!&quot;);</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	return $value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="BCEL加解密"><a href="#BCEL加解密" class="headerlink" title="BCEL加解密"></a>BCEL加解密</h1><p>encode:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import com.sun.org.apache.bcel.internal.classfile.Utility;</span><br><span class="line">import java.nio.file.Files;</span><br><span class="line">import java.nio.file.Path;</span><br><span class="line">import java.nio.file.Paths;</span><br><span class="line"></span><br><span class="line">public class BCELencode &#123;</span><br><span class="line">    public static void main(String []args) throws Exception&#123;</span><br><span class="line">        //There also should be compiled class file,not java file</span><br><span class="line">        Path path = Paths.get(&quot;/Users/n3k0/IdeaProjects/java_code/src/data.class&quot;);</span><br><span class="line">        byte[] data = Files.readAllBytes(path);</span><br><span class="line">        String s =  Utility.encode(data,true);</span><br><span class="line">        System.out.print(s);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>decode:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import com.sun.org.apache.bcel.internal.classfile.Utility;</span><br><span class="line">import java.nio.file.Files;</span><br><span class="line">import java.nio.file.Path;</span><br><span class="line">import java.nio.file.Paths;</span><br><span class="line"></span><br><span class="line">public class BCELencode &#123;</span><br><span class="line">    public static void main(String []args) throws Exception&#123;</span><br><span class="line">        //There also should be compiled class file,not java file</span><br><span class="line">        String cryptdata=&quot;$l$8b$I$A$A$A$A$A$A$A$xOO$zQ$c8$u$v$v$b0$d2$d77$b44$d234$b3$d03$d03$b4$b4$b24$b04$d07$d4$x$a8T$d0$f5W$d0$_$c9$z$As$AqZ$b7$d6$_$A$A$A&quot;;</span><br><span class="line"></span><br><span class="line">        byte[] s =  Utility.decode(cryptdata,true);</span><br><span class="line">        String value = new String(s, &quot;UTF-8&quot;);</span><br><span class="line">        System.out.print(value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
     </article>
     <!-- license  -->
     
@@ -522,7 +525,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#看看人家写的脚本"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x770B;&#x770B;&#x4EBA;&#x5BB6;&#x5199;&#x7684;&#x811A;&#x672C;" class="headerlink" title="&#x770B;&#x770B;&#x4EBA;&#x5BB6;&#x5199;&#x7684;&#x811A;&#x672C;"></a>&#x770B;&#x770B;&#x4EBA;&#x5BB6;&#x5199;&#x7684;&#x811A;&#x672C;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#base64隐写"><span class="toc-number">2.</span> <span class="toc-text"><a href="#base64&#x9690;&#x5199;" class="headerlink" title="base64&#x9690;&#x5199;"></a>base64&#x9690;&#x5199;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#waf"><span class="toc-number">3.</span> <span class="toc-text"><a href="#waf" class="headerlink" title="waf"></a>waf</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#看看人家写的脚本"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x770B;&#x770B;&#x4EBA;&#x5BB6;&#x5199;&#x7684;&#x811A;&#x672C;" class="headerlink" title="&#x770B;&#x770B;&#x4EBA;&#x5BB6;&#x5199;&#x7684;&#x811A;&#x672C;"></a>&#x770B;&#x770B;&#x4EBA;&#x5BB6;&#x5199;&#x7684;&#x811A;&#x672C;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#base64隐写"><span class="toc-number">2.</span> <span class="toc-text"><a href="#base64&#x9690;&#x5199;" class="headerlink" title="base64&#x9690;&#x5199;"></a>base64&#x9690;&#x5199;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#waf"><span class="toc-number">3.</span> <span class="toc-text"><a href="#waf" class="headerlink" title="waf"></a>waf</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#BCEL加解密"><span class="toc-number">4.</span> <span class="toc-text"><a href="#BCEL&#x52A0;&#x89E3;&#x5BC6;" class="headerlink" title="BCEL&#x52A0;&#x89E3;&#x5BC6;"></a>BCEL&#x52A0;&#x89E3;&#x5BC6;</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1512,7 +1515,58 @@ top:50vh;
     
     
     
-    <div class="total-archive"> Total : 63 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 66 </div>
     
     <div class="post-archive">
     
@@ -1521,6 +1575,21 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/护网杯wp/" >护网杯wp</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/11</span><a class="archive-post-title" href= "/2018/10/11/root-me-app-system/" >root-me-app-system</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/11</span><a class="archive-post-title" href= "/2018/10/11/root-me-crypto/" >root-me-crypto</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1862,65 +1931,65 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
     
+        <span class="sidebar-tag-name" data-tags="ECC"><span class="iconfont-archer">&#xe606;</span>ECC</span>
+    
+        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
+    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
     
         <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
     
-        <span class="sidebar-tag-name" data-tags="ECC"><span class="iconfont-archer">&#xe606;</span>ECC</span>
+        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
     
-        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
+        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
     
         <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
     
         <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
     
-        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
-    
         <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
         <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
     
-        <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
-    
-        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
-    
-        <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
+        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
     
-        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
+        <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
     
-        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
+        <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
     
         <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
-    
-        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
         <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
     
-        <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
+        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
     
-        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
+        <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
         <span class="sidebar-tag-name" data-tags="numpy"><span class="iconfont-archer">&#xe606;</span>numpy</span>
     
+        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
+    
         <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
     
-        <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
+        <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
     
         <span class="sidebar-tag-name" data-tags="sqli"><span class="iconfont-archer">&#xe606;</span>sqli</span>
     
-        <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
+        <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
     
         <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
-        <span class="sidebar-tag-name" data-tags="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe606;</span>记录一些思路脚本什么的</span>
+        <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
     
         <span class="sidebar-tag-name" data-tags="无产阶级之怒"><span class="iconfont-archer">&#xe606;</span>无产阶级之怒</span>
+    
+        <span class="sidebar-tag-name" data-tags="记录一些思路脚本什么的"><span class="iconfont-archer">&#xe606;</span>记录一些思路脚本什么的</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1957,29 +2026,29 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
+    
         <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
     
         <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
-        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
-    
-        <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
-    
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
-    
-        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
     
         <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
     
-        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
-    
-        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
+        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
         <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
+    
+        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
+    
+        <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
     
         <span class="sidebar-category-name" data-categories="numpy"><span class="iconfont-archer">&#xe60a;</span>numpy</span>
     
@@ -2021,6 +2090,7 @@ jsonContent:
         <script src="/scripts/share.js" async></script>    
     
     </body>
+    <script src="https://s22.cnzz.com/z_stat.php?id=1275045371&web_id=1275045371" language="JavaScript"></script>
 </html>
 
 
