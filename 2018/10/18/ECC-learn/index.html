@@ -15,7 +15,7 @@
     <meta name="description" content="incisive expression">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>ECC计算公钥 · n3k0</title>
+    <title>ECC-learn · n3k0</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -207,7 +207,7 @@
                 <a href="/" >NEKO</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">ECC计算公钥</a>
+                <a href="#" class="post-name">ECC-learn</a>
             </div>
     </div>
     
@@ -239,7 +239,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            ECC计算公钥
+            ECC-learn
             <!-- 404 -->
             
         </h1>
@@ -255,15 +255,9 @@ height:50vh;
         
             <!-- 文章页标签  -->
             
-                <div class= post-intro-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "ECC">ECC</a>
-    
-</div>
-            
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2018/01/05</span>
+                <span class="post-intro-time">2018/10/18</span>
                 
                 
             </div>
@@ -372,11 +366,22 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>主要是Jarvis的一道题:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">已知椭圆曲线加密Ep(a,b)参数为</span><br><span class="line"></span><br><span class="line">p = 15424654874903</span><br><span class="line"></span><br><span class="line">a = 16546484</span><br><span class="line"></span><br><span class="line">b = 4548674875</span><br><span class="line"></span><br><span class="line">G(6478678675,5636379357093)</span><br><span class="line"></span><br><span class="line">私钥为</span><br><span class="line"></span><br><span class="line">k = 546768</span><br><span class="line"></span><br><span class="line">求公钥K(x,y)</span><br><span class="line"></span><br><span class="line">提示：K=kG</span><br><span class="line"></span><br><span class="line">提交格式XUSTCTF&#123;x+y&#125;(注意，大括号里面是x和y加起来求和，不是用加号连接)</span><br></pre></td></tr></table></figure></p>
-<p>参考:<a href="http://blog.csdn.net/qq_30866297/article/details/51175305" target="_blank" rel="noopener">http://blog.csdn.net/qq_30866297/article/details/51175305</a></p>
-<p>主要算法:<br>3 P(x1,y1),Q(x2,y2)的和R(x3,y3) 有如下关系：<br>x3≡k2-x1-x2(mod p)<br>y3≡k(x1-x3)-y1(mod p)<br>其中若P=Q 则 k=(3x<sup>2</sup>+a)/2y1  若P≠Q，则k=(y2-y1)/(x2-x1)<br>注意这里的/其实就是乘下面的逆</p>
-<p>直接放这题的poc:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">import gmpy2</span><br><span class="line">p=15424654874903</span><br><span class="line">a=16546484</span><br><span class="line">b=4548674875</span><br><span class="line"></span><br><span class="line">def run(x1,y1,x2,y2):</span><br><span class="line">    if x1==x2 and y1==y2:</span><br><span class="line">        k=(3*pow(x1,2)+a)*gmpy2.invert(2*y1,p)%p</span><br><span class="line">    else:</span><br><span class="line">        k=((y2-y1)*gmpy2.invert(abs(x2-x1),p))%p</span><br><span class="line">    x3=(k**2-x1-x2)%p</span><br><span class="line">    y3=(k*(x1-x3)-y1)%p</span><br><span class="line">    return x3,y3</span><br><span class="line"></span><br><span class="line">x1=x2=6478678675</span><br><span class="line">y1=y2=5636379357093</span><br><span class="line">K=546768</span><br><span class="line">for i in range(K-1):</span><br><span class="line">    (x2,y2)=run(x1,y1,x2,y2)</span><br><span class="line"></span><br><span class="line">print(x2+y2)</span><br></pre></td></tr></table></figure></p>
-<p>公钥就是(x2,y2)<br><img src="http://p0sa0ryfm.bkt.clouddn.com/18-1-5/52464600.jpg" alt=""></p>
+        <p>感觉ECC这方面挺薄弱的，记得以前写过一个计算ECC公钥的脚本，刚才看了下貌似是错的？玩极客大挑战时和zeroi3搞一道ECC的题也花了好久时间。</p>
+<p>弱すきだと思いけれと、まあ、頑張ります。<br>以后遇到ECC的题目就在这记录一下。<br>ECC的一些基础知识:<br><a href="https://ctf-wiki.github.io/ctf-wiki/crypto/asymmetric/discrete-log/ecc/" target="_blank" rel="noopener">https://ctf-wiki.github.io/ctf-wiki/crypto/asymmetric/discrete-log/ecc/</a><br><a href="https://www.pediy.com/kssd/pediy06/pediy6014.htm" target="_blank" rel="noopener">https://www.pediy.com/kssd/pediy06/pediy6014.htm</a></p>
+<h1 id="geek-9th"><a href="#geek-9th" class="headerlink" title="geek_9th"></a>geek_9th</h1><p>attachment:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">y^2 = x^3 - 4 (mod 1300047890243775110411566068001)</span><br><span class="line">G(2, 2)</span><br><span class="line">Pb = (909389018886235696038766661889, 46368123338914480456323106832)</span><br><span class="line">Cm = &#123;</span><br><span class="line">(728655000686462026765334924207, 784703279412824406448137419123),</span><br><span class="line">(1093265331080107082393273907159, 659299866410220726142342115664)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">flag格式：</span><br><span class="line">SYC&#123;横坐标 纵坐标&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里给了公钥:Ep(a,b),Pa(此处为Pb)和密文Cm<br>题目要求要求明文m.</p>
+<p>引用wiki上的加密过程:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">用户B在向用户A发送消息m，这里假设消息m已经被编码为椭圆曲线上的点，其加密步骤如下:</span><br><span class="line">1. 查询用户 A 的公钥Eq(a,b),q,Pa,G 。</span><br><span class="line">2. 在 (1,q-1) 的区间内选择随机数 k 。</span><br><span class="line">3. 根据 A 的公钥计算点(x1,y1)=kG 。</span><br><span class="line">4. 计算点(x2,y2)=kPa ，如果为 O，则从第二步重新开始。</span><br><span class="line">5. 计算C=m+(x2,y2)将((x1,y1),C) 发送给 A。</span><br></pre></td></tr></table></figure></p>
+<p>现知C，若要求m，则需得知(x2,y2),而(x2,y2)=kPa<br>Pa已知，求出k即可得解。</p>
+<p>由等式(x1,y1)=kG求出k是困难的，但可以使用Pohlig-Hellman算法来攻击ECC。<br>具体参考:<a href="https://www.anquanke.com/post/id/159893" target="_blank" rel="noopener">https://www.anquanke.com/post/id/159893</a></p>
+<p>下面直接写过程。<br>sage下:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">sage: F=GF(<span class="number">1300047890243775110411566068001</span>)</span><br><span class="line">sage: E=EllipticCurve(F,[<span class="number">0</span>,<span class="number">-4</span>])</span><br><span class="line">sage: G=E([<span class="number">2</span>,<span class="number">2</span>])</span><br><span class="line">sage: Pa=E([<span class="number">909389018886235696038766661889</span>,<span class="number">46368123338914480456323106832</span>])</span><br><span class="line">sage: pub=E([<span class="number">728655000686462026765334924207</span>,<span class="number">784703279412824406448137419123</span>]</span><br><span class="line">....: )</span><br><span class="line">sage: factor(G.order())</span><br><span class="line"><span class="number">43</span> * <span class="number">12451</span> * <span class="number">15958903501</span> * <span class="number">50718027954697</span></span><br><span class="line">sage: prime=[<span class="number">43</span>,<span class="number">12451</span>,<span class="number">15958903501</span>] <span class="comment">#这里没有写50718027954697是因为下面没求出此阶的li，因为算过一次，这里就不写了。</span></span><br><span class="line">sage: <span class="keyword">for</span> fac <span class="keyword">in</span> primes:</span><br><span class="line">....:     t=int(G.order())/int(fac)</span><br><span class="line">....:     dlog=discrete_log(t*pub,t*G,operation=<span class="string">'+'</span>)</span><br><span class="line">....:     dlogs+=[dlog]</span><br><span class="line">....:     print(<span class="string">"factor:"</span>+str(fac)+<span class="string">", Discrete log: "</span>+str(dlog))</span><br><span class="line">....:</span><br><span class="line">factor:<span class="number">43</span>, Discrete log: <span class="number">25</span></span><br><span class="line">factor:<span class="number">12451</span>, Discrete log: <span class="number">7690</span></span><br><span class="line">factor:<span class="number">15958903501</span>, Discrete log: <span class="number">22332333</span></span><br><span class="line">sage: crt(dlogs,primes)</span><br><span class="line"><span class="number">22332333</span><span class="comment"># 求出私钥k=22332333</span></span><br><span class="line">sage: k=<span class="number">22332333</span></span><br><span class="line">sage: a=k*Pa <span class="comment">#a=(x2,y2)</span></span><br><span class="line">sage: C=E.point([<span class="number">1093265331080107082393273907159</span>,<span class="number">65929986641022072614234211</span></span><br><span class="line">....: <span class="number">5664</span>,<span class="number">1</span>],false)<span class="comment">#需要加上参数false，表示此点不在椭圆曲线E上,理论上此点应该在曲线上，后来出题人表示出题失误。</span></span><br><span class="line">sage: m=C-a</span><br><span class="line">sage: <span class="keyword">print</span> m</span><br><span class="line">(<span class="number">22334411</span> : <span class="number">22331144</span> : <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
+<p>最后的flag为:SYC{2233441122331144}</p>
+<h1 id="hack-lu-2018"><a href="#hack-lu-2018" class="headerlink" title="hack.lu 2018"></a>hack.lu 2018</h1><p>Multiplayer Part-1</p>
+<p>其实并没有用到什么ECC的考点，看懂源码就可以了。<br>花了点功夫在sage里安了pwntools，但直接<code>sage exp.sage</code>会爆pwntools的错误，只好在sage的shell里写exp了。 </p>
+<p>attachment<br>paramenter.sage:<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">param = &#123;   <span class="string">"hacklu"</span>:</span><br><span class="line">            ((<span class="number">889774351128949770355298446172353873</span>, <span class="number">12345</span>, <span class="number">67890</span>),</span><br><span class="line">            <span class="comment"># Generator of Subgroup of prime order 73 bits, 79182553273022138539034276599687 to be excact</span></span><br><span class="line">            (<span class="number">238266381988261346751878607720968495</span>, <span class="number">591153005086204165523829267245014771</span>),</span><br><span class="line">            <span class="comment"># challenge Q = xP, x random from [0, 79182553273022138539034276599687)</span></span><br><span class="line">            (<span class="number">341454032985370081366658659122300896</span>, <span class="number">775807209463167910095539163959068826</span>)</span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">serverAdress = <span class="string">'0.0.0.0'</span></span><br><span class="line">serverPort = <span class="number">23426</span></span><br><span class="line"></span><br><span class="line">(p, a, b), (px, py), (qx, qy) = param[<span class="string">"hacklu"</span>]</span><br><span class="line">E = EllipticCurve(GF(p), [a, b])</span><br><span class="line"></span><br><span class="line">P = E((px, py))</span><br><span class="line">Q = E((qx, qy))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_distinguished_point</span><span class="params">(p)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> p[<span class="number">0</span>] &lt; <span class="number">2</span>^(<span class="number">100</span>)</span><br></pre></td></tr></table></figure></p>
+<p>定义了ECC曲线，和P，Q两点。<br>server.sage:<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> asyncore, socket, json, sqlite3, time</span><br><span class="line"></span><br><span class="line">FLAG1 = <span class="string">"flag&#123;XXXXXXXXXXX&#125;"</span></span><br><span class="line">POINT_TRESHOLD = <span class="number">200</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">json_response</span><span class="params">(code, additional_parameter=<span class="string">""</span>)</span>:</span></span><br><span class="line">    response_codes = &#123;</span><br><span class="line">        <span class="number">0</span> : <span class="string">"Point added"</span>,</span><br><span class="line">        <span class="number">1</span> : <span class="string">"Collision found"</span>,</span><br><span class="line">        <span class="number">2</span> : <span class="string">"Point already included"</span>,</span><br><span class="line">        <span class="number">3</span> : <span class="string">'Wrong input format. Please provide a string like this: &#123;"x": val, "y": val, "c": val, "d": val, "groupID": val&#125;)'</span>,</span><br><span class="line">        <span class="number">4</span> : <span class="string">"Value mismatch! X != c*P + d*Q"</span>,</span><br><span class="line">        <span class="number">5</span> : <span class="string">"Server Error"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'&#123;"Response": "%d", "Message": "%s"%s&#125;'</span> % (code, response_codes[code], additional_parameter)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Teams should choose a non-guessable groupID</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_response</span><span class="params">(x, y, c, d, groupID)</span>:</span></span><br><span class="line">    <span class="comment"># open connection to database</span></span><br><span class="line">    conn = sqlite3.connect(<span class="string">"points.db"</span>)</span><br><span class="line">    conn.row_factory = sqlite3.Row</span><br><span class="line">    conn_cursor = conn.cursor()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># convert sage integers to string to avoid "Python int too large for SQLite INTEGER"</span></span><br><span class="line">    x = str(x)</span><br><span class="line">    y = str(y)</span><br><span class="line">    c = str(c)</span><br><span class="line">    d = str(d)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Select records that map to the same X value</span></span><br><span class="line">    conn_cursor.execute(<span class="string">"SELECT * FROM points WHERE x = :x"</span>, &#123;<span class="string">"x"</span>: x&#125;)</span><br><span class="line">    query = conn_cursor.fetchall()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># No record found -&gt; Point is not yet included</span></span><br><span class="line">    <span class="keyword">if</span> len(query) == <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># Insert point into database</span></span><br><span class="line">        conn_cursor.execute(<span class="string">"INSERT INTO points (x, y, c, d, groupID) VALUES (?, ?, ?, ?, ?)"</span>,</span><br><span class="line">                  (x, y, c, d, groupID))</span><br><span class="line">        <span class="comment"># Get number of points added by this group</span></span><br><span class="line">        conn_cursor.execute(<span class="string">"SELECT x FROM points WHERE groupID = :gID"</span>, &#123;<span class="string">"gID"</span>: groupID&#125;)</span><br><span class="line">        points_found = conn_cursor.fetchall()</span><br><span class="line">        add_param = <span class="string">', "points_found": %d'</span> % len(points_found)</span><br><span class="line">        <span class="comment"># When they found POINT_TRESHOLD distinguished points and a collision occured, return the colliding values as well</span></span><br><span class="line">        <span class="keyword">if</span> len(points_found) &gt; POINT_TRESHOLD:</span><br><span class="line">            add_param += <span class="string">', "flag1": "%s"'</span> % FLAG1</span><br><span class="line">            <span class="keyword">if</span> server.collision_found:</span><br><span class="line">                <span class="comment"># compute x from the collision, second flag is just x (not in flag format)</span></span><br><span class="line">                add_param += <span class="string">', "collision": %s'</span> % (server.collision)</span><br><span class="line">        response = json_response(<span class="number">0</span>, add_param)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># One (or more) records found -&gt; check if they have the same exponents</span></span><br><span class="line">        is_included = <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">for</span> row <span class="keyword">in</span> query:</span><br><span class="line">            <span class="keyword">if</span> row[<span class="string">"c"</span>] == c <span class="keyword">and</span> row[<span class="string">"d"</span>] == d:</span><br><span class="line">                is_included = <span class="keyword">True</span></span><br><span class="line">                response = json_response(<span class="number">2</span>)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> is_included:</span><br><span class="line">            <span class="comment"># Exponents are different -&gt; Collision found, add this point</span></span><br><span class="line">            conn_cursor.execute(<span class="string">"INSERT INTO points (x, y, c, d, groupID, collision) VALUES (?, ?, ?, ?, ?, 1)"</span>,</span><br><span class="line">                      (x, y, c, d, groupID))</span><br><span class="line">            <span class="comment"># Get number of points added by this group</span></span><br><span class="line">            conn_cursor.execute(<span class="string">"SELECT x FROM points WHERE groupID = :gID"</span>, &#123;<span class="string">"gID"</span>: groupID&#125;)</span><br><span class="line">            points_found = conn_cursor.fetchall()</span><br><span class="line">            add_param = <span class="string">', "points_found": %d'</span> % len(points_found)</span><br><span class="line">            <span class="comment"># add collision</span></span><br><span class="line">            server.collision_found = <span class="keyword">True</span></span><br><span class="line">            server.collision = <span class="string">'&#123;"c_1": %s, "d_1": %s, "c_2": %s, "d_2": %s&#125;'</span> % (c, d, row[<span class="string">"c"</span>], row[<span class="string">"d"</span>])</span><br><span class="line">            <span class="keyword">if</span> len(points_found) &gt; POINT_TRESHOLD:</span><br><span class="line">                add_param += <span class="string">', "collision": %s'</span> % (server.collision)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                add_param += <span class="string">', "collision": "collision found but not enough distinguished points submitted yet"'</span></span><br><span class="line"></span><br><span class="line">            response = json_response(<span class="number">1</span>, add_param + <span class="string">', "c": %s, "d": %s'</span> % (row[<span class="string">"c"</span>], row[<span class="string">"d"</span>]))</span><br><span class="line"></span><br><span class="line">    <span class="comment"># close db connection and return response</span></span><br><span class="line">    conn.commit()</span><br><span class="line">    conn_cursor.close()</span><br><span class="line">    conn.close()</span><br><span class="line">    <span class="keyword">return</span> response</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DLogHandler</span><span class="params">(asyncore.dispatcher_with_send)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_read</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            json_data = self.recv(<span class="number">8192</span>)</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> json_data:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            data = json.loads(json_data)</span><br><span class="line">            <span class="comment"># check if the format is correct</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> (<span class="string">"x"</span> <span class="keyword">in</span> data <span class="keyword">and</span> <span class="string">"y"</span> <span class="keyword">in</span> data <span class="keyword">and</span> <span class="string">"c"</span> <span class="keyword">in</span> data <span class="keyword">and</span> <span class="string">"d"</span> <span class="keyword">in</span> data <span class="keyword">and</span> <span class="string">"groupID"</span> <span class="keyword">in</span> data):</span><br><span class="line"></span><br><span class="line">                response = json_response(<span class="number">3</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                c = Integer(data[<span class="string">"c"</span>])</span><br><span class="line">                d = Integer(data[<span class="string">"d"</span>])</span><br><span class="line">                x = Integer(data[<span class="string">"x"</span>])</span><br><span class="line">                y = Integer(data[<span class="string">"y"</span>])</span><br><span class="line">                X = E((x, y))</span><br><span class="line">                <span class="keyword">if</span> X == c*P + d*Q:</span><br><span class="line">                    response = get_response(data[<span class="string">"x"</span>], data[<span class="string">"y"</span>], data[<span class="string">"c"</span>], data[<span class="string">"d"</span>], data[<span class="string">"groupID"</span>])</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    print(<span class="string">"expected %s = %d*%s + %d*%s, but got %s"</span> % (c*P + d*Q, c, P, d, Q, X))</span><br><span class="line">                    response = json_response(<span class="number">4</span>)</span><br><span class="line">            self.send(response)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            response = json_response(<span class="number">5</span>, <span class="string">', "Error Message": "%s"'</span> % e)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Server</span><span class="params">(asyncore.dispatcher_with_send)</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, host, port)</span>:</span></span><br><span class="line">        asyncore.dispatcher.__init__(self)</span><br><span class="line">        self.create_socket(socket.AF_INET, socket.SOCK_STREAM)</span><br><span class="line">        self.set_reuse_addr()</span><br><span class="line">        self.bind((host, port))</span><br><span class="line">        self.listen(<span class="number">5</span>)</span><br><span class="line">        <span class="comment"># variable to store some collision</span></span><br><span class="line">        self.collision_found = <span class="keyword">False</span></span><br><span class="line">        self.collision = &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_accept</span><span class="params">(self)</span>:</span></span><br><span class="line">        pair = self.accept()</span><br><span class="line">        <span class="keyword">if</span> pair <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</span><br><span class="line">            sock, addr = pair</span><br><span class="line">            print(<span class="string">"incoming connection from %s"</span> % repr(addr))</span><br><span class="line">            DLogHandler(sock)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line">    load(<span class="string">"parameters.sage"</span>)</span><br><span class="line">    server = Server(serverAdress, serverPort)</span><br><span class="line">    asyncore.loop()</span><br></pre></td></tr></table></figure></p>
+<p>代码挺长的，简单来说就是每次用json格式向程序输入5个数:<code>x,y,c,d,groupID</code>,groupID是自己的标识。<br>x,y,c,d需要满足<code>E((x,y))==c*P+d*D</code>(随便构造个等式就行了)，输入200次之后，会给flag。</p>
+<p>exp.sage<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># coding=utf-8</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">json_input</span><span class="params">(x, y, c, d, groupID)</span>:</span></span><br><span class="line">    dict1 = &#123;<span class="string">'x'</span>: str(x), <span class="string">'y'</span>: str(y), <span class="string">'c'</span>: str(c), <span class="string">'d'</span>: str(d), <span class="string">'groupID'</span>: str(groupID)&#125;</span><br><span class="line">    <span class="keyword">return</span> json.dumps(dict1)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">param = &#123;   <span class="string">"hacklu"</span>:</span><br><span class="line">            ((<span class="number">889774351128949770355298446172353873</span>, <span class="number">12345</span>, <span class="number">67890</span>),</span><br><span class="line">            <span class="comment"># Generator of Subgroup of prime order 73 bits, 79182553273022138539034276599687 to be excact</span></span><br><span class="line">            (<span class="number">238266381988261346751878607720968495</span>, <span class="number">591153005086204165523829267245014771</span>),</span><br><span class="line">            <span class="comment"># challenge Q = xP, x random from [0, 79182553273022138539034276599687)</span></span><br><span class="line">            (<span class="number">341454032985370081366658659122300896</span>, <span class="number">775807209463167910095539163959068826</span>)</span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">(p, a, b), (px, py), (qx, qy) = param[<span class="string">"hacklu"</span>]</span><br><span class="line">E = EllipticCurve(GF(p), [a, b])</span><br><span class="line"></span><br><span class="line">P = E((px, py))</span><br><span class="line">Q = E((qx, qy))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 随便起个groupID，因为是本地，不会和别的队伍冲突</span></span><br><span class="line">groupID=<span class="number">233333</span> </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">io=remote(<span class="string">'127.0.0.1'</span>,<span class="string">'23426'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">202</span>):</span><br><span class="line">    X=i*P+i*Q   <span class="comment">#随意构造下</span></span><br><span class="line">    x=X[<span class="number">0</span>]</span><br><span class="line">    y=X[<span class="number">1</span>]</span><br><span class="line">    c=d=i</span><br><span class="line">    data=json_input(x,y,c,d,groupID)</span><br><span class="line">    io.sendline(data)</span><br><span class="line">    <span class="keyword">print</span> io.recv()</span><br></pre></td></tr></table></figure></p>
+<p><img src="http://p0sa0ryfm.bkt.clouddn.com/2018-10-22-1.png" alt="1"></p>
 
     </article>
     <!-- license  -->
@@ -384,7 +389,7 @@ height:50vh;
         <div class="license-wrapper">
             <p>原文作者: n3k0
             
-            <p>发表日期: <a href="https://kuraraneko.github.io/2018/01/05/ECC计算公钥/">January 5th 2018, 1:34:51</a>
+            <p>发表日期: <a href="https://kuraraneko.github.io/2018/10/18/ECC-learn/">October 18th 2018, 3:38:59</a>
             <p>发出嘶吼: 没有魔夜2玩我要死了</p>
         </div>
     
@@ -392,17 +397,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2018/01/09/记录一些思路脚本什么的/" title= 思路脚本代码什么的 >
-                    <div class="nextTitle">思路脚本代码什么的</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2018/01/03/hash扩展攻击/" title= hash扩展攻击 >
-                    <div class="prevTitle">hash扩展攻击</div>
+                <a href= "/2018/10/13/护网杯wp/" title= 护网杯wp >
+                    <div class="prevTitle">护网杯wp</div>
                 </a>
             
         </li>
@@ -454,21 +454,7 @@ height:50vh;
         
     
         
-            
-                <span class="iconfont-archer wechat" title=wechat>
-                  
-                  <img class="profile-qr" src="/intro/wechat.png" />
-                </span>
-            
-        
     
-        
-            
-                <span class="iconfont-archer qq" title=qq>
-                  
-                  <img class="profile-qr" src="/intro/qq.jpg" />
-                </span>
-            
         
     
         
@@ -524,7 +510,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#geek-9th"><span class="toc-number">1.</span> <span class="toc-text"><a href="#geek-9th" class="headerlink" title="geek_9th"></a>geek_9th</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#hack-lu-2018"><span class="toc-number">2.</span> <span class="toc-text"><a href="#hack-lu-2018" class="headerlink" title="hack.lu 2018"></a>hack.lu 2018</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1588,10 +1574,7 @@ top:50vh;
     
     
     
-    
-    
-    
-    <div class="total-archive"> Total : 66 </div>
+    <div class="total-archive"> Total : 65 </div>
     
     <div class="post-archive">
     
@@ -1603,12 +1586,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/护网杯wp/" >护网杯wp</a>
+            <span class="archive-post-date">10/18</span><a class="archive-post-title" href= "/2018/10/18/ECC-learn/" >ECC-learn</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">10/11</span><a class="archive-post-title" href= "/2018/10/11/root-me-crypto/" >root-me-crypto</a>
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href= "/2018/10/13/护网杯wp/" >护网杯wp</a>
         </li>
     
     
@@ -1828,11 +1811,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">01/05</span><a class="archive-post-title" href= "/2018/01/05/ECC计算公钥/" >ECC计算公钥</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">01/03</span><a class="archive-post-title" href= "/2018/01/03/hash扩展攻击/" >hash扩展攻击</a>
         </li>
     
@@ -1956,15 +1934,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
     
-        <span class="sidebar-tag-name" data-tags="ECC"><span class="iconfont-archer">&#xe606;</span>ECC</span>
-    
         <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
     
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
-    
         <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
+    
+        <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
     
         <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
     
@@ -1974,13 +1950,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
     
-        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
-    
         <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
     
-        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
         <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+    
+        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
     
         <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
     
@@ -1996,13 +1972,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
-        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
-    
         <span class="sidebar-tag-name" data-tags="numpy"><span class="iconfont-archer">&#xe606;</span>numpy</span>
     
-        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
+        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
     
         <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
+    
+        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
     
         <span class="sidebar-tag-name" data-tags="sqli"><span class="iconfont-archer">&#xe606;</span>sqli</span>
     
@@ -2051,21 +2027,21 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
-        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
-    
         <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
     
         <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
     
+        <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
+    
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
-        <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
+        <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
     
-        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
-    
         <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
+    
+        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
@@ -2108,14 +2084,17 @@ jsonContent:
     <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     
     <!-- CNZZ  -->
-    
+    <!-- 
+    </div> -->
+    <div style="display: none">
+        <script src="https://s22.cnzz.com/z_stat.php?id=1275045371&web_id=1275045371" language="JavaScript"></script>
     </div>
     <!-- async load share.js -->
     
         <script src="/scripts/share.js" async></script>    
     
     </body>
-    <script src="https://s22.cnzz.com/z_stat.php?id=1275045371&web_id=1275045371" language="JavaScript"></script>
+    
 </html>
 
 
