@@ -15,7 +15,7 @@
     <meta name="description" content="incisive expression">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>wifipineapple使用教程 · n3k0</title>
+    <title>wifipineapple实践记录 · n3k0</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -207,7 +207,7 @@
                 <a href="/" >NEKO</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">wifipineapple使用教程</a>
+                <a href="#" class="post-name">wifipineapple实践记录</a>
             </div>
     </div>
     
@@ -239,7 +239,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            wifipineapple使用教程
+            wifipineapple实践记录
             <!-- 404 -->
             
         </h1>
@@ -366,11 +366,23 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>没写完，回头补。</p>
-<p><a href="http://wifipi.org/上有不少写wifipineapple的文章，但我就是想再写一遍_(:з」∠)_。第一次玩这玩意，随便记录下使用方法，有些地方可能写的不对，以后会对文章进行修改的。感谢speaker。" target="_blank" rel="noopener">http://wifipi.org/上有不少写wifipineapple的文章，但我就是想再写一遍_(:з」∠)_。第一次玩这玩意，随便记录下使用方法，有些地方可能写的不对，以后会对文章进行修改的。感谢speaker。</a><br>本次教程基于中国版wifipineapple，和官网的长得不一样。</p>
-<p>正面长这样:<br><img src="https://i.loli.net/2018/12/13/5c11c09970d5b.jpg" alt="F437ED5296B56367CE86DF3B81209937.jpg"></p>
-<p>两边分别有:LED显示灯，POWER充电口，RESET按钮；WLAN口，USB口，TF口。<br><img src="https://i.loli.net/2018/12/13/5c11c09959290.jpg" alt="EEF563C832C178C8A2C915C64DA2F012.jpg"></p>
-<p><img src="https://i.loli.net/2018/12/13/5c11c0996493a.jpg" alt="AD70D9C20CAF10BA6C43C637A8F08D2F.jpg"></p>
+        <ul>
+<li>本次实践仅用于学习目的<h1 id="简单介绍"><a href="#简单介绍" class="headerlink" title="简单介绍"></a>简单介绍</h1>完全体:<br><img src="https://i.loli.net/2018/12/24/5c20afc3b5398.jpg" alt="BAF48C5D32F6D038D3601FFA9F49226A.jpg"></li>
+</ul>
+<p>左边的网线和电脑连接在一起，右边白线是在充电。</p>
+<p>等待wifipineapple启动会，可以搜索到Pineapple_xxxx的wifi，连上去，登录<code>http://172.16.42.1:1471</code>，进行root密码，ssid，wifi密码设置后即可使用。</p>
+<p>设置完毕后Pineapple_xxxx会消失，之前设置的wifi会出现，连接后，登录<code>http://172.16.42.1:1471</code>输入之前设置root密码便进入主面板:<br><img src="https://i.loli.net/2018/12/24/5c20af646bf67.png" alt="屏幕快照 2018-12-24 下午5.56.56.png"></p>
+<p>ssh连接的ip为:172.16.42.1，端口为22，用户名为root，密码为之前设置的密码。</p>
+<p><img src="https://i.loli.net/2018/12/24/5c20af7c4768c.png" alt="屏幕快照 2018-12-24 下午6.01.02.png"></p>
+<p>网线连接电脑是没法上网的，如果需要联网，将pineapple网线查到路由器上即可。</p>
+<p><img src="https://i.loli.net/2018/12/24/5c20afb2c951a.png" alt="屏幕快照 2018-12-24 下午6.04.51.png"></p>
+<p>安装插件:<br><img src="https://i.loli.net/2018/12/24/5c20b308ed843.png" alt="屏幕快照 2018-12-24 下午6.19.39.png"></p>
+<p>pineapple基于openwrt系统，使用opkg管理软件，但pineapple自带空间很小:<br><img src="https://i.loli.net/2018/12/24/5c20b50d830ed.png" alt="屏幕快照 2018-12-24 下午6.24.17.png"></p>
+<p>若想安装软件，需购买SD卡，插在pineapple的TF口上，将软件安装在SD卡中即可。</p>
+<h1 id="插件介绍"><a href="#插件介绍" class="headerlink" title="插件介绍"></a>插件介绍</h1><h2 id="DWALL"><a href="#DWALL" class="headerlink" title="DWALL"></a>DWALL</h2><p>DWALL可以嗅探连接到连接设备的url，cookie，post数据，图片，但只能嗅探http，不可以嗅探https。<br><img src="https://i.loli.net/2018/12/24/5c20b87ad7021.png" alt="屏幕快照 2018-12-24 下午6.40.38.png"></p>
+<h2 id="Deauth"><a href="#Deauth" class="headerlink" title="Deauth"></a>Deauth</h2><p>Deauth攻击可以使周围连接其他AP的客户端断网，是无线网络拒绝服务攻击的一种形式。<br>效果等同于使用aireplay-ng进行Deauth攻击。</p>
+<h2 id="DNSspoof"><a href="#DNSspoof" class="headerlink" title="DNSspoof"></a>DNSspoof</h2><p>DNSspoof插件可以实现域名重定向功能。<br>可以重定向到任意ip，也可以重定向到pineapple的网关172.16.42.1，pineapple的web服务器网页根目录在<code>/www</code>下。</p>
+<p>突然不想写了…</p>
 
     </article>
     <!-- license  -->
@@ -504,7 +516,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简单介绍"><span class="toc-number">1.</span> <span class="toc-text"><a href="#&#x7B80;&#x5355;&#x4ECB;&#x7ECD;" class="headerlink" title="&#x7B80;&#x5355;&#x4ECB;&#x7ECD;"></a>&#x7B80;&#x5355;&#x4ECB;&#x7ECD;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#插件介绍"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x63D2;&#x4EF6;&#x4ECB;&#x7ECD;" class="headerlink" title="&#x63D2;&#x4EF6;&#x4ECB;&#x7ECD;"></a>&#x63D2;&#x4EF6;&#x4ECB;&#x7ECD;</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#DWALL"><span class="toc-number">2.1.</span> <span class="toc-text"><a href="#DWALL" class="headerlink" title="DWALL"></a>DWALL</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deauth"><span class="toc-number">2.2.</span> <span class="toc-text"><a href="#Deauth" class="headerlink" title="Deauth"></a>Deauth</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNSspoof"><span class="toc-number">2.3.</span> <span class="toc-text"><a href="#DNSspoof" class="headerlink" title="DNSspoof"></a>DNSspoof</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -517,6 +529,22 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1710,7 +1738,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/13</span><a class="archive-post-title" href= "/2018/12/13/wifipineapple使用教程/" >wifipineapple使用教程</a>
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href= "/2018/12/13/wifipineapple使用教程/" >wifipineapple实践记录</a>
         </li>
     
     
@@ -2009,12 +2037,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现AES/" >Python实现AES_128_CBC&OFB</a>
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现RC4及A5/" >Python实现RC4及A5</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现RC4及A5/" >Python实现RC4及A5</a>
+            <span class="archive-post-date">12/15</span><a class="archive-post-title" href= "/2017/12/15/Python实现AES/" >Python实现AES_128_CBC&OFB</a>
         </li>
     
     
@@ -2068,51 +2096,51 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
     
-        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
-    
         <span class="sidebar-tag-name" data-tags="crypto"><span class="iconfont-archer">&#xe606;</span>crypto</span>
     
-        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
-    
         <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
+    
+        <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
+    
+        <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
     
         <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
     
         <span class="sidebar-tag-name" data-tags="Padding Orlace"><span class="iconfont-archer">&#xe606;</span>Padding Orlace</span>
     
-        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
+        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
     
         <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
     
-        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
-    
         <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
     
-        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
+        <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
     
         <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
     
         <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
     
+        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
+    
         <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
+    
+        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
-        <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
-    
         <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
+    
+        <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
     
         <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
-        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
-    
         <span class="sidebar-tag-name" data-tags="numpy"><span class="iconfont-archer">&#xe606;</span>numpy</span>
     
-        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
+        <span class="sidebar-tag-name" data-tags="菜猫的无能狂怒"><span class="iconfont-archer">&#xe606;</span>菜猫的无能狂怒</span>
     
-        <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
+        <span class="sidebar-tag-name" data-tags="php审计"><span class="iconfont-archer">&#xe606;</span>php审计</span>
     
         <span class="sidebar-tag-name" data-tags="root-me"><span class="iconfont-archer">&#xe606;</span>root-me</span>
     
@@ -2163,11 +2191,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
+        <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
+    
         <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
     
         <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
-    
-        <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
@@ -2175,15 +2203,15 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
     
-        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
-    
         <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
+    
+        <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
-        <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
-    
         <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
+    
+        <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
     
         <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
     
