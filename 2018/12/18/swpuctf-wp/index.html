@@ -366,7 +366,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>虽然web都是4uuu和zeroi3做的，但我还是想记一遍orz。<br>PS: Aeolus战队招二进制队友，有意联系894729083</p>
+        <p>虽然web都是4uuu和zeroi3做的，但我还是想记一遍orz。</p>
 <h1 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h1><h2 id="用优惠码买个X。"><a href="#用优惠码买个X。" class="headerlink" title="用优惠码买个X。"></a>用优惠码买个X。</h2><p>首先www.zip源码泄露:<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="comment">//生成优惠码</span></span><br><span class="line">$_SESSION[<span class="string">'seed'</span>]=rand(<span class="number">0</span>,<span class="number">999999999</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">youhuima</span><span class="params">()</span></span>&#123;</span><br><span class="line">	mt_srand($_SESSION[<span class="string">'seed'</span>]);</span><br><span class="line">    $str_rand = <span class="string">"abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"</span>;</span><br><span class="line">    $auth=<span class="string">''</span>;</span><br><span class="line">    $len=<span class="number">15</span>;</span><br><span class="line">    <span class="keyword">for</span> ( $i = <span class="number">0</span>; $i &lt; $len; $i++ )&#123;</span><br><span class="line">        <span class="keyword">if</span>($i&lt;=($len/<span class="number">2</span>))</span><br><span class="line">              $auth.=substr($str_rand,mt_rand(<span class="number">0</span>, strlen($str_rand) - <span class="number">1</span>), <span class="number">1</span>);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">              $auth.=substr($str_rand,(mt_rand(<span class="number">0</span>, strlen($str_rand) - <span class="number">1</span>))*<span class="number">-1</span>, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    setcookie(<span class="string">'Auth'</span>, $auth);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//support</span></span><br><span class="line">	<span class="keyword">if</span> (preg_match(<span class="string">"/^\d+\.\d+\.\d+\.\d+$/im"</span>,$ip))&#123;</span><br><span class="line">        <span class="keyword">if</span> (!preg_match(<span class="string">"/\?|flag|&#125;|cat|echo|\*/i"</span>,$ip))&#123;</span><br><span class="line">               <span class="comment">//执行命令</span></span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">              <span class="comment">//flag字段和某些字符被过滤!</span></span><br><span class="line">        &#125;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">             <span class="comment">// 你的输入不正确!</span></span><br><span class="line">	&#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>注册登录后会给一个15位的优惠码，提交会显示优惠码过期，要求提交24位优惠码。结合代码，应该是预测种子，再生成24位的优惠码。<br>可以使用php_mt_seed工具预测种子，注意使用最新版本:<a href="https://www.openwall.com/php_mt_seed/。" target="_blank" rel="noopener">https://www.openwall.com/php_mt_seed/。</a><br>优惠码的前8位对应$str_rand中的位置，便是随机数的结果，后7位对应的是反过来的位置，好麻烦就不看后7位了。</p>
 <p>使用方法:<br><img src="https://i.loli.net/2018/12/18/5c18529d5b04b.png" alt="5598C16F-CE7E-4A34-ABBB-3A26FBF61551.png"></p>
@@ -573,74 +573,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -2140,13 +2072,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="图像处理"><span class="iconfont-archer">&#xe606;</span>图像处理</span>
     
-        <span class="sidebar-tag-name" data-tags="crypto"><span class="iconfont-archer">&#xe606;</span>crypto</span>
-    
-        <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
-    
         <span class="sidebar-tag-name" data-tags="笔记"><span class="iconfont-archer">&#xe606;</span>笔记</span>
     
+        <span class="sidebar-tag-name" data-tags="crypto"><span class="iconfont-archer">&#xe606;</span>crypto</span>
+    
         <span class="sidebar-tag-name" data-tags="CTF"><span class="iconfont-archer">&#xe606;</span>CTF</span>
+    
+        <span class="sidebar-tag-name" data-tags="Reverse"><span class="iconfont-archer">&#xe606;</span>Reverse</span>
     
         <span class="sidebar-tag-name" data-tags="PWN"><span class="iconfont-archer">&#xe606;</span>PWN</span>
     
@@ -2154,29 +2086,29 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="DES"><span class="iconfont-archer">&#xe606;</span>DES</span>
     
-        <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
+        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
     
-        <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
+        <span class="sidebar-tag-name" data-tags="RC4,A5"><span class="iconfont-archer">&#xe606;</span>RC4,A5</span>
     
         <span class="sidebar-tag-name" data-tags="机器学习"><span class="iconfont-archer">&#xe606;</span>机器学习</span>
     
-        <span class="sidebar-tag-name" data-tags="AES"><span class="iconfont-archer">&#xe606;</span>AES</span>
+        <span class="sidebar-tag-name" data-tags="hello"><span class="iconfont-archer">&#xe606;</span>hello</span>
+    
+        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
+    
+        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
     
         <span class="sidebar-tag-name" data-tags="Vigenere"><span class="iconfont-archer">&#xe606;</span>Vigenere</span>
     
         <span class="sidebar-tag-name" data-tags="Web"><span class="iconfont-archer">&#xe606;</span>Web</span>
     
-        <span class="sidebar-tag-name" data-tags="漏洞复现"><span class="iconfont-archer">&#xe606;</span>漏洞复现</span>
-    
         <span class="sidebar-tag-name" data-tags="人类观察"><span class="iconfont-archer">&#xe606;</span>人类观察</span>
-    
-        <span class="sidebar-tag-name" data-tags="Rsa"><span class="iconfont-archer">&#xe606;</span>Rsa</span>
     
         <span class="sidebar-tag-name" data-tags="docker"><span class="iconfont-archer">&#xe606;</span>docker</span>
     
-        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
-    
         <span class="sidebar-tag-name" data-tags="hash扩展攻击"><span class="iconfont-archer">&#xe606;</span>hash扩展攻击</span>
+    
+        <span class="sidebar-tag-name" data-tags="matplotlib"><span class="iconfont-archer">&#xe606;</span>matplotlib</span>
     
         <span class="sidebar-tag-name" data-tags="Python"><span class="iconfont-archer">&#xe606;</span>Python</span>
     
@@ -2235,11 +2167,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="图像处理"><span class="iconfont-archer">&#xe60a;</span>图像处理</span>
     
-        <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
-    
         <span class="sidebar-category-name" data-categories="笔记"><span class="iconfont-archer">&#xe60a;</span>笔记</span>
     
         <span class="sidebar-category-name" data-categories="writeup"><span class="iconfont-archer">&#xe60a;</span>writeup</span>
+    
+        <span class="sidebar-category-name" data-categories="Writeup"><span class="iconfont-archer">&#xe60a;</span>Writeup</span>
     
         <span class="sidebar-category-name" data-categories="PWN"><span class="iconfont-archer">&#xe60a;</span>PWN</span>
     
@@ -2247,15 +2179,15 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="机器学习"><span class="iconfont-archer">&#xe60a;</span>机器学习</span>
     
-        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
-    
         <span class="sidebar-category-name" data-categories="Writeup/Crypto"><span class="iconfont-archer">&#xe60a;</span>Writeup/Crypto</span>
+    
+        <span class="sidebar-category-name" data-categories="漏洞复现"><span class="iconfont-archer">&#xe60a;</span>漏洞复现</span>
     
         <span class="sidebar-category-name" data-categories="docker"><span class="iconfont-archer">&#xe60a;</span>docker</span>
     
-        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
-    
         <span class="sidebar-category-name" data-categories="Web"><span class="iconfont-archer">&#xe60a;</span>Web</span>
+    
+        <span class="sidebar-category-name" data-categories="matplotlib"><span class="iconfont-archer">&#xe60a;</span>matplotlib</span>
     
         <span class="sidebar-category-name" data-categories="Python"><span class="iconfont-archer">&#xe60a;</span>Python</span>
     
