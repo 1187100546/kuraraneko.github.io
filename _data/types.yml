@@ -1,5 +1,5 @@
 ---
 - name: 会议
-  tag: match
+  tag: meet
 - name: 比赛
   tag: game

@@ -1,18 +1,5 @@
 ---
 # Security and Privacy
-- name: HITB
-  description: HITB（Hack In the Box）安全会议从2003年创立到现在已有11年的历史。HITB多数情况下在亚洲举行，其中大部分是在马来西亚首都吉隆坡；从2010年开始，每年也会在欧洲的阿姆斯特丹举行一次。
-  year: 2021
-  link: https://conference.hitb.org/
-  deadline:
-    - "%y-??-?? ??:??"
-  comment: 官方暂无消息
-  date: 时间待定
-  place: 地点待定
-  sponsor: HITB
-  timezone: Etc/GMT-8
-  tags: [match]
-
 - name: Black Hat USA
   description: Black Hat USA ，美国黑帽安全会议，至今已有 23 年历史，是世界领先的信息安全盛会，为全球提供了最新的安全研究、发展和趋势。
   year: 2021
@@ -24,10 +11,102 @@
   place: 地点待定
   sponsor: Black Hat
   timezone: Etc/GMT-8
-  tags: [match]
+  tags: [meet]
+
+- name: HITB
+  description: HITB（Hack In the Box）安全会议从2003年创立到现在已有11年的历史。HITB多数情况下在亚洲举行，其中大部分是在马来西亚首都吉隆坡；从2010年开始，每年也会在欧洲的阿姆斯特丹举行一次。
+  year: 2021
+  link: https://conference.hitb.org/
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 时间待定
+  place: 地点待定
+  sponsor: HITB
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: 37C3
+  description: C3(Chaos Communication Congress)德国安全会议，历史悠久，内容多数聚焦无线电安全。
+  year: 2021
+  link: https://www.ccc.de/
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 时间待定
+  place: 地点待定
+  sponsor: C3
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: CanSecWest
+  description: CanSecWest, the world's most advanced conference focusing on applied digital security, is about bringing the industry luminaries together in a relaxed environment which promotes collaboration and social networking. The conference lasts for three days and features a single track of thought provoking presentations, each prepared by an experienced professional and talented educator who is at the cutting edge of his or her field. We give preference to new and innovative material, highlighting important, emergent technologies, techniques, or best industry practices.
+  year: 2021
+  link: https://cansecwest.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 时间待定
+  place: 地点待定
+  sponsor: CanSecWest
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: POC
+  description: POC started in 2006 and has been organized by Korean hackers & security experts. It is an international security & hacking conference in Korea. POC doesn't pursue money. POC concentrates on technical and creative discussion and shows real hacking and security. POC wears both black hat and white hat. POC will share knowledge for the sake of the power of community. POC believes that the power of community will make the world safer. POC has been making a history with sincere staffs, hackers from the world, and sponsors since2006. POC will be a unique conference!
+  year: 2021
+  link: http://powerofcommunity.net/
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 时间待定
+  place: 地点待定
+  sponsor: POC
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: OffensiveCon
+  description: OffensiveCon Berlin is a highly technical international security conference focused on offensive security only. The aim of OffensiveCon is to bring the hacker community together for high quality and deep technical talks, engaging and renowned technical trainings. The talks at OffensiveCon are focused on offensive IT security topics such as vulnerability discovery, advanced exploitation techniques and reverse engineering.
+  year: 2021
+  link: https://www.offensivecon.org/
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 时间待定
+  place: 地点待定
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: MOSEC
+  description: MOSEC移动安全技术峰会始办于2015年，由盘古团队和POC主办。会议立足于高质量的安全技术，覆盖iOS、Android、Windows三大移动平台，致力于分享移动安全领域前沿性的技术议题及发展趋势，曾创造了15天售空所有入场券的佳绩。峰会高质量的安全技术信息分享，赢得了与会者及业内的一致好评。
+  year: 2021
+  link: http://mosec.org
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 时间待定
+  place: 地点待定
+  sponsor: 盘古团队&POC
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: KCon
+  description: KCon，知道创宇出品，追求干货有趣的黑客大会。知道创宇是一家黑客文化浓厚的安全公司，我们乐于分享我们的成果。不仅如此，每届KCon，我们都力求给每个演讲者打造一个能尽情展示其黑客过程的平台。追求干货有趣是 KCon 的永恒宗旨。
+  year: 2021
+  link: http://kcon.knownsec.com/2019/#/
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 时间待定
+  place: 地点待定
+  sponsor: 知道创宇404安全团队
+  timezone: Etc/GMT-8
+  tags: [meet]
+
 
 - name: GeekPwn
-  description: GeekPwn（极棒）由国内顶尖信息安全团队碁震（KEEN）于2014年发起并主办，至2020年已成功举办7年。GeekPwn是全球最大关注智能生活的安全极客（黑客）大赛及全球首个探索人工智能与专业安全的前沿平台，与Pwn2Own、Defcon并称世界三大黑客赛事。
+  description: GeekPwn（极棒）由中国顶尖信息安全团队碁震（KEEN）于2014年发起并主办，至2020年已成功举办7年。GeekPwn是全球最大关注智能生活的安全极客（黑客）大赛及全球首个探索人工智能与专业安全的前沿平台，与Pwn2Own、Defcon并称世界三大黑客赛事。
   year: 2021
   link: 
   deadline:
@@ -35,14 +114,14 @@
   comment: 官方暂无消息
   date: 2021-10-24
   place: 地点待定
-  sponsor: 
+  sponsor: 碁震（KEEN)
   timezone: Etc/GMT-8
   tags: [game]
 
 - name: 天府杯
   description: “天府杯”国际破解大赛以逐步打造属于中国自己的“Pwn2Own”为目标，将设置三个独立并行的比赛项目，原创漏洞演示复现赛、产品破解赛和系统破解赛。所有战队均需使用原创漏洞进行赛题破解。比赛奖金总额将达100万美元，努力打造一场网络安全技术盛宴。
   year: 2021
-  link: www.tianfucup.com
+  link: http://www.tianfucup.com/
   deadline:
     - "%y-??-?? ??:??"
   comment: 官方暂无消息
