@@ -12,7 +12,6 @@
   timezone: Etc/GMT-8
   tags: [match]
 
-
 - name: Black Hat
   description: Black Hat
   year: 2021
@@ -24,8 +23,6 @@
   place: 地点待定
   timezone: Etc/GMT-8
   tags: [match]
-
-
 
 - name: GeekPwn
   description: 国内每年10月24号举办的漏洞破解秀，由于没有事先彩排和各种现场因素，每年都会有一些失败演示。
@@ -40,7 +37,7 @@
   tags: [game]
 
 - name: 天府杯
-  description: 国内每年11月初举办，目标以逐步打造属于中国自己的“Pwn2Own”，奖金丰厚。
+  description: 国内每年11月初举办，目标是打造属于中国自己的“Pwn2Own”，奖金丰厚。
   year: 2021
   link: 
   deadline:
