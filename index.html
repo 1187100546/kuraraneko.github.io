@@ -57,14 +57,17 @@
               <div class="col-xs-12 col-sm-6">
                 <h2><a href="{{conf.link}}">{{conf.name}} {{conf.year}}</a></h2>
                 <div class="meta">
-                  {{ conf.description }}<br>
-                  {{conf.date | replace: '-', '–'}} {% if conf.place %}// <a href="http://maps.google.com/?q={{conf.place}}">{{conf.place}}</a>{% endif %}<br>
+                  <b>描　述　: </b> {{ conf.description }}<br>
+                  <b>主办方　: </b> {{ conf.sponsor }}<br>
+                  <b>日　期　: </b> {{conf.date | replace: '-', '–'}} <br>
+                  <b>地　点　: </b> <a href="http://maps.google.com/?q={{conf.place}}">{{conf.place}}</a>
+                   <!-- {% if conf.place %} <a href="http://maps.google.com/?q={{conf.place}}">{{conf.place}}</a>{% endif %}<br> -->
                 </div>
               </div>
               <div class="col-xs-12 col-sm-6">
                 <span class="timer"></span>
                 <div class="deadline">
-                  <div>Deadline:
+                  <div><b>报名截止　:</b>
                     <span class="deadline-time"></span>
                     <div class="meta">
                       {{ conf.comment }}
