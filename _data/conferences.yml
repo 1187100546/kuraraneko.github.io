@@ -143,3 +143,380 @@
   sponsor: 
   timezone: Etc/GMT-8
   tags: [game]
+
+- name: sector
+  description: “SecTor has built a reputation of bringing together experts from around the world to share their latest research and techniques involving underground threats and corporate defences. The conference provides an unmatched opportunity for IT Security Professionals, Managers and Executives to connect with their peers and learn from their mentors.
+  year: 2021
+  link: https://sector.ca/
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 10月30日-11月4日
+  place: 多伦多
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: Hack.Sydney
+  description: “Hack.Sydney 2021 is considered as Australia’s premium InfoSec Training Event and Conference.
+  year: 2021
+  link: https://hack.sydney/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月1日
+  place: 悉尼
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: Ekoparty
+  description: “Ekoparty has been held every year in Buenos Aires, Argentina, since 2001. It emerged as an underground hacking event and, keeping its spirit, grew to become the meeting point for the infosec community in Latin America.
+  year: 2021
+  link: https://www.ekoparty.org/en_US/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月2日
+  place: 阿根廷
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: Key Data Protection Strategies to Prevent Cyber Attacks
+  description: “The live Webinar being held is a joint presentation by local Cyber Security company Cybervision together with Security Specialists F-Secure and Data Management Professionals DMP-SA on the best practices to adopt a holistic data protection strategy to identify, protect, detect, respond and recover from ransomware and other cyberattacks.
+  year: 2021
+  link: https://www.f-secure.com/en/business/events/key-data-protection-strategies-to-prevent-cyber-attacks?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月2日
+  place: 芬兰
+  sponsor: F-Secure
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: SecureWorld Dallas
+  description: “This is another fantastic event organized by SecureWorld, with this one taking place in Dallas, Texas. If you’re a cybersecurity professional in Texas then this would be an ideal event to attend.
+  year: 2021
+  link: https://www.secureworld.io/events
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月3日
+  place: 美国-达拉斯
+  sponsor: SecureWorld
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: BlackAlps
+  description: “BlackAlps 2021 will be an event enabling us to discuss the latest threats, mitigations, and advances in cybersecurity. The event features cybersecurity experts from Switzerland and abroad. It is addressed to anyone with an interest in cybersecurity or connected to the internet, e.g., CEOs, CIOs, CISO, CTOs, developers, and researchers.
+  year: 2021
+  link: https://www.blackalps.ch/ba/index.php?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月4日
+  place: 瑞士
+  sponsor: Black Alps
+  timezone: Etc/GMT-8
+  tags: [meet]
+  
+- name: HoneyCON
+  description: “This is one of the best Cybersecurity Conferences taking place in Span – highly recommended.
+  year: 2021
+  link: https://honeycon.eu/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月8日
+  place: 西班牙
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: Global AppSec US
+  description: “Global AppSec US Virtual 2021 returns Nov. 11-12, 2021. Designed for private and public sector infosec professionals, the two day OWASP conferences equip developers, defenders, and advocates to build a more secure web. Join us for leading application security technologies, speakers, prospects, and community, in a unique event that will build on everything you already know to expect from an OWASP Global Conference.
+  year: 2021
+  link: https://usa.globalappsec.org/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月8日
+  place: 美国
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: DeepINTEL
+  description: “The DeepINTEL conference is DeepSec’s sister event focusing on Security Intelligence. Security Intelligence is one of the newest disciplines in the IT security zoo. It covers the strategic view, tells you who is intending to attack you where, why, and which capabilities your attacker has.
+  year: 2021
+  link: https://deepintel.net/index.php?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月17日
+  place: 奥地利
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: SecureWorld Rockies
+  description: “Join your fellow InfoSec professionals for high-quality training and collaboration, whether virtual or in-person. Earn 6-12 CPE credits through 20+ educational elements, learning from nationally recognized industry leaders. Attend featured keynotes, panel discussions, breakout sessions, and networking opportunities. Evaluate vendor solutions and meet with local chapters of security associations.
+  year: 2021
+  link: https://www.secureworld.io/events?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月17日
+  place: 美国
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: European Cyber Week
+  description: “A leading Cybersecurity Conference in France towards the end of the year.
+  year: 2021
+  link: https://www.european-cyber-week.eu/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月16日
+  place: 法国
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: DeepSec In-Depth Security Conference
+  description: “One of the best Cybersecurity Hacker-type conferences taking place in the DACH region.
+  year: 2021
+  link: https://deepsec.net/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月16日
+  place: 奥地利
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: Hack in Paris
+  description: ““Hack In Paris” is one of the most sought-after InfoSec events in France. 
+  year: 2021
+  link: https://hackinparis.com/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月15日
+  place: 巴黎
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: escar Europe
+  description: “Modern cars have become complex digital devices and automotive Cyber Security is one of the most important issues. Therefore, the overall goal and objective of escar is to provide a forum for collaboration among private industry, academia, and government regarding modern in-vehicle Cyber Security threats, vulnerabilities, and risk mitigation/countermeasures. escar offers an opportunity for information exchange, networking, and is a platform to define research needs. International and high-quality speakers give recent insights and encourage discussions.
+  year: 2021
+  link: https://www.escar.info/escar-europe.html?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月10日
+  place: 德国
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: NordSec
+  description: “NordSec has been operating since 1996 as a yearly research conference series. The NordSec conferences provide discussions on a wide range of IT security subjects. The gathering of experts provides security researchers from Northern Europe and beyond the opportunity to come together. Additionally, the NordSec campus is an important gathering site for university teachers, students, and specialists from the region, and it is a forum for scholarly publishing. NordSec encourages communication between academics and industry and has as its goal bringing together researchers in computer security.
+  year: 2021
+  link: https://events.tuni.fi/nordsec2021/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月29日
+  place: 芬兰
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: AIIM Forum Europe
+  description: “A fantastic event that has a focus on Brexit and Cybersecurity.
+  year: 2021
+  link: https://www.aiimforumeurope.com/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月18日
+  place: 伦敦
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: Paranoia
+  description: “Probably one of the best event in the Nordic region that discusses topics about cyber threats. We don’t list many events in the Nordic region so we are glad to list this one.
+  year: 2021
+  link: https://www.paranoia.watchcom.no/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月18日
+  place: 挪威
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: SecureWorld Seattle
+  description: “SecureWorld stayed on top of global IT security issues and shared the tools and critical knowledge needed to protect against cyber threats. Through their network of industry professionals, practitioners thought leaders, and solution providers, they collaborate in order to produce cutting-edge educational opportunities and relevant content.
+  year: 2021
+  link: https://events.secureworld.io/details/seattle-wa-2021/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 12月8日
+  place: 西雅图
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: Nullcon International Security Conference and Training
+  description: “Nullcon came into existence in 2010 and is managed and marketed by Payatu Technologies Pvt Ltd. With the advent of cutting-edge technologies, security is crucial as technology brings a myriad of threats along. Moreover, we want to assure you that we are there for you. In our conference, you get to connect with various people and gain insights from them to stay ahead in cyberspace.
+  year: 2022
+  link: https://nullcon.net/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 3月1日
+  place: 印度
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: HackCon
+  description: “The national Norwegian cyber security conference HackCon was established in 2005 by the network of Norwegian security experts. The goal was to create practical cyber security courses and conference combined with a social meeting place to meet the future challenges within cyber security. The network had good relations with KINS (Information security organization for municipalities) and Honeynor, and together the three groups agreed on arranging HackCon #1 during February 8th and 9th 2006.
+  year: 2022
+  link: https://www.hackcon.org/?ref=infosec-conferences.com
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 2月8日
+  place: 挪威
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: DEF CON
+  description: “DEF CON is considered one of the most important security events on the cybersecurity calendar started by Jeff Moss.
+  year: 2022
+  link: https://defcon.org/?ref=infosec-conferences.com
+  deadline:
+    - "%y-02-28 00:00"
+  comment: 官方暂无消息
+  date: 8月11日
+  place: 美国
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: NSC网络安全大会
+  description: “NSC网络安全大会（原中国网络安全大会）是在国家相关部委的指导下，由赛可达实验室联合百家国内外众多具有影响力的行业联盟协会、机构等共同主办，2013年至今已成功举办七届，吸引了数万人次现场参与，专业演讲近500场，是极具影响力的年度综合性行业品牌盛会。
+  year: 2021
+  link: http://nsc.skdlabs.com/
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 11月
+  place: 北京
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: ISC互联网安全大会
+  description: “ISC互联网安全大会。
+  year: 2021
+  link: https://isc.360.com/
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 8月9日
+  place: 北京
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: 亚洲网络安全国际创新峰会
+  description: “亚洲网络安全国际峰会将汇集约120位国内外网络安全行业的专家与高管，共同探讨如何在遵从网络安全相关法规的前提下，保障企业的网络安全，提升企业运营效率。会议话题将涉及到企业在实践中遇到的网络安全法规难题、数据隐私安全的法规分析与技术讨论、云计算安全、隐私计算等，同时也将有来自医疗、化工、零售等行业的专家带来行业网络安全实践与案例分享。
+  year: 2021
+  link: http://www.ecvinternational.com/CybersecurityInnovationSummit/cn.html
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 6月17日
+  place: 上海
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: SSC安全峰会
+  description: “华山论剑•2020网络安全大会由第三届全国信息安全企业家高峰论坛与第五届SSC安全峰会联合举办，作为西安市“四会一节”的重大活动之一，聚焦网络安全行业，助力企业数字化升级。“两会”联合旨在助推西安打造“网络安全示范城市”建设，发出网络安全的“西安声音”。
+  year: 2020
+  link: http://ssc.seclover.com/#
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 10月14日
+  place: 西安
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: 北京网络安全大会
+  description: “2021北京网络安全大会，是由中国电子信息产业集团有限公司、中国互联网协会、中国网络空间安全协会、中国密码学会、全国工商联大数据运维（网络安全）委员会、中国通信学会、中国友谊促进会和奇安信集团联合主办的国际化网络安全专业盛会。
+  year: 2021
+  link: https://bcs.qianxin.com/aboutus/
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 8月26日
+  place: 西安
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: 国家网络安全宣传周
+  description: “由中央宣传部、中央网信办、教育部、工业和信息化部、公安部、中国人民银行、国家广播电视总局、全国总工会、共青团中央、全国妇联等部门联合举办。
+  year: 2021
+  link: https://wlaq.xiancn.com/index.html
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 10月11日
+  place: 西安
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: EISS
+  description: “大会通过对下一代云安全架构和技术的趋势、企业安全建设之路、应用安全在DevSecOps的落地之路、企业数据隐私工程、“区块链+”安全隐私技术剖析、公民个人信息保护等众多热点话题进行了深入的分享与探讨，共同致力于探索企业信息安全的未来与发展！
+  year: 2021
+  link: https://www.bagevent.com/event/7198139
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 5月14日
+  place: 北京
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
+
+- name: CIS 2021网络安全创新大会
+  description: “CIS 2021网络安全创新大会主将在上海隆重召开，作为主论坛的重要组成部分，【网络安全战略会】也将如期而至。届时，国际顶级网络空间战略决策者，资深专家深入探讨网络空间安全的宏观策略，深刻探讨宏观层面的网络安全战略格局。
+  year: 2021
+  link: https://cis.freebuf.com/
+  deadline:
+    - "%y-??-?? ??:??"
+  comment: 官方暂无消息
+  date: 12月1日-12月2日
+  place: 上海
+  sponsor: 
+  timezone: Etc/GMT-8
+  tags: [meet]
